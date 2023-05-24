@@ -1,4 +1,5 @@
 <?php
+
 //register employee
 include('config/dbconnection.php');
 
@@ -19,6 +20,7 @@ $result_nametitle = mysqli_query($con, $query_nametitle);
 $result_role = mysqli_query($con, $query_role);
 $result_employeestatus = mysqli_query($con, $query_employeestatus);
 ?>
+
 <script>
   function generatePassword() {
     var length = 10; // Change this value to adjust the password length
@@ -34,6 +36,8 @@ $result_employeestatus = mysqli_query($con, $query_employeestatus);
     document.getElementById("passwordInput").value = password;
   }
 </script>
+
+
 <?php
 include('pages/header.php');
 include('Top_nav.php');
@@ -48,10 +52,13 @@ include('Side_nav.php');
       <div class="col-md-12 mb-3">
         <div class="card">
           <div class="card-header">
-            
+
             <h1>
-            <span><i class="bi bi-table me-2"></i></span> Employee Registration</h1>
+              <span><i class="bi bi-table me-2"></i></span> Employee Registration
+            </h1>
           </div>
+
+
           <div class="card-body">
 
             <style>
@@ -67,33 +74,6 @@ include('Side_nav.php');
                 </div>
               </div>
 
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                <div class="col-sm-5">
-                  <select class="form-control" name="gender">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_gender)) {
-                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Civil Status :</label>
-                <div class="col-sm-5">
-                  <select class="form-control" name="civilstatus">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_civilstatus)) {
-                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
@@ -125,13 +105,46 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Image :</label>
+                <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
                 <div class="col-sm-5">
-                  <div id="thumbnailContainer"></div>
-                  <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
+                  <select class="form-control" name="gender">
+                    <?php
+                    // Loop through the query result and display data within <option> tags
+                    while ($row = mysqli_fetch_assoc($result_gender)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
 
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Civil Status :</label>
+                <div class="col-sm-5">
+                  <select class="form-control" name="civilstatus">
+                    <?php
+                    // Loop through the query result and display data within <option> tags
+                    while ($row = mysqli_fetch_assoc($result_civilstatus)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+
+          
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Image :</label>
+                <div class="col-sm-5">
+                  <div id="thumbnailContainer" style="width:20%">
+                    <img id="preview" src="#" alt="Image Preview" style="width: 100px;">
+                  </div>
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
+                </div>
+              </div>
+              
+              <!-- 
               <script>
                 // Image Preview Script
                 function previewImage(event) {
@@ -150,8 +163,23 @@ include('Side_nav.php');
 
                   reader.readAsDataURL(input.files[0]);
                 }
-              </script>
+              </script> -->
 
+
+              <script>
+                function previewImage(event) {
+                  var reader = new FileReader();
+                  var imageElement = document.getElementById("preview");
+
+                  reader.onload = function() {
+                    imageElement.src = reader.result;
+                  }
+
+                  if (event.target.files[0]) {
+                    reader.readAsDataURL(event.target.files[0]);
+                  }
+                }
+              </script>
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Date of Birth :</label>
                 <div class="col-sm-5">
@@ -174,19 +202,11 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Password :</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Password " required class="form-control" name="password" />
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">NIC :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter NIC " required class="form-control" name="nic" />
                 </div>
               </div>
-
 
 
               <div class="form-group row" id="custom-input">
@@ -195,6 +215,9 @@ include('Side_nav.php');
                   <input type="text" placeholder="Enter Land Phone Number " required class="form-control" name="land" />
                 </div>
               </div>
+
+
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
@@ -209,6 +232,23 @@ include('Side_nav.php');
                   <input type="text" placeholder="Enter Mobile 2 " required class="form-control" name="mobile2" />
                 </div>
               </div>
+
+
+
+
+
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Password :</label>
+                <div class="col-sm-5">
+                  <input type="text" placeholder="Enter Password " required class="form-control" name="password" />
+                </div>
+              </div>
+
+
+
+
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Role :</label>
@@ -252,11 +292,14 @@ include('Side_nav.php');
                 </div>
               </div>
             </form>
+
+
+
+
           </div>
         </div>
       </div>
     </div>
-  </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
@@ -316,6 +359,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $role = $_POST['role'];
   $dorecruite = $_POST['dorecruite'];
   $employeestatus_id = $_POST['employeestatus'];
+
+
+  // Retrieve the uploaded image
+  $image = $_FILES['image']['tmp_name'];
+  $imageName = $_FILES['image']['name'];
+
+  // Read the image content
+  $imageData = file_get_contents($image);
 
   echo "Name: " . $username . "<br>";
   echo "Email: " . $password;
