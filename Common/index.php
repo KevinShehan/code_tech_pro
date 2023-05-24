@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 }
                             }
                             }).then(function() {
-                                window.location.href = "./Common/Dashboard.php";
+                                window.location.href = "Dashboard.php";
                              });
                             };
                     </script>

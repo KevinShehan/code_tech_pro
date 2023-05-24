@@ -1,5 +1,9 @@
 
-
+<style>
+  .card:hover {
+  transform: scale(1.1);
+}
+</style>
  <!-- offcanvas -->
  <main class="mt-5 pt-3">
       <div class="container-fluid">
@@ -74,8 +78,10 @@
                 <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
                 Area Chart Example
               </div>
+             
               <div class="card-body">
-                <canvas class="chart" width="400" height="200"></canvas>
+                <!-- <canvas class="chart" width="400" height="200"></canvas> -->
+                <div id="piechart" style="width: 100%; height: 100%;"></div>
               </div>
             </div>
           </div>

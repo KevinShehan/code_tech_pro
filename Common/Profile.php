@@ -1,7 +1,7 @@
 <?php
 //register employee
 include('config/dbconnection.php');
-
+include('pages/Header.php');
 
 // Get the database Connection
 // $con = getDBConnection();
@@ -18,7 +18,7 @@ include('config/dbconnection.php');
 // $result_role = mysqli_query($con, $query_role);
 // $result_employeestatus = mysqli_query($con, $query_employeestatus);
 ?>
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,8 +38,7 @@ include('config/dbconnection.php');
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
   <link href="Pages/CSS/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="pages/css/dashboard.css" />
-
+  <link rel="stylesheet" href="pages/css/dashboard.css" /> -->
 
   <script>
     function generatePassword() {
@@ -56,11 +55,11 @@ include('config/dbconnection.php');
       document.getElementById("passwordInput").value = password;
     }
   </script>
-
+<!-- 
   <title>Code Technologies</title>
 </head>
 
-<body>
+<body> -->
   <?php
   include('Top_nav.php');
   include('Side_nav.php');
@@ -239,17 +238,10 @@ include('config/dbconnection.php');
       </div>
     </div>
   </main>
-  <script src="pages/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
-  <script src="pages/js/jquery-3.5.1.js"></script>
-  <script src="pages/js/jquery.dataTables.min.js"></script>
-  <script src="pages/js/dataTables.bootstrap5.min.js"></script>
-  <script src="pages/js/script.js"></script>
 
-
-</body>
-
-</html>
+  <?php
+  include('pages/Footer.php');
+  ?>
 
 <?php
 

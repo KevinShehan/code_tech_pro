@@ -12,8 +12,8 @@
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
         <a
-          class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
-          href="#"
+          class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold shadow"
+          href="Dashboard.php"
           >Code Technology</a
         >
         <button

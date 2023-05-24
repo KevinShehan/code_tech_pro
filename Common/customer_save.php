@@ -160,30 +160,30 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Email Address:</label>
+                <label for="gender" class="col-sm-2 col-form-label">email :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Email Address " required class="form-control" name="username" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="username" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Postal Address :</label>
+                <label for="gender" class="col-sm-2 col-form-label">Address :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Postal Address " required class="form-control" name="address" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="address" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Password :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Password " required class="form-control" name="password" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="password" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">NIC :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter NIC " required class="form-control" name="nic" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="nic" />
                 </div>
               </div>
 
@@ -192,21 +192,21 @@ include('Side_nav.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Land :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Land Phone Number " required class="form-control" name="land" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="land" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Mobile 1 " required class="form-control" name="mobile1" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile1" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile2 :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Mobile 2 " required class="form-control" name="mobile2" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile2" />
                 </div>
               </div>
 
@@ -248,7 +248,7 @@ include('Side_nav.php');
 
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
-                  <button type="submit" class="btn btn-primary" value="Submit">Register</button>
+                  <input type="submit" class="btn btn-primary" value="Submit">Register</input>
                 </div>
               </div>
             </form>
