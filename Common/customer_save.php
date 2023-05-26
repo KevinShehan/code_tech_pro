@@ -48,9 +48,10 @@ include('Side_nav.php');
       <div class="col-md-12 mb-3">
         <div class="card">
           <div class="card-header">
-            
+
             <h1>
-            <span><i class="bi bi-table me-2"></i></span> Employee Registration</h1>
+              <span><i class="bi bi-table me-2"></i></span> Employee Registration
+            </h1>
           </div>
           <div class="card-body">
 
@@ -128,7 +129,7 @@ include('Side_nav.php');
                 <label for="gender" class="col-sm-2 col-form-label">Image :</label>
                 <div class="col-sm-5">
                   <div id="thumbnailContainer"></div>
-                  <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)"  name="proimg" />
                 </div>
               </div>
 
@@ -186,7 +187,6 @@ include('Side_nav.php');
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="nic" />
                 </div>
               </div>
-
 
 
               <div class="form-group row" id="custom-input">
@@ -291,41 +291,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $emp_code = $_POST['emp_code'];
 
   //should get values from foreign tables id's
-  $gender = $_POST['gender'];
-  $civilstatus = $_POST['civilstatus'];
   $nametitle = $_POST['nametitle'];
-
-
   $callname = $_POST['callname'];
   $fullname = $_POST['fullname'];
+  $gender = $_POST['gender'];
+  $civilstatus = $_POST['civilstatus'];
+
   // $proimg = $_POST['proimg'];
   $image = $_FILES['proimg']['name'];
   $image_tmp = $_FILES['proimg']['tmp_name'];
 
+
+
+  // Read the image content
+  $imageData = file_get_contents($image);
+
+
   $dob = $_POST['dob'];
-
-
   $username = $_POST['username'];
   $address = $_POST['address'];
-  $password = $_POST['password'];
-
   $nic = $_POST['nic'];
   $land = $_POST['land'];
   $mobile1 = $_POST['mobile1'];
   $mobile2 = $_POST['mobile2'];
+  $password = $_POST['password'];
+
+
+
+
   $role = $_POST['role'];
   $dorecruite = $_POST['dorecruite'];
   $employeestatus_id = $_POST['employeestatus'];
 
-  echo "Name: " . $username . "<br>";
-  echo "Email: " . $password;
+  // echo "Name: " . $username . "<br>";
+  // echo "Email: " . $password;
+  //User Enter Plaint text -> convert into hashed text form
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-  $sql1 = "INSERT INTO user (username, password) VALUES (?, ?)";
-  $stmt1 = $con->prepare($sql1);
-  $stmt1->bind_param("ss", $username,  $hashedPassword);
-  $stmt1->execute();
+  // $sql1 = "INSERT INTO user (username, password) VALUES (?, ?)";
+  // $stmt1 = $con->prepare($sql1);
+  // $stmt1->bind_param("ss", $username,  $hashedPassword);
+  // $stmt1->execute();
+  // $stmt1->close();
 
+  $targetDir = "uploads/";
+  $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+
+
+  if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+
+
+    // Image uploaded successfully, insert data into tables
+    $imageInsertQuery = "INSERT INTO images (name, data) VALUES ( '$image_tmp',' $imageData')";
+    $imageResult = mysqli_query($con, $imageInsertQuery);
+
+
+
+
+    if ($imageResult) {
+      $imageID = $con->insert_id;
+
+
+      $userInsertQuery = "INSERT INTO employee (code, nametitle_id , callname, fullname,
+      civilstatus_id, image_id, dob, gender_id , nic, land, mobile1
+      mobile2, email, address, role_id,dorecruite,employeestatus_id, user_id, tocreation  ) 
+      VALUES ('$emp_code','$nametitle','$callname','$fullname','$gender',' $civilstatus',' $imageID', 
+       '$dob','$username','$address', '$nic', '$land', '$mobile1', '$mobile2',' $password',
+       '$role',' $dorecruite','$employeestatus_id', NOW())";
+      $userResult = mysqli_query($con, $userInsertQuery);
+
+
+      if ($userResult) {
+        echo "Registration successful!";
+      } else {
+        echo "Error inserting image data: " . mysqli_error($conn);
+      }
+    } else {
+      echo "Error inserting user data: " . mysqli_error($conn);
+    }
+  } else {
+    echo "Error uploading image.";
+  }
 
 
   // $user_id = "SELECT id FROM user WHERE username = '$username'";
@@ -397,7 +443,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // }
 
   // Close statement
-  $stmt1->close();
+
   // $stmt2->close();
 }
 

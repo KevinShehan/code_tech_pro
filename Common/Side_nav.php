@@ -5,8 +5,13 @@
         <li>
           <div class="card" style="background-color: #202529;color:aliceblue; border-color:aqua">
             <div class="card-body">
-              <a href="pages/Profile.php" target="_self" rel="noopener noreferrer">
-              <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px;">
+              <a href="Profile.php" target="_self" rel="noopener noreferrer" style=" text-decoration: none; color:white;">
+              <div class="card">
+                <div class="card-body">
+                <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;">
+                </div>
+              </div>
+          
               Kevin Perera
               </a>
         

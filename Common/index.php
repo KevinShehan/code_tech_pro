@@ -5,6 +5,7 @@ require('Pages/Login_Header.php');
     body {
         background-color: #21D4FD;
         background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        background-image: url('./Assets/images/Login/4');
         background-repeat: no-repeat;
         background-size: 100%;
         background-size: cover;
@@ -114,7 +115,7 @@ require('Pages/Login_Header.php');
             <div class="card shadow">
                 <div class="card-body">
                     <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-                        <img src="Assets/images/user.png" alt="usr_logo" srcset="" class="logo1">
+                        <img src="Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
                         <h1 class="head">
                             <div class="s1" style="margin-top:12px">
                                 <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
@@ -190,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 }
                             }
                             }).then(function() {
-                                window.location.href = "Dashboard.php";
+                                window.location.href = "common/Dashboard.php";
                              });
                             };
                     </script>

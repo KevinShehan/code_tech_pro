@@ -6,6 +6,7 @@
 <script src="pages/js/dataTables.bootstrap5.min.js"></script>
 <script src="pages/js/script.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../Assets/vendor/nano-scroller/nano-scroller.js"></script>
 </body>
 
 </html>
