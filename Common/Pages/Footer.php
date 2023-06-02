@@ -9,6 +9,14 @@
 <script src="pages/js/nano-scroller/nano-scroller.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" ></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/nanoscroller/0.8.7/jquery.nanoscroller.min.js"></script> -->
+
+<!-- MDB -->
+<!-- <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
+></script>
+ -->
+
 </body>
 
 </html>

@@ -2,6 +2,9 @@
 
 //register employee
 include('config/dbconnection.php');
+include('pages/header.php');
+include('Top_nav.php');
+include('Side_nav.php');
 
 // Get the database Connection
 // $con = getDBConnection();
@@ -38,12 +41,6 @@ $result_employeestatus = mysqli_query($con, $query_employeestatus);
 </script>
 
 
-<?php
-include('pages/header.php');
-include('Top_nav.php');
-include('Side_nav.php');
-?>
-
 
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
@@ -70,9 +67,32 @@ include('Side_nav.php');
               <div class="form-group row" id="custom-input">
                 <label for="email" class="control-label col-sm-2">Code :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Code " required class="form-control" name="emp_code" id="emp_code" />
+                  <input type="text" placeholder="Enter Code " required class="form-control" name="emp_code" id="codeInput" readonly />
                 </div>
               </div>
+
+
+              <script>
+                function generateUniqueCode() {
+                  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                  var counter = 1;
+                  var code = 'EM';
+
+                  function incrementCounter() {
+                    var number = counter.toString().padStart(2, '0');
+                    counter++;
+                    return number;
+                  }
+                  code += incrementCounter();
+                  for (var i = 0; i < 3; i++) {
+                    code += characters.charAt(Math.floor(Math.random() * characters.length));
+                  }
+                  document.getElementById('codeInput').value = code;
+                }
+                // Automatically generate code when the page loads
+                window.addEventListener('load', generateUniqueCode);
+              </script>
+
 
 
               <div class="form-group row" id="custom-input">
@@ -88,7 +108,6 @@ include('Side_nav.php');
                   </select>
                 </div>
               </div>
-
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Call Name :</label>
@@ -132,8 +151,6 @@ include('Side_nav.php');
                 </div>
               </div>
 
-          
-
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Image :</label>
                 <div class="col-sm-5">
@@ -143,7 +160,7 @@ include('Side_nav.php');
                   <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
                 </div>
               </div>
-              
+
               <!-- 
               <script>
                 // Image Preview Script
@@ -164,7 +181,6 @@ include('Side_nav.php');
                   reader.readAsDataURL(input.files[0]);
                 }
               </script> -->
-
 
               <script>
                 function previewImage(event) {
@@ -234,20 +250,12 @@ include('Side_nav.php');
               </div>
 
 
-
-
-
-
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Password :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Password " required class="form-control" name="password" />
                 </div>
               </div>
-
-
-
-
 
 
               <div class="form-group row" id="custom-input">
@@ -292,8 +300,6 @@ include('Side_nav.php');
                 </div>
               </div>
             </form>
-
-
 
 
           </div>
@@ -362,21 +368,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   // Retrieve the uploaded image
-  $image = $_FILES['image']['tmp_name'];
-  $imageName = $_FILES['image']['name'];
+  // $image = $_FILES['image']['tmp_name'];
+  // $imageName = $_FILES['image']['name'];
+  $image = $_FILES['proimg']['name'];
 
   // Read the image content
-  $imageData = file_get_contents($image);
+  // $imageData = file_get_contents($image);
 
   echo "Name: " . $username . "<br>";
   echo "Email: " . $password;
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-  $sql1 = "INSERT INTO user (username, password) VALUES (?, ?)";
-  $stmt1 = $con->prepare($sql1);
-  $stmt1->bind_param("ss", $username,  $hashedPassword);
-  $stmt1->execute();
-
+  $sql1 = "INSERT INTO user (username, password) VALUES ('$username','$password' )";
+  // $stmt1 = $con->prepare($sql1);
+  // $stmt1->bind_param("ss", $username,  $hashedPassword);
+  // $stmt1->execute();
+  $result = mysqli_query($con, $sql1);
+  if ($result) {
+    // Display SweetAlert success message
+    echo "
+          <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
+          <script>
+                   swal({
+                   title: 'Success!',
+                  text: 'Query executed successfully.',
+                   icon: 'success',
+                   }).then(function() {
+                 // Redirect to view.php
+                  window.location.href = 'supplier_view.php';
+                });
+            </script>
+              ";
+    //Close connection
+  }
 
 
   // $user_id = "SELECT id FROM user WHERE username = '$username'";
@@ -448,12 +473,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // }
 
   // Close statement
-  $stmt1->close();
+  // $stmt1->close();
   // $stmt2->close();
 }
 
 //Close connection
-$con->close();
 
 
 ?>

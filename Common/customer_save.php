@@ -2,39 +2,15 @@
 //register employee
 include('config/dbconnection.php');
 
-// Get the database Connection
-// $con = getDBConnection();
-
 // Retrieve data from the SQL table
 $query_gender = "SELECT id,name FROM gender";
-$query_civilstatus = "SELECT id,name FROM civilstatus";
 $query_nametitle = "SELECT id,name FROM nametitle";
-$query_role = "SELECT id,name FROM role";
-$query_employeestatus = "SELECT id,name FROM employeestatus";
-
+$query_customerstatus = "SELECT id,name FROM customerstatus";
 
 $result_gender = mysqli_query($con, $query_gender);
-$result_civilstatus = mysqli_query($con, $query_civilstatus);
 $result_nametitle = mysqli_query($con, $query_nametitle);
-$result_role = mysqli_query($con, $query_role);
-$result_employeestatus = mysqli_query($con, $query_employeestatus);
-?>
-<script>
-  function generatePassword() {
-    var length = 10; // Change this value to adjust the password length
-    var charset =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?"; // Characters to include in the password
-    var password = "";
+$result_customerstatus = mysqli_query($con, $query_customerstatus);
 
-    for (var i = 0; i < length; i++) {
-      var randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset.charAt(randomIndex);
-    }
-
-    document.getElementById("passwordInput").value = password;
-  }
-</script>
-<?php
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
@@ -48,23 +24,83 @@ include('Side_nav.php');
       <div class="col-md-12 mb-3">
         <div class="card">
           <div class="card-header">
-
             <h1>
-              <span><i class="bi bi-table me-2"></i></span> Employee Registration
+              <span>
+                <i class="bi bi-table me-2"></i>
+              </span>
+              Customer Registration
             </h1>
           </div>
           <div class="card-body">
-
             <style>
               body {
                 background-color: lightcyan;
+              }
+
+              .align-right {
+                text-align: right;
               }
             </style>
             <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
               <div class="form-group row" id="custom-input">
                 <label for="email" class="control-label col-sm-2">Code :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Code " required class="form-control" name="emp_code" id="emp_code" />
+                  <input type="text" placeholder="Enter Code " required class="form-control" name="cus_code" id="codeInput" readonly />
+                </div>
+              </div>
+
+              <script>
+                function generateUniqueCode() {
+                  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                  var counter = 1;
+                  var code = 'CU';
+
+                  function incrementCounter() {
+                    var number = counter.toString().padStart(2, '0');
+                    counter++;
+                    return number;
+                  }
+                  code += incrementCounter();
+                  for (var i = 0; i < 3; i++) {
+                    code += characters.charAt(Math.floor(Math.random() * characters.length));
+                  }
+                  document.getElementById('codeInput').value = code;
+                }
+                // Automatically generate code when the page loads
+                window.addEventListener('load', generateUniqueCode);
+              </script>
+
+
+
+
+
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
+                <div class="col-sm-5">
+                  <select class="form-control" name="nametitle">
+                    <?php
+                    // Loop through the query result and display data within <option> tags
+                    while ($row = mysqli_fetch_assoc($result_nametitle)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Full Name</label>
+                <div class="col-sm-5">
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
+                </div>
+              </div>
+
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">NIC :</label>
+                <div class="col-sm-5">
+                  <input type="text" placeholder="Enter NIC " required class="form-control" name="nic" id="nic"/>
                 </div>
               </div>
 
@@ -83,162 +119,56 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Civil Status :</label>
+                <label for="gender" class="col-sm-2 col-form-label">Email :</label>
                 <div class="col-sm-5">
-                  <select class="form-control" name="civilstatus">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_civilstatus)) {
-                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
-                <div class="col-sm-5">
-                  <select class="form-control" name="nametitle">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_nametitle)) {
-                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Call Name :</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Calling Name " required class="form-control" name="callname" />
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Full Name</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Image :</label>
-                <div class="col-sm-5">
-                  <div id="thumbnailContainer"></div>
-                  <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)"  name="proimg" />
-                </div>
-              </div>
-
-              <script>
-                // Image Preview Script
-                function previewImage(event) {
-                  var input = event.target;
-                  var reader = new FileReader();
-
-                  reader.onload = function() {
-                    var img = document.createElement("img");
-                    img.src = reader.result;
-                    img.classList.add("thumbnail");
-
-                    var container = document.getElementById("thumbnailContainer");
-                    container.innerHTML = "";
-                    container.appendChild(img);
-                  };
-
-                  reader.readAsDataURL(input.files[0]);
-                }
-              </script>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Date of Birth :</label>
-                <div class="col-sm-5">
-                  <input type="date" class="form-control datepicker" placeholder="Select a date" name="dob">
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">email :</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="username" />
+                  <input type="text" placeholder="Enter Email" required class="form-control" name="email" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Address :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="address" />
+                  <input type="text" placeholder="Enter Address" required class="form-control" name="address" />
                 </div>
               </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Password :</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="password" />
-                </div>
-              </div>
-
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">NIC :</label>
-                <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="nic" />
-                </div>
-              </div>
-
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Land :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="land" />
+                  <input type="text" placeholder="Enter LAND Phone Number" required class="form-control" name="land" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile1" />
+                  <input type="text" placeholder="Enter Mobile1" required class="form-control" name="mobile1" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile2 :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile2" />
+                  <input type="text" placeholder="Enter Mobile2" required class="form-control" name="mobile2" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Role :</label>
+                <label for="gender" class="col-sm-2 col-form-label">FAX :</label>
                 <div class="col-sm-5">
-                  <select class="form-control" name="role">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_role)) {
-                      echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
+                  <input type="text" placeholder="Enter Mobile2" required class="form-control" name="fax" />
                 </div>
               </div>
 
 
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Date of Recruite :</label>
-                <div class="col-sm-5">
-                  <input type="date" class="form-control datepicker" placeholder="Select a date" name="dorecruite">
-                </div>
-              </div>
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Employee Status :</label>
                 <div class="col-sm-5">
-                  <select class="form-control" name="employeestatus">
+                  <select class="form-control" name="customerstatus">
                     <?php
                     // Loop through the query result and display data within <option> tags
-                    while ($row = mysqli_fetch_assoc($result_employeestatus)) {
+                    while ($row = mysqli_fetch_assoc($result_customerstatus)) {
                       echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                     }
                     ?>
@@ -248,7 +178,7 @@ include('Side_nav.php');
 
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
-                  <input type="submit" class="btn btn-primary" value="Submit">Register</input>
+                  <button type="submit" class="btn btn-primary" value="Register">Register</button>
                 </div>
               </div>
             </form>
@@ -282,172 +212,55 @@ include('Side_nav.php');
 require('pages/footer.php');
 ?>
 
-<?php
 
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   // Access the submitted values
-  $emp_code = $_POST['emp_code'];
+  $sup_code = $_POST['cus_code'];
 
   //should get values from foreign tables id's
   $nametitle = $_POST['nametitle'];
-  $callname = $_POST['callname'];
   $fullname = $_POST['fullname'];
-  $gender = $_POST['gender'];
-  $civilstatus = $_POST['civilstatus'];
-
-  // $proimg = $_POST['proimg'];
-  $image = $_FILES['proimg']['name'];
-  $image_tmp = $_FILES['proimg']['tmp_name'];
-
-
-
-  // Read the image content
-  $imageData = file_get_contents($image);
-
-
-  $dob = $_POST['dob'];
-  $username = $_POST['username'];
-  $address = $_POST['address'];
   $nic = $_POST['nic'];
-  $land = $_POST['land'];
-  $mobile1 = $_POST['mobile1'];
-  $mobile2 = $_POST['mobile2'];
-  $password = $_POST['password'];
+  $gender = $_POST['gender'];
+  $contact1 = $_POST['mobile1'];
+  $contact2 = $_POST['mobile2'];
+  $address = $_POST['address'];
+  $email = $_POST['email'];
+  $fax = $_POST['fax'];
 
 
+  $customerstatus_id = $_POST['customerstatus'];
 
+  $sql = "INSERT INTO customers ( code, nametitle_id, name,gender_id, nic, mobile1, mobile2,
+    address, fax,customerstatus_id) VALUES ('$sup_code',$nametitle, 
+     '$fullname','$gender','$nic','$contact1','$contact2','$address','$fax',
+     $customerstatus_id)";
+  $result = mysqli_query($con, $sql);
 
-  $role = $_POST['role'];
-  $dorecruite = $_POST['dorecruite'];
-  $employeestatus_id = $_POST['employeestatus'];
-
-  // echo "Name: " . $username . "<br>";
-  // echo "Email: " . $password;
-  //User Enter Plaint text -> convert into hashed text form
-  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-  // $sql1 = "INSERT INTO user (username, password) VALUES (?, ?)";
-  // $stmt1 = $con->prepare($sql1);
-  // $stmt1->bind_param("ss", $username,  $hashedPassword);
-  // $stmt1->execute();
-  // $stmt1->close();
-
-  $targetDir = "uploads/";
-  $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-
-
-  if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-
-
-    // Image uploaded successfully, insert data into tables
-    $imageInsertQuery = "INSERT INTO images (name, data) VALUES ( '$image_tmp',' $imageData')";
-    $imageResult = mysqli_query($con, $imageInsertQuery);
-
-
-
-
-    if ($imageResult) {
-      $imageID = $con->insert_id;
-
-
-      $userInsertQuery = "INSERT INTO employee (code, nametitle_id , callname, fullname,
-      civilstatus_id, image_id, dob, gender_id , nic, land, mobile1
-      mobile2, email, address, role_id,dorecruite,employeestatus_id, user_id, tocreation  ) 
-      VALUES ('$emp_code','$nametitle','$callname','$fullname','$gender',' $civilstatus',' $imageID', 
-       '$dob','$username','$address', '$nic', '$land', '$mobile1', '$mobile2',' $password',
-       '$role',' $dorecruite','$employeestatus_id', NOW())";
-      $userResult = mysqli_query($con, $userInsertQuery);
-
-
-      if ($userResult) {
-        echo "Registration successful!";
-      } else {
-        echo "Error inserting image data: " . mysqli_error($conn);
-      }
-    } else {
-      echo "Error inserting user data: " . mysqli_error($conn);
-    }
-  } else {
-    echo "Error uploading image.";
+  // Print the query statement
+  // echo "Query: " . $sql . "<br>";
+  if ($result) {
+    // Display SweetAlert success message
+    echo "
+<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
+<script>
+    swal({
+        title: 'Success!',
+        text: 'Query executed successfully.',
+        icon: 'success',
+    }).then(function() {
+        // Redirect to view.php
+        window.location.href = 'customer_view.php';
+    });
+</script>
+";
+    //Close connection
   }
-
-
-  // $user_id = "SELECT id FROM user WHERE username = '$username'";
-
-
-  // $profilePicturePath = "";
-  // if ($_FILES["proimg"]["size"] > 0) {
-  //   $targetDir = "uploads/";
-  //   $profilePicturePath = $targetDir . basename($_FILES["proimg"]["name"]);
-  //   move_uploaded_file($_FILES["proimg"]["tmp_name"], $profilePicturePath);
-  // }
-
-  // Save customer information to the database
-  // $sql = "INSERT INTO customers (name, email, profile_picture) VALUES (?, ?, ?)";
-  // $stmt = $conn->prepare($sql);
-  // $stmt->execute([$name, $email, $profilePicturePath]);
-
-
-
-
-
-  // $sql2 = "INSERT INTO employee ( code, nametitle_id ,callname, fullname, civilstatus_id, photo, 
-  // dob, gender_id, nic, land, mobile1, mobile2, email, address, role_id, dorecruite, 
-  // employeestatus_id, user_id, tocreation) VALUES
-  //  ($emp_code,
-  //   $nametitle,
-  //   $callname,
-  //   $fullname,
-  //   $civilstatus,
-  //   $proimg,
-  //   $dob,
-  //   $gender,
-  //   $nic,
-  //   $land,
-  //   $mobile1,
-  //   $mobile2,
-  //   $username,
-  //   $address,
-  //   $role,
-  //   $dorecruite,
-  //   $employeestatus_id,
-  //   $user_id,
-  //   CURRENT_TIMESTAMP)";
-
-
-
-  // $stmt2 = $con->prepare($sql2);
-  // $stmt->execute([$name, $email, $profilePicturePath]);
-
-  // $stmt2->bind_param(
-  //   "sssssbssssssssssssss",
-
-
-  // $result = mysqli_query($con, $sql2); // Replace $connection with your database connection variable
-
-  // Check if the query was successful
-  // if ($result) {
-  //     echo "Current date and time stored successfully.";
-  // } else {
-  //     echo "Error storing current date and time: " . mysqli_error($connection);
-  // }
-  // );
-  // $sql2->execute();
-
-  // if ($stmt2->affected_rows > 0) {
-  //   echo "Data saved successfully!";
-  // } else {
-  //   echo "Error saving data: " . $stmt2->error;
-  // }
-
-  // Close statement
-
-  // $stmt2->close();
 }
-
-//Close connection
 $con->close();
 
 

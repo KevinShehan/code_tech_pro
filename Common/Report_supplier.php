@@ -1,7 +1,10 @@
 <?php
+
+include('config/dbconnection.php');
 require('pages/Header.php');
 require('Top_nav.php');
 require('Side_nav.php');
+
 ?>
 
 <!-- offcanvas -->
@@ -14,52 +17,66 @@ require('Side_nav.php');
                         <span><i class="bi bi-table me-2"></i></span> Supplier Report
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" width="100%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col">Email</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                <?php
+
+                                // Fetch data from table
+                                $sql = "SELECT * FROM v3.supplier";
+                                $result =  mysqli_query($con, $sql);
+
+                                // Check if there are any records
+                                if ($result->num_rows > 0) {
+
+                                    $number = 1;
+                                    // Loop through each record
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // Display table row for each record
+                                        $id = $row['id'];
+                                        $name = $row['name'];
+                                        $address = $row['address'];
+                                        $contact = $row['contact1'];
+                                        $email = $row['email'];
+                                        echo '<tr>';
+                                        echo '<td>' . $number . '</td>';
+                                        echo '<td>' . $name . '</td>';
+                                        echo '<td>' . $address . '</td>';
+                                        echo '<td>' . $contact . '</td>';
+                                        echo '<td>' . $email . '</td>';
+                                        echo '</tr>';
+                                        $number++;
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="4">No records found.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
-
-
-                        <button class="btn btn-primary" onclick="printPage()">Print</button>
-
+                        <button class="no-print btn btn-primary  btn-lg float-right" onclick="printPage()">Print</button>
                         <script>
                             function printPage() {
+                                var buttons = document.querySelector('.no-print');
+                                buttons.style.display = 'none';
                                 window.print();
+                                buttons.style.display = 'block';
                             }
                         </script>
+                     
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-
 <?php
 require('pages/Footer.php');
 ?>

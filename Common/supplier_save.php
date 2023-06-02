@@ -41,15 +41,48 @@ include('Side_nav.php');
               body {
                 background-color: lightcyan;
               }
+
+              .align-right {
+                text-align: right;
+              }
             </style>
-            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" novalidate>
               <div class="form-group row" id="custom-input">
-                <label for="email" class="control-label col-sm-2">Code
-                  <span class="text-right"> :</span></label>
+                <label for="code" class="control-label col-sm-2">Code
+                  <span class="align-right"> :</span></label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Code " required class="form-control" name="sup_code" id="emp_code" />
+                  <input type="text" placeholder="Enter Code " required class="form-control" name="sup_code" id="codeInput" readonly />
                 </div>
               </div>
+
+
+
+              <script>
+                function generateUniqueCode() {
+                  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                  var counter = 1;
+                  var code = 'S';
+
+                  function incrementCounter() {
+                    var number = counter.toString().padStart(3, '0');
+                    counter++;
+                    return number;
+                  }
+
+                  code += incrementCounter();
+
+                  for (var i = 0; i < 3; i++) {
+                    code += characters.charAt(Math.floor(Math.random() * characters.length));
+                  }
+
+                  document.getElementById('codeInput').value = code;
+                }
+
+                // Automatically generate code when the page loads
+                window.addEventListener('load', generateUniqueCode);
+              </script>
+
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
@@ -85,6 +118,7 @@ include('Side_nav.php');
                 <label for="gender" class="col-sm-2 col-form-label">Full Name</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
+                  <div class="alert alert-danger" id="nameError" style="display: none;">Please Enter Valid Name</div>
                 </div>
               </div>
 
@@ -126,7 +160,8 @@ include('Side_nav.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">email :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" name="email" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" id="emailInput" name="email" />
+                  <div class="alert alert-danger" id="emailError" style="display: none;">Please Enter Valid Email !</div>
                 </div>
               </div>
 
@@ -134,6 +169,7 @@ include('Side_nav.php');
                 <label for="gender" class="col-sm-2 col-form-label">Address :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="address" />
+                  <div class="alert alert-danger" id="errorMessage" style="display: none;"></div>
                 </div>
               </div>
 
@@ -141,6 +177,7 @@ include('Side_nav.php');
                 <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile1" />
+                  <div class="alert alert-danger" id="errorMessage" style="display: none;"></div>
                 </div>
               </div>
 
@@ -199,6 +236,81 @@ include('Side_nav.php');
     </div>
   </div>
 </main>
+
+<!-- Bootstrap JavaScript and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<script>
+  // Regex patterns
+  var nameRegex = /^[A-Za-z\s]+$/;
+  var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var passwordRegex = /^.{8,}$/;
+
+  // Form validation
+  var form = document.getElementById('myForm');
+  var errorMessage = document.getElementById('errorMessage');
+
+  form.addEventListener('submit', function(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+      errorMessage.style.display = 'block';
+    }
+    form.classList.add('was-validated');
+  });
+
+  // Real-time validation
+  var nameInput = document.getElementById('fullname');
+  var emailInput = document.getElementById('emailInput');
+  var passwordInput = document.getElementById('passwordInput');
+  var confirmPasswordInput = document.getElementById('confirmPasswordInput');
+
+  nameInput.addEventListener('input', function() {
+    validateInput(nameInput, nameRegex, 'nameError');
+  });
+
+  emailInput.addEventListener('input', function() {
+    validateInput(emailInput, emailRegex, 'emailError');
+  });
+
+  passwordInput.addEventListener('input', function() {
+    validateInput(passwordInput, passwordRegex, 'passwordError');
+  });
+
+  confirmPasswordInput.addEventListener('input', function() {
+    validatePasswordConfirmation();
+  });
+
+  function validateInput(input, regex, errorId) {
+    var errorElement = document.getElementById(errorId);
+    if (regex.test(input.value)) {
+      input.classList.add('is-valid');
+      input.classList.remove('is-invalid');
+      errorElement.style.display = 'none';
+    } else {
+      input.classList.add('is-invalid');
+      input.classList.remove('is-valid');
+      errorElement.style.display = 'block';
+    }
+  }
+
+  function validatePasswordConfirmation() {
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
+    if (passwordInput.value === confirmPasswordInput.value) {
+      confirmPasswordInput.classList.add('is-valid');
+      confirmPasswordInput.classList.remove('is-invalid');
+      confirmPasswordError.style.display = 'none';
+    } else {
+      confirmPasswordInput.classList.add('is-invalid');
+      confirmPasswordInput.classList.remove('is-valid');
+      confirmPasswordError.style.display = 'block';
+    }
+  }
+</script>
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
   document.getElementById("myForm").addEventListener("submit", function(event) {
@@ -272,8 +384,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Print the query statement
   // echo "Query: " . $sql . "<br>";
   if ($result) {
- // Display SweetAlert success message
-echo "
+    // Display SweetAlert success message
+    echo "
 <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
 <script>
@@ -287,9 +399,8 @@ echo "
     });
 </script>
 ";
-  //Close connection
+    //Close connection
   }
-
 }
 $con->close();
 
