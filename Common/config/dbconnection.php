@@ -2,7 +2,7 @@
 
 // Database configuration
 $host = 'localhost'; 
-$dbName = 'v1'; 
+$dbName = 'v3'; 
 $user = 'root'; 
 $password = '1234'; 
 
