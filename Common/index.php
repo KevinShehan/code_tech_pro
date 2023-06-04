@@ -1,5 +1,6 @@
 <?php
 require('Pages/Login_Header.php');
+
 ?>
 <style>
     body {
@@ -158,8 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
 
     $query = "SELECT password FROM user WHERE username = '$username'";
-
-
     $result = mysqli_query($con, $query);
 
 

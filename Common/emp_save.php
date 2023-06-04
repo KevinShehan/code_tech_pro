@@ -365,15 +365,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   // Retrieve the uploaded image
-  // $image = $_FILES['image']['tmp_name'];
-  // $imageName = $_FILES['image']['name'];
+
   $image = $_FILES['proimg']['name'];
 
   // Read the image content
   // $imageData = file_get_contents($image);
 
-  // echo "Name: " . $username . "<br>";
-  // echo "Email: " . $password;
+
   $employeeInsertQuery = "INSERT INTO employee (code, nametitle_id, callingname, fullname,
   civilstatus_id, photo, dob, gender_id, nic, mobile, land, email, address ,dorecruite, employeestatus_id) 
   VALUES ('$emp_code', '$nametitle', '$callname',' $fullname',' $civilstatus',' $image',
@@ -445,79 +443,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
   }
 
-
-
-  // $user_id = "SELECT id FROM user WHERE username = '$username'";
-
-
-  // $profilePicturePath = "";
-  // if ($_FILES["proimg"]["size"] > 0) {
-  //   $targetDir = "uploads/";
-  //   $profilePicturePath = $targetDir . basename($_FILES["proimg"]["name"]);
-  //   move_uploaded_file($_FILES["proimg"]["tmp_name"], $profilePicturePath);
-  // }
-
-  // Save customer information to the database
-  // $sql = "INSERT INTO customers (name, email, profile_picture) VALUES (?, ?, ?)";
-  // $stmt = $conn->prepare($sql);
-  // $stmt->execute([$name, $email, $profilePicturePath]);
-
-
-
-
-
-  // $sql2 = "INSERT INTO employee ( code, nametitle_id ,callname, fullname, civilstatus_id, photo, 
-  // dob, gender_id, nic, land, mobile1, mobile2, email, address, role_id, dorecruite, 
-  // employeestatus_id, user_id, tocreation) VALUES
-  //  ($emp_code,
-  //   $nametitle,
-  //   $callname,
-  //   $fullname,
-  //   $civilstatus,
-  //   $proimg,
-  //   $dob,
-  //   $gender,
-  //   $nic,
-  //   $land,
-  //   $mobile1,
-  //   $mobile2,
-  //   $username,
-  //   $address,
-  //   $role,
-  //   $dorecruite,
-  //   $employeestatus_id,
-  //   $user_id,
-  //   CURRENT_TIMESTAMP)";
-
-
-
-  // $stmt2 = $con->prepare($sql2);
-  // $stmt->execute([$name, $email, $profilePicturePath]);
-
-  // $stmt2->bind_param(
-  //   "sssssbssssssssssssss",
-
-
-  // $result = mysqli_query($con, $sql2); // Replace $connection with your database connection variable
-
-  // Check if the query was successful
-  // if ($result) {
-  //     echo "Current date and time stored successfully.";
-  // } else {
-  //     echo "Error storing current date and time: " . mysqli_error($connection);
-  // }
-  // );
-  // $sql2->execute();
-
-  // if ($stmt2->affected_rows > 0) {
-  //   echo "Data saved successfully!";
-  // } else {
-  //   echo "Error saving data: " . $stmt2->error;
-  // }
-
-  // Close statement
-  // $stmt1->close();
-  // $stmt2->close();
 }
 
 //Close connection
