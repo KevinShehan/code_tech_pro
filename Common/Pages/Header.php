@@ -31,16 +31,16 @@ session_start();
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['SSD', 'Hours per Day'],
+          ['Monitors',     11],
+          ['KBD',      2],
+          ['Mouse',  2],
+          ['Motherboards', 2],
+          ['RAM',    7]
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'Purchases'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

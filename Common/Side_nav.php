@@ -31,7 +31,7 @@
             <span>Dashboard</span>
           </a>
         </li>
-        <li class="my-5">
+        <li class="my-2">
           <hr class="dropdown-divider bg-light" />
         </li>
         <li>
@@ -147,6 +147,78 @@
           </div>
         </li>
 
+        <li class="my-7">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Purchase Management
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Purchase</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="layouts">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Supplier Report</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Employee Reports</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+        <li class="my-8">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Report Management
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Report</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="layouts">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Supplier Report</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Employee Reports</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
         <!-- Pages item -->
 

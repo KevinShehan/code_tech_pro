@@ -159,7 +159,7 @@
         <div class="card h-100">
           <div class="card-header">
             <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-            Area Chart Example
+            Monthly Sales Analyze
           </div>
           <div class="card-body">
             <canvas class="chart" width="400" height="200"></canvas>
@@ -170,7 +170,7 @@
         <div class="card h-100">
           <div class="card-header">
             <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-            Area Chart Example
+            Daily Purchase Details
           </div>
 
           <div class="card-body">

@@ -1,6 +1,9 @@
 <?php
 
-//register employee
+//Auth employee
+include('config/dbconnection.php');
+
+
 include('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
@@ -177,7 +180,6 @@ $result_employeestatus = mysqli_query($con, $query_employeestatus);
                     container.innerHTML = "";
                     container.appendChild(img);
                   };
-
                   reader.readAsDataURL(input.files[0]);
                 }
               </script> -->
@@ -231,9 +233,6 @@ $result_employeestatus = mysqli_query($con, $query_employeestatus);
                   <input type="text" placeholder="Enter Land Phone Number " required class="form-control" name="land" />
                 </div>
               </div>
-
-
-
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
@@ -300,8 +299,6 @@ $result_employeestatus = mysqli_query($con, $query_employeestatus);
                 </div>
               </div>
             </form>
-
-
           </div>
         </div>
       </div>
@@ -375,33 +372,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Read the image content
   // $imageData = file_get_contents($image);
 
-  echo "Name: " . $username . "<br>";
-  echo "Email: " . $password;
-  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+  // echo "Name: " . $username . "<br>";
+  // echo "Email: " . $password;
+  $employeeInsertQuery = "INSERT INTO employee (code, nametitle_id, callingname, fullname,
+  civilstatus_id, photo, dob, gender_id, nic, mobile, land, email, address ,dorecruite, employeestatus_id) 
+  VALUES ('$emp_code', '$nametitle', '$callname',' $fullname',' $civilstatus',' $image',
+  '$dob','$gender','$nic','$mobile1','$land','$username','$address','$dorecruite','$employeestatus_id')";
 
-  $sql1 = "INSERT INTO user (username, password) VALUES ('$username','$password' )";
+
+
+
   // $stmt1 = $con->prepare($sql1);
   // $stmt1->bind_param("ss", $username,  $hashedPassword);
   // $stmt1->execute();
-  $result = mysqli_query($con, $sql1);
-  if ($result) {
-    // Display SweetAlert success message
+
+
+  // Execute the user registration query
+  if (mysqli_query($con, $employeeInsertQuery)) {
+    // Get the inserted user's ID
+    $userId = mysqli_insert_id($con);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $userInsertQuery = "INSERT INTO user (username, password,Employee_id, role_id) VALUES ('$username','$hashedPassword','$userId','$role' )";
+
+    // Execute the employee registration query
+    if (mysqli_query($con, $userInsertQuery)) {
+
+      echo "
+      <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
+      <script>
+               swal({
+               title: 'Success!',
+              text: 'User Saved successfully.',
+               icon: 'success',
+               }).then(function() {
+             // Redirect to view.php
+              window.location.href = 'emp_view.php';
+            });
+        </script>
+          ";
+    } else {
+      echo "
+      <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
+      <script>
+               swal({
+               title: 'Error!',
+              text: 'User Not Saved !.',
+               icon: 'success',
+               }).then(function() {
+             // Redirect to view.php
+              window.location.href = 'emp_view.php';
+            });
+        </script>
+          ";
+    }
+  } else {
     echo "
-          <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
-          <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
-          <script>
-                   swal({
-                   title: 'Success!',
-                  text: 'Query executed successfully.',
-                   icon: 'success',
-                   }).then(function() {
-                 // Redirect to view.php
-                  window.location.href = 'supplier_view.php';
-                });
-            </script>
-              ";
-    //Close connection
+    <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
+    <script>
+             swal({
+             title: 'Error !',
+            text: 'Query executed successfully.',
+             icon: 'success',
+             }).then(function() {
+           // Redirect to view.php
+            window.location.href = 'emp_view.php';
+          });
+      </script>
+        ";
   }
+
 
 
   // $user_id = "SELECT id FROM user WHERE username = '$username'";

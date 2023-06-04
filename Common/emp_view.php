@@ -48,7 +48,8 @@ include('Side_nav.php');
             type: 'POST',
             dataType: 'json',
             data: {
-                userId: <?php //echo $Id; ?>
+                userId: <?php //echo $Id; 
+                        ?>
             }, // Pass the user ID to delete.php
             success: function(response) {
                 // Display SweetAlertJS popup message
@@ -242,15 +243,9 @@ include('Side_nav.php');
                                     </script>
                                 </div>
                             </div>
-
-
                         </div>
-
-
                     </div>
                 </div>
-
-
             </div>
         </div>
 </main>

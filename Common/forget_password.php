@@ -123,24 +123,23 @@ require('Pages/Login_Header.php');
                                 </span>
                             </div>
                         </h1>
+
                         <div>
-                            <label for="exampleInputEmail1" class="form-label">Username</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
-                            <div id="emailHelp" class="form-text">Hint - Username email address</div>
-                        </div>
-                        <div>
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <label for="exampleInputPassword1" class="form-label">Current Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                        <div>
+                            <label for="exampleInputPassword1" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
-                        <div class="forget">
-                            <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
+                        <div>
+                            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        </div>
+                        <div style="margin-top:12px">
+                            <button type="submit" class="btn btn-primary shadow">Reset Password</button>
                         </div>
 
-                        <button type="submit" class="btn btn-primary shadow">Login</button>
                     </form>
                 </div>
             </div>
@@ -148,6 +147,7 @@ require('Pages/Login_Header.php');
     </div>
 </div>
 <?php
+
 require('config/dbconnection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
