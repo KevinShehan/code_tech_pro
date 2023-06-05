@@ -195,7 +195,7 @@
         <li>
           <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Report</span>
+            <span>Profile</span>
             <span class="ms-auto">
               <span class="right-icon">
                 <i class="bi bi-chevron-down"></i>
@@ -205,9 +205,9 @@
           <div class="collapse" id="layouts">
             <ul class="navbar-nav ps-3">
               <li>
-                <a href="sales_save.php" class="nav-link px-3">
+                <a href="change_pw.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Supplier Report</span>
+                  <span>Change Password</span>
                 </a>
               </li>
               <li>

@@ -2,10 +2,10 @@
   .card-row1:hover {
     transform: scale(1.1);
   }
-  a {
-  text-decoration: none;
-}
 
+  a {
+    text-decoration: none;
+  }
 </style>
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
@@ -20,11 +20,10 @@
 
     <div class="row">
       <div class="col-md-3 mb-3">
-        <div class="card-row1">
           <div class="card t-card bg-primary text-white h-100 ">
             <div class="card-body ">
               <div>
-                <img src="Pages/dash_card/team.png" class="card-img-top" alt="Image Description" style="width:25%; float: right;">
+                <img src="Pages/dash_card/team.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
               </div>
               <div class="mt-5">
                 <h6>
@@ -42,54 +41,74 @@
               </a>
             </div>
           </div>
-        </div>
       </div>
 
       <div class="col-md-3 mb-3">
-        <div class="card-row1">
-          <div class="card bg-warning text-dark h-100">
+        <div class="card bg-warning text-dark h-100">
+          <div class="card-body">
+            <div>
+              <img src="Pages/dash_card/supplier.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
+            </div>
+            <div class="mt-5">
+              <h6>
+                Suppliers
+              </h6>
+            </div>
 
-            <div class="card-body">
+            <?php
+            //offcanvas data calculation
+            include('config/dbconnection.php');
+
+
+            $query_supplier = "SELECT COUNT(*) supplier_count FROM v3.Supplier";
+            // $result_supplier = mysqli_query($con, $query_supplier);
+
+            $result = $con->query($query_supplier);
+
+            if ($result) {
+              // Fetch the count value
+              $row = $result->fetch_assoc();
+              $supplierCount = $row['supplier_count'];
+
+              // Convert the count to a string
+              $countAsString = strval($supplierCount);
+
+              // Display the count on the web page
+              echo '<h2>' . $countAsString . '</h2>';
+
+              // Free the result set
+              $result->free_result();
+            } else {
+              // Handle the query error
+              echo "Error: " . $conn->error;
+            }
+
+            ?>
+
+          </div>
+          <div class="card-footer d-flex">
+            <a href="../common/supplier_view.php" class="text-light">
+              View Details
+              <span class="ms-auto">
+                <i class="bi bi-chevron-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-3 mb-3">
+          <div class="card bg-success text-white h-100">
+            <div class="card-body ">
               <div>
-                <img src="Pages/dash_card/supplier.png" class="card-img-top" alt="Image Description" style="width:25%; float: right;">
+                <img src="Pages/dash_card/Stand.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
               </div>
               <div class="mt-5">
                 <h6>
-                  Suppliers
+                  Catergory
                 </h6>
               </div>
-
-              <?php
-              //offcanvas data calculation
-
-              include('config/dbconnection.php');
-
-
-              $query_supplier = "SELECT COUNT(*) supplier_count FROM v3.Supplier";
-              // $result_supplier = mysqli_query($con, $query_supplier);
-
-              $result = $con->query($query_supplier);
-
-              if ($result) {
-                // Fetch the count value
-                $row = $result->fetch_assoc();
-                $supplierCount = $row['supplier_count'];
-
-                // Convert the count to a string
-                $countAsString = strval($supplierCount);
-
-                // Display the count on the web page
-                echo '<h2>' . $countAsString . '</h2>';
-
-                // Free the result set
-                $result->free_result();
-              } else {
-                // Handle the query error
-                echo "Error: " . $conn->error;
-              }
-
-              ?>
-
+              <h2>6</h2>
             </div>
             <div class="card-footer d-flex">
               <a href="../common/supplier_view.php" class="text-light">
@@ -100,39 +119,12 @@
               </a>
             </div>
           </div>
-        </div>
       </div>
       <div class="col-md-3 mb-3">
-        <div class="card-row1">
-          <div class="card bg-success text-white h-100">
-            <div class="card-body ">
-              <div>
-                <img src="Pages/dash_card/Stand.png" class="card-img-top" alt="Image Description" style="width:25%; float: right;">
-              </div>
-              <div class="mt-5">
-                <h6>
-                  Catergory
-                </h6>
-              </div>
-              <h2>6</h2>
-            </div>
-            <div class="card-footer d-flex">
-            <a href="../common/supplier_view.php" class="text-light">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card-row1">
           <div class="card bg-danger text-white h-100">
             <div class="card-body ">
               <div>
-                <img src="Pages/dash_card/pc-tower.png" class="card-img-top" alt="Image Description" style="width:25%; float: right;">
+                <img src="Pages/dash_card/pc-tower.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
               </div>
               <div class="mt-5">
                 <h6>
@@ -142,7 +134,7 @@
               <h2>6</h2>
             </div>
             <div class="card-footer d-flex">
-            <a href="../common/supplier_view.php" class="text-light">
+              <a href="../common/supplier_view.php" class="text-light">
                 View Details
                 <span class="ms-auto">
                   <i class="bi bi-chevron-right"></i>
@@ -150,7 +142,6 @@
               </a>
             </div>
           </div>
-        </div>
       </div>
     </div>
 

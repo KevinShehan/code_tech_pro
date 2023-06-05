@@ -116,7 +116,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-                            <img src="Assets/images/user.png" alt="usr_logo" srcset="" class="logo1">
+                            <img src="Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
                             <h1 class="head">
                                 <div class="s1" style="margin-top:12px">
                                     <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
