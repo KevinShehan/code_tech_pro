@@ -1,4 +1,5 @@
 <?php
+require('pages/Auth.php');
 require('config/dbconnection.php');
 // if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 //     if (isset($_GET['id'])) {

@@ -1,10 +1,10 @@
 <?php
 
 //Auth employee
-include('config/dbconnection.php');
+require('pages/Auth.php');
 
 
-include('config/dbconnection.php');
+require('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
@@ -376,8 +376,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   civilstatus_id, photo, dob, gender_id, nic, mobile, land, email, address ,dorecruite, employeestatus_id) 
   VALUES ('$emp_code', '$nametitle', '$callname',' $fullname',' $civilstatus',' $image',
   '$dob','$gender','$nic','$mobile1','$land','$username','$address','$dorecruite','$employeestatus_id')";
-
-
 
 
   // $stmt1 = $con->prepare($sql1);

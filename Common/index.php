@@ -1,6 +1,6 @@
 <?php
-require('Pages/Login_Header.php');
-
+    session_start();
+    require('pages/header.php');
 ?>
 <style>
     body {
@@ -110,75 +110,80 @@ require('Pages/Login_Header.php');
         color: #fff;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="d-flex align-items-center justify-content-center">
-            <div class="card shadow">
-                <div class="card-body">
-                    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-                        <img src="../Common/Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
-                        <h1 class="head">
-                            <div class="s1" style="margin-top:12px">
-                                <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
-                                    Login
-                                </span>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+                            <img src="Assets/images/user.png" alt="usr_logo" srcset="" class="logo1">
+                            <h1 class="head">
+                                <div class="s1" style="margin-top:12px">
+                                    <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
+                                        Login
+                                    </span>
+                                </div>
+                            </h1>
+                            <div>
+                                <label for="exampleInputEmail1" class="form-label">Username</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+                                <div id="emailHelp" class="form-text">Hint - Username email address</div>
                             </div>
-                        </h1>
-                        <div>
-                            <label for="exampleInputEmail1" class="form-label">Username</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
-                            <div id="emailHelp" class="form-text">Hint - Username email address</div>
-                        </div>
-                        <div>
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                        </div>
-                        <div class="forget">
-                            <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
-                        </div>
+                            <div>
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                            </div>
+                            <div class="forget">
+                                <a href="#">Forget Password</a>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary shadow">Login</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary shadow">Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<?php
-require('config/dbconnection.php');
+    <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require('config/dbconnection.php');
 
-    // Access the submitted values
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $query = "SELECT password FROM user WHERE username = '$username'";
-    $result = mysqli_query($con, $query);
+        // Access the submitted values
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
+
+        $query = "SELECT password FROM user WHERE username = '$username'";
 
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $hashedPasswordFromDB = $row['password'];
+        $result = mysqli_query($con, $query);
 
-        // User input password
-        $userPassword = $_POST['password']; // Assuming the password is submitted via a form
 
-        // Verify the user's password
-        if (password_verify($userPassword, $hashedPasswordFromDB)) {
-            // Passwords match
-            $_SESSION['user_role'] = 'admin';
-            echo '
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $hashedPasswordFromDB = $row['password'];
+
+            // User input password
+            $userPassword = $_POST['password']; // Assuming the password is submitted via a form
+
+            // Verify the user's password
+            if (password_verify($userPassword, $hashedPasswordFromDB)) {
+                $_SESSION["loggedin"] = true;
+                $_SESSION["username"] = $username;
+                // Passwords match
+                $_SESSION['user_role']='admin';
+                echo '
                     <script>
                             window.onload = function() {
                              swal({
-                                 title: "Click to load dashboard",
-                                icon: "info",
+                                 title: "Successfully Logged",
+                                icon: "success",
                             buttons: {
                             confirm: {
                                 text: "Login",
@@ -189,45 +194,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 }
                             }
                             }).then(function() {
-                                window.location.href = "common/Dashboard.php";
+                                window.location.href = "dashboard.php";
                              });
                             };
                     </script>
                 ';
-            //  "<script>
-            //     swal('Welcome!', 'Verified User!', 'success');
-            //     // .then(function ()=>{
-            //     // window.location.href = 'dashboard.php';
-            //     </script>";
-            //     header('Location: dashboard.php');
+                //  "<script>
+                //     swal('Welcome!', 'Verified User!', 'success');
+                //     // .then(function ()=>{
+                //     // window.location.href = 'dashboard.php';
+                //     </script>";
+                //     header('Location: dashboard.php');
 
+                  
 
-
+            } else {
+                // Passwords do not match
+                echo "<script>swal('txt','Invalid Passsword','error');</script>";
+            }
         } else {
-            // Passwords do not match
-            echo "<script>swal('txt','Invalid Passsword','error');</script>";
+            // User not found
+            echo "<script>swal('User Not Found');</script>";
         }
-    } else {
-        // User not found
-        echo "<script>swal('USer Not Found');</script>";
+
+        // Close the MySQL connection
     }
 
-    // Close the MySQL connection
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-
-
-    // // Use password_verify() to compare the user-entered password with the stored hashed password.
-    // if (password_verify($userEnteredPassword, $storedHashedPassword)) {
-    //     // Passwords match
-    //     echo "Password is correct!";
-    // } else {
-    //     // Passwords do not match
-    //     echo "Password is incorrect!";
-    // }
-}
-
-?>
-
-<?php
-require('Pages/Footer.php');
-?>
+</html>

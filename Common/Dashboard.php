@@ -1,12 +1,13 @@
 <?php
-include('Pages/Header.php');
+require('pages/Auth.php');
+require('Pages/Header.php');
 
 require('Top_nav.php');
 
 require('Side_nav.php');
 
-include('Pages/offcanvas.php');
+require('Pages/offcanvas.php');
 
-include('Pages/Footer.php');
+require('Pages/Footer.php');
 
 ?>
