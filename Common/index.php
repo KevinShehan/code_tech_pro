@@ -109,6 +109,10 @@
     ::-webkit-input-placeholder {
         color: #fff;
     }
+
+    a{
+        text-transform: none;
+    }
 </style>
     <div class="container">
         <div class="row">
@@ -138,7 +142,7 @@
                                 <label class="form-check-label" for="exampleCheck1">Remember me</label>
                             </div>
                             <div class="forget">
-                                <a href="#">Forget Password</a>
+                                <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
                             </div>
 
                             <button type="submit" class="btn btn-primary shadow">Login</button>

@@ -7,9 +7,6 @@ include('Top_nav.php');
 include('Side_nav.php');
 ?>
 
-
-
-
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
     <div class="container-fluid">
