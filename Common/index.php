@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    require('pages/header.php');
+session_start();
+require('pages/header.php');
 ?>
 <style>
     body {
@@ -110,78 +110,94 @@
         color: #fff;
     }
 
-    a{
+    a {
         text-transform: none;
     }
 </style>
-    <div class="container">
-        <div class="row">
-            <div class="d-flex align-items-center justify-content-center">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-                            <img src="Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
-                            <h1 class="head">
-                                <div class="s1" style="margin-top:12px">
-                                    <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
-                                        Login
-                                    </span>
-                                </div>
-                            </h1>
-                            <div>
-                                <label for="exampleInputEmail1" class="form-label">Username</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
-                                <div id="emailHelp" class="form-text">Hint - Username email address</div>
+<div class="container">
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+                        <img src="Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
+                        <h1 class="head">
+                            <div class="s1" style="margin-top:12px">
+                                <span style="background-color: #ffffff; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:xx-large; margin-top:0px" class="social">
+                                    Login
+                                </span>
                             </div>
-                            <div>
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                            </div>
-                            <div class="forget">
-                                <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
-                            </div>
+                        </h1>
+                        <div>
+                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+                            <div id="emailHelp" class="form-text">Hint - Username email address</div>
+                        </div>
+                        <div>
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                        </div>
+                        <div class="forget">
+                            <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary shadow">Login</button>
-                        </form>
-                    </div>
+                        <button type="submit" class="btn btn-primary shadow">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <?php
+</div>
+<?php
 
-    require('config/dbconnection.php');
+require('config/dbconnection.php');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // Access the submitted values
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
+    // Access the submitted values
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
 
-        $query = "SELECT password FROM user WHERE username = '$username'";
-
-
-        $result = mysqli_query($con, $query);
+    $query = "SELECT password FROM user WHERE username = '$username'";
+    $result = mysqli_query($con, $query);
 
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $hashedPasswordFromDB = $row['password'];
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $hashedPasswordFromDB = $row['password'];
 
-            // User input password
-            $userPassword = $_POST['password']; // Assuming the password is submitted via a form
+        // User input password
+        $userPassword = $_POST['password']; // Assuming the password is submitted via a form
 
-            // Verify the user's password
-            if (password_verify($userPassword, $hashedPasswordFromDB)) {
-                $_SESSION["loggedin"] = true;
-                $_SESSION["username"] = $username;
-                // Passwords match
-                $_SESSION['user_role']='admin';
+        // Verify the user's password
+        if (password_verify($userPassword, $hashedPasswordFromDB)) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["username"] = $username;
+            // Passwords match
+
+            // Execute the SQL query
+            $query = "SELECT role.name
+            FROM user
+            JOIN role ON user.role_id = role.id
+            WHERE user.username = '$username'";
+            $result = mysqli_query($con, $query);
+
+            // Check if any rows were returned
+            if (mysqli_num_rows($result) > 0) {
+                // Fetch the role name from the query result
+                $row = mysqli_fetch_assoc($result);
+                $roleName = $row['name'];
+
+                // Output the role name
+                // echo "Role Name: " . $roleName;
+                $_SESSION["user_role"] =  $roleName;
+
+
                 echo '
                     <script>
                             window.onload = function() {
@@ -210,7 +226,7 @@
                 //     </script>";
                 //     header('Location: dashboard.php');
 
-                  
+
 
             } else {
                 // Passwords do not match
@@ -223,9 +239,8 @@
 
         // Close the MySQL connection
     }
-
-    ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+}
+?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

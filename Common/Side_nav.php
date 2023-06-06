@@ -1,4 +1,18 @@
+<style>
+  li:hover {
+    background-color: #0070fc;
+    color: white;
+    /* Background color on hover */
+  }
+</style>
+
+
+
+
+
+
 <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+
   <div class="offcanvas-body p-0">
     <nav class="navbar-dark">
       <ul class="navbar-nav">
@@ -13,7 +27,16 @@
                     <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;">
                   </div>
                 </div>
-                Kevin Perera
+                <div>
+                  Kevin Perera
+                </div>
+                <span class="text-success">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                    <circle cx="4" cy="4" r="4" />
+                  </svg>
+                </span>
+                <?php
+                echo $_SESSION["user_role"]; ?>
               </a>
             </div>
           </div>
