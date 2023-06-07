@@ -156,6 +156,14 @@ require('pages/header.php');
 
 require('config/dbconnection.php');
 
+
+
+// Check if the "Remember Me" checkbox is selected
+if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
+    // Set a cookie to store the email for 30 days
+    setcookie('remembered_email', $_POST['email'], time() + (30 * 24 * 60 * 60), '/');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Access the submitted values

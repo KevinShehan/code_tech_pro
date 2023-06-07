@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-md-12">
         <h4>Dashboard
-     
+
         </h4>
       </div>
     </div>
@@ -22,27 +22,27 @@
 
     <div class="row">
       <div class="col-md-3 mb-3">
-          <div class="card t-card bg-primary text-white h-100 ">
-            <div class="card-body ">
-              <div>
-                <img src="Pages/dash_card/team.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
-              </div>
-              <div class="mt-5">
-                <h6>
-                  Today Customers
-                </h6>
-              </div>
-              <h2>6</h2>
+        <div class="card t-card bg-primary text-white h-100 ">
+          <div class="card-body ">
+            <div>
+              <img src="Pages/dash_card/team.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
             </div>
-            <div class=" card-footer d-flex">
-              <a href="../common/supplier_view.php" class="text-light">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </a>
+            <div class="mt-5">
+              <h6>
+                Today Customers
+              </h6>
             </div>
+            <h2>6</h2>
           </div>
+          <div class=" card-footer d-flex">
+            <a href="../common/supplier_view.php" class="text-light">
+              View Details
+              <span class="ms-auto">
+                <i class="bi bi-chevron-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-3 mb-3">
@@ -100,50 +100,50 @@
 
       </div>
       <div class="col-md-3 mb-3">
-          <div class="card bg-success text-white h-100">
-            <div class="card-body ">
-              <div>
-                <img src="Pages/dash_card/Stand.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
-              </div>
-              <div class="mt-5">
-                <h6>
-                  Catergory
-                </h6>
-              </div>
-              <h2>6</h2>
+        <div class="card bg-success text-white h-100">
+          <div class="card-body ">
+            <div>
+              <img src="Pages/dash_card/Stand.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
             </div>
-            <div class="card-footer d-flex">
-              <a href="../common/supplier_view.php" class="text-light">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </a>
+            <div class="mt-5">
+              <h6>
+                Catergory
+              </h6>
             </div>
+            <h2>6</h2>
           </div>
+          <div class="card-footer d-flex">
+            <a href="../common/supplier_view.php" class="text-light">
+              View Details
+              <span class="ms-auto">
+                <i class="bi bi-chevron-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="col-md-3 mb-3">
-          <div class="card bg-danger text-white h-100">
-            <div class="card-body ">
-              <div>
-                <img src="Pages/dash_card/pc-tower.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
-              </div>
-              <div class="mt-5">
-                <h6>
-                  Items
-                </h6>
-              </div>
-              <h2>6</h2>
+        <div class="card bg-danger text-white h-100">
+          <div class="card-body ">
+            <div>
+              <img src="Pages/dash_card/pc-tower.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
             </div>
-            <div class="card-footer d-flex">
-              <a href="../common/supplier_view.php" class="text-light">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </a>
+            <div class="mt-5">
+              <h6>
+                Items
+              </h6>
             </div>
+            <h2>6</h2>
           </div>
+          <div class="card-footer d-flex">
+            <a href="../common/supplier_view.php" class="text-light">
+              View Details
+              <span class="ms-auto">
+                <i class="bi bi-chevron-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -1,15 +1,10 @@
 <style>
-  li:hover {
+  .li-top:hover {
     background-color: #0070fc;
     color: white;
     /* Background color on hover */
   }
 </style>
-
-
-
-
-
 
 <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
 
@@ -24,11 +19,54 @@
               <a href="Profile.php" target="_self" rel="noopener noreferrer" style=" text-decoration: none; color:white;">
                 <div class="card text-dark " style="width: 60px; height:60px;">
                   <div class="card-body">
-                    <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;">
+                    <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
+                    <?php
+                    include('config/dbconnection.php');
+                    // Assuming you have established a database connection
+                    $username = $_SESSION["username"];
+                    // Fetch the employee data from the database
+                    $query = "SELECT employee.photo
+                          FROM employee
+                          JOIN user ON employee.id = user.employee_id
+                          WHERE user.username = ' $username'";
+                    $result = mysqli_query($con, $query);
+
+                    if ($result && mysqli_num_rows($result) > 0) {
+                      $row = mysqli_fetch_assoc($result);
+                      $image = $row['photo'];
+
+                      // Display the image
+                      echo '<img src="path_to_images_folder/' . $image . '" alt="Employee Image">';
+                    } else {
+                      echo 'No image found for the user.';
+                    }
+                    ?>
                   </div>
                 </div>
                 <div>
-                  Kevin Perera
+                  <?php
+                  include('config/dbconnection.php');
+
+                  $username = $_SESSION["username"];
+
+                  // Execute the SQL query
+                  $query = "SELECT employee.callingname
+                  FROM employee
+                  JOIN user ON user.employee_id = employee.id
+                   WHERE user.username = '$username'";
+                  $result1 = mysqli_query($con, $query);
+
+                  // Check if any rows were returned
+                  if (mysqli_num_rows($result1) > 0) {
+                    // Fetch the role name from the query result
+                    $row = mysqli_fetch_assoc($result1);
+                    $callingName = $row['callingname'];
+
+                    // Output the role name
+                    // echo "Role Name: " . $roleName;
+                    echo $callingName;
+                  }
+                  ?>
                 </div>
                 <span class="text-success">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
@@ -58,12 +96,12 @@
           <hr class="dropdown-divider bg-light" />
         </li>
         <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3 ">
             Employee Management
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#employeeMenu">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Employee</span>
             <span class="ms-auto">
@@ -105,7 +143,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#SupplierMenu">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Supplier</span>
             <span class="ms-auto">
@@ -143,7 +181,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Sales</span>
             <span class="ms-auto">
@@ -179,7 +217,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Purchase</span>
             <span class="ms-auto">
@@ -216,7 +254,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Profile</span>
             <span class="ms-auto">
