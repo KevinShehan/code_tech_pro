@@ -1,5 +1,11 @@
 <?php
 session_start();
+// if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
+//     // Set a cookie to store the email for 30 days
+//     setcookie('remembered_email', $_POST['username'], time() + (30 * 24 * 60 * 60), '/');
+// }
+
+
 require('pages/header.php');
 ?>
 <style>
@@ -130,7 +136,7 @@ require('pages/header.php');
                         </h1>
                         <div>
                             <label for="exampleInputEmail1" class="form-label">Username</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" value="<?php echo isset($_COOKIE['remembered_email']) ? htmlspecialchars($_COOKIE['remembered_email']) : ''; ?>">
                             <div id="emailHelp" class="form-text">Hint - Username email address</div>
                         </div>
                         <div>
@@ -138,7 +144,7 @@ require('pages/header.php');
                             <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
                             <label class="form-check-label" for="exampleCheck1">Remember me</label>
                         </div>
                         <div class="forget">
@@ -156,13 +162,7 @@ require('pages/header.php');
 
 require('config/dbconnection.php');
 
-
-
 // Check if the "Remember Me" checkbox is selected
-if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
-    // Set a cookie to store the email for 30 days
-    setcookie('remembered_email', $_POST['email'], time() + (30 * 24 * 60 * 60), '/');
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -188,6 +188,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION["username"] = $username;
             // Passwords match
 
+
+
+
+
+
+
+
+
             // Execute the SQL query
             $query = "SELECT role.name
             FROM user
@@ -204,7 +212,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Output the role name
                 // echo "Role Name: " . $roleName;
                 $_SESSION["user_role"] =  $roleName;
-
 
                 echo '
                     <script>
@@ -227,15 +234,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             };
                     </script>
                 ';
-                //  "<script>
-                //     swal('Welcome!', 'Verified User!', 'success');
-                //     // .then(function ()=>{
-                //     // window.location.href = 'dashboard.php';
-                //     </script>";
-                //     header('Location: dashboard.php');
-
-
-
             } else {
                 // Passwords do not match
                 echo "<script>swal('txt','Invalid Passsword','error');</script>";
@@ -251,4 +249,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

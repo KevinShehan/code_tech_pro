@@ -88,7 +88,7 @@
         <li>
           <!-- Dashboard item -->
           <a href="dashboard.php" class="nav-link px-3 active">
-            <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+            <span class="me-2"> <i class="fa fa-tachometer-alt"></i></span>
             <span>Dashboard</span>
           </a>
         </li>
@@ -97,12 +97,13 @@
         </li>
         <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3 ">
+            <i class="fas fa-users"></i>
             Employee Management
           </div>
         </li>
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span class="me-2"> <i class="fas fa-users"></i></i></span>
             <span>Employee</span>
             <span class="ms-auto">
               <span class="right-icon">
@@ -114,13 +115,13 @@
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="viewusers.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Employee</span>
+                  <span class="me-2"><i class="fa fa-address-book"></i></span>
+                  <span>View Employees</span>
                 </a>
               </li>
               <li>
                 <a href="emp_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span class="me-2"><i class="fa fa-user-plus"></i></i></span>
                   <span>Add Employee</span>
                 </a>
               </li>
@@ -250,7 +251,47 @@
         </li>
         <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+          <i class="fa fa-chart-line"></i>
             Report Management
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
+            <span class="me-2">  <i class="fa fa-chart-line"></i></span>
+            <span>Report</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="layouts">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="change_pw.php" class="nav-link px-3">
+                  <span class="me-2"> <i class="fa fa-chart-line"></i></span>
+                  <span>Customer Report</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"> <i class="fa fa-chart-line"></i></span>
+                  <span>Supplier Reports</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+
+        <li class="my-8">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Profile Management
           </div>
         </li>
         <li>
@@ -280,7 +321,6 @@
             </ul>
           </div>
         </li>
-
         <!-- Pages item -->
 
         <!-- Other menu items -->

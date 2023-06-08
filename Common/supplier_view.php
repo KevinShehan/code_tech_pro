@@ -1,22 +1,12 @@
 <?php
 //register supplier
-session_start();
+
+require('pages/Auth.php');
 include('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
 ?>
-
-
-
-
-<?php
-//register supplier
-
-include('config/dbconnection.php');
-?>
-
-
 
 <!-- <script>
     // Add event listener to the delete button
@@ -58,7 +48,8 @@ include('config/dbconnection.php');
             type: 'POST',
             dataType: 'json',
             data: {
-                userId: <?php echo $Id; ?>
+                userId: <?php   // echo $Id; 
+                        ?>
             }, // Pass the user ID to delete.php
             success: function(response) {
                 // Display SweetAlertJS popup message
@@ -103,7 +94,6 @@ include('config/dbconnection.php');
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-
                         <h1>
                             <span><i class="bi bi-table me-2"></i></span> Suppliers
                         </h1>
@@ -214,54 +204,81 @@ include('config/dbconnection.php');
                                                 var button = $(this);
                                                 var id = button.data('id');
 
-                                                // Send AJAX request to delete.php with the ID parameter
-                                                $.ajax({
-                                                    url: 'supplier_delete.php?id=' + id,
-                                                    type: 'GET',
-                                                    dataType: 'json',
-                                                    success: function(response) {
-                                                        if (response.success) {
-                                                            // Show SweetAlert popup
-                                                            Swal.fire({
-                                                                title: 'Success',
-                                                                text: 'Record deleted successfully',
-                                                                icon: 'success'
-                                                            }).then(function() {
-                                                                // Refresh the page
-                                                                location.reload();
-                                                            });
-                                                        } else {
-                                                            // Show error message if deletion fails
+                                                // Display the confirmation dialog
+                                                Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Once deleted, you will not be able to recover this record!',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#d33',
+                                                    cancelButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Yes, delete it!',
+                                                    cancelButtonText: 'Cancel'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // User confirmed the delete operation
+                                                        // Call the delete function
+                                                        deleteRecord(id);
+                                                    }
+                                                });
+
+
+                                                function deleteRecord(id) {
+                                                    // Send AJAX request to delete.php with the ID parameter
+                                                    $.ajax({
+                                                        url: 'supplier_delete.php?id=' + id,
+                                                        type: 'GET',
+                                                        dataType: 'json',
+                                                        success: function(response) {
+                                                            if (response.success) {
+                                                                // Show SweetAlert popup
+                                                                Swal.fire({
+                                                                    title: 'Success',
+                                                                    text: 'Record deleted successfully',
+                                                                    icon: 'success'
+                                                                }).then(function() {
+                                                                    // Refresh the page
+                                                                    location.reload();
+                                                                });
+                                                            } else {
+                                                                // Show error message if deletion fails
+                                                                Swal.fire({
+                                                                    title: 'Error',
+                                                                    text: 'An error occurred while deleting the record',
+                                                                    icon: 'error'
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function() {
+                                                            // Show error message if the request fails
                                                             Swal.fire({
                                                                 title: 'Error',
                                                                 text: 'An error occurred while deleting the record',
                                                                 icon: 'error'
                                                             });
                                                         }
-                                                    },
-                                                    error: function() {
-                                                        // Show error message if the request fails
-                                                        Swal.fire({
-                                                            title: 'Error',
-                                                            text: 'An error occurred while deleting the record',
-                                                            icon: 'error'
-                                                        });
-                                                    }
-                                                });
+                                                    });
+
+
+
+
+
+
+
+
+                                                }
+
+
+
+
                                             });
                                         });
                                     </script>
                                 </div>
                             </div>
-
-
                         </div>
-
-
                     </div>
                 </div>
-
-
             </div>
         </div>
 </main>
@@ -281,47 +298,47 @@ include('config/dbconnection.php');
             <div class="modal-body">
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Mr </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Name :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin Shehan Perera </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Description :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kodal </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Logo :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">imge </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Contact1 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Contact2 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Address :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kegalle </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Email :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin.shehan30@gmail.com </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
+                    <input type="text" name="" id="" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
