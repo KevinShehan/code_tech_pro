@@ -296,50 +296,7 @@ include('Side_nav.php');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Description :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Logo :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact1 :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact2 :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Address :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Email :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <input type="text" name="" id="" class="form-control">
-                </div>
+             
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
