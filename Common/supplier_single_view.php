@@ -92,8 +92,8 @@ include('Side_nav.php');
     // Close the database connection
 }
 ?><style>
-    .dfdd{
-        background-color:antiquewhite;
+    .dfdd {
+        background-color: antiquewhite;
     }
 </style>
 

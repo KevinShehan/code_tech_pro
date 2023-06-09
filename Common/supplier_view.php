@@ -1,6 +1,5 @@
 <?php
-//register supplier
-
+//View supplier
 require('pages/Auth.php');
 include('config/dbconnection.php');
 include('pages/header.php');
@@ -10,7 +9,6 @@ include('Side_nav.php');
 
 <!-- Include SweetAlertJS library -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
     <div class="container-fluid">
@@ -18,9 +16,9 @@ include('Side_nav.php');
             <div class="col-md-8 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <h1>
+                        <h4>
                             <span><i class="bi bi-table me-2"></i></span> Suppliers
-                        </h1>
+                        </h4>
                     </div>
                     <div class="card-body">
                         <div class="">
@@ -30,27 +28,31 @@ include('Side_nav.php');
                                         body {
                                             background-color: lightcyan;
                                         }
+
+                                        .dataTables_wrapper {
+                                            margin-top: 20px;
+                                            /* Adjust the margin value as per your needs */
+                                        }
+
+                                        .dataTables_filter {
+                                            margin-bottom: 10px;
+                                            /* Adjust the margin value as per your needs */
+                                        }
                                     </style>
                                     <div class="form-group row" id="custom-input">
                                         <div class="col-sm-5">
                                             <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add Supplier</a>
                                         </div>
-                                        <div class="col-sm-7">
-                                            <form class="d-flex">
-                                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                                <button class="btn btn-primary" type="submit">Search</button>
-                                                <button class="btn btn-primary" type="reset">Clear</button>
-                                            </form>
-                                        </div>
                                     </div>
 
-                                    <table class="table" id="supplierTable">
+                                    <table class="table table-striped table-bordered" id="supplierTable">
                                         <thead>
                                             <tr class="table-primary">
                                                 <th scope="col">id</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Actions</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Telephone</th>
+                                                <th scope="col" class="col-3">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,16 +73,12 @@ include('Side_nav.php');
                                                 $html .= '<tr>';
                                                 $html .= '<td>' . $number . '</td>';
                                                 $html .= '<td>' . $row['name'] . '</td>';
-                                                $html .= '<td>' . $row['name'] . '</td>';
+                                                $html .= '<td>' . $row['address'] . '</td>';
+                                                $html .= '<td>' . $row['contact1'] . '</td>';
                                                 $html .= '<td>
-                                                    <button class="btn">
-                                                        <a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>
-                                                    </button>
-                                                    <button class="btn">
-                                                            <a class="viewBtn  btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
-                                                     </button>
-                            
-                                                    <button class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></button>
+                                                        <button class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></button>                                             
+                                                        <a class="viewBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
                                                 </td>';
                                                 $html .= '</tr>';
                                                 $number++;
@@ -179,42 +177,42 @@ include('Side_nav.php');
                                 <label for="searchInput" class="form-label">Name</label>
                                 <div class="d-flex">
                                     <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                   
+
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Description</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                 
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Description" readonly>
+
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Gender</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                   
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Gender" readonly>
+
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Contact 1</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                 
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Contact1" readonly>
+
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Contact 2</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                               
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Contact2" readonly>
+
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="searchInput" class="form-label">address</label>
+                                <label for="searchInput" class="form-label">Address</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Address" readonly>
+
                                 </div>
                             </div>
 
@@ -222,8 +220,8 @@ include('Side_nav.php');
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Email</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Email" readonly>
+
                                 </div>
                             </div>
 
@@ -231,8 +229,8 @@ include('Side_nav.php');
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Fax</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
+                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="FAX" readonly>
+
                                 </div>
                             </div>
                         </form>
@@ -247,6 +245,10 @@ include('Side_nav.php');
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#supplierTable').DataTable({
+            "paging": true,
+            "pageLength": 8
+        });
         // Function to load and update supplier records
         function loadSupplierRecords() {
             $.ajax({
