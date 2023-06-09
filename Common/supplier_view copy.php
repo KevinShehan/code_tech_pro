@@ -11,36 +11,32 @@ include('Side_nav.php');
 <!-- Include SweetAlertJS library -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 mb-3">
+            <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <h1>
-                            <span><i class="bi bi-table me-2"></i></span> Suppliers
-                        </h1>
+                        <h4>
+                            <span><td><i class="fas fa-users"></i> </span> Suppliers
+                        </h4>
                     </div>
                     <div class="card-body">
                         <div class="">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-8">
+
+
                                     <style>
                                         body {
                                             background-color: lightcyan;
                                         }
                                     </style>
                                     <div class="form-group row" id="custom-input">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-5 ">
                                             <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add Supplier</a>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <form class="d-flex">
-                                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                                <button class="btn btn-primary" type="submit">Search</button>
-                                                <button class="btn btn-primary" type="reset">Clear</button>
-                                            </form>
                                         </div>
                                     </div>
 
@@ -73,15 +69,15 @@ include('Side_nav.php');
                                                 $html .= '<td>' . $row['name'] . '</td>';
                                                 $html .= '<td>' . $row['name'] . '</td>';
                                                 $html .= '<td>
-                                                    <button class="btn">
-                                                        <a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>
-                                                    </button>
-                                                    <button class="btn">
-                                                            <a class="viewBtn  btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
-                                                     </button>
-                            
-                                                    <button class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></button>
-                                                </td>';
+                                    <button class=" btn ">
+                                     <a class="viewBtn btn btn-info" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i>
+                                     </a></button>
+                                   
+                                    <button class="updateBtn btn btn-warning" data-id="' . $row['id'] . '" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                    <button class="deleteBtn btn btn-danger" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    </td>';
                                                 $html .= '</tr>';
                                                 $number++;
                                             }
@@ -166,83 +162,31 @@ include('Side_nav.php');
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>
-                            <span><i class="bi bi-funnel me-2"></i></span> Supplier View
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Name</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                   
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Description</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                 
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Gender</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                   
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Contact 1</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                                 
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Contact 2</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                               
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">address</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
-                                </div>
-                            </div>
+        </div>
+</main>
 
 
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Email</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
-                                </div>
-                            </div>
 
 
-                            <div class="mb-3">
-                                <label for="searchInput" class="form-label">Fax</label>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
-                            
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Supplier Update Form</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
-</main>
-
+</div>
 <!-- Include SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
 <script>
@@ -265,6 +209,7 @@ include('Side_nav.php');
                 }
             });
         }
+
         // Load initial supplier records
         loadSupplierRecords();
 

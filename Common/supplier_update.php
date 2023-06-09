@@ -8,6 +8,29 @@ include('Side_nav.php');
 ?>
 
 
+
+<?php
+// Retrieve the supplier ID from the URL parameter
+$supplierId = $_GET['id'];
+
+// Fetch the relevant data of the supplier based on the ID
+$query= "SELECT * from supplier where id='$supplierId'";
+$supplierData =mysqli_query($con,$query);
+while ($row = mysqli_fetch_assoc($supplierData)) {
+  $id = $row['id'];
+
+}
+// Replace the code below with your database query to fetch the supplier data
+// $supplierData = fetchSupplierData($supplierId);
+
+// Populate the form fields with the retrieved data
+$nameTitle = $supplierData['name_title'];
+$name = $supplierData['name'];
+$description = $supplierData['description'];
+// Add more fields as needed
+?>
+
+
 <!-- <script>
     // Add event listener to the delete button
     document.getElementById('deleteButton').addEventListener('click', function() {
@@ -91,7 +114,9 @@ include('Side_nav.php');
         <div class="card">
           <div class="card-header">
             <h4>
-              <span><i class="bi bi-table me-2"></i></span> Update Supplier
+              <span>
+                <i class="fas fa-store"></i>
+            </span> Update Supplier
             </h4>
           </div>
           <div class="card-body">
@@ -238,7 +263,7 @@ include('Side_nav.php');
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card">
+        <div class="card p-3">
           <img src="Assets/images/Login/user.png" class="card-img-top" alt="Image">
         </div>
       </div>
