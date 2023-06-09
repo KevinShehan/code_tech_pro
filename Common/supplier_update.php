@@ -17,16 +17,16 @@ $supplierId = $_GET['id'];
 $query= "SELECT * from supplier where id='$supplierId'";
 $supplierData =mysqli_query($con,$query);
 while ($row = mysqli_fetch_assoc($supplierData)) {
-  $id = $row['id'];
+  $nameTitle = $row['code'];
+  $name = $row['name'];
+  $description = $row['description'];
 
 }
 // Replace the code below with your database query to fetch the supplier data
 // $supplierData = fetchSupplierData($supplierId);
 
 // Populate the form fields with the retrieved data
-$nameTitle = $supplierData['name_title'];
-$name = $supplierData['name'];
-$description = $supplierData['description'];
+
 // Add more fields as needed
 ?>
 
@@ -133,7 +133,7 @@ $description = $supplierData['description'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -143,7 +143,7 @@ $description = $supplierData['description'];
                   <b> Name: </b></label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -153,7 +153,7 @@ $description = $supplierData['description'];
                   Description:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -163,7 +163,7 @@ $description = $supplierData['description'];
                   Logo:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -174,7 +174,7 @@ $description = $supplierData['description'];
                   Gender:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -185,7 +185,7 @@ $description = $supplierData['description'];
                   Contact Number1:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -197,7 +197,7 @@ $description = $supplierData['description'];
                   Contact Number 2:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -209,7 +209,7 @@ $description = $supplierData['description'];
                   Address:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -221,7 +221,7 @@ $description = $supplierData['description'];
                   E-mail:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -233,7 +233,7 @@ $description = $supplierData['description'];
                   Supplier Status:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
@@ -245,7 +245,7 @@ $description = $supplierData['description'];
                   Supplier Type:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control">
+                <input type="text" name="" id="" class="form-control"  value="<?php echo ( $nameTitle) ?>">
               </div>
             </div>
 
