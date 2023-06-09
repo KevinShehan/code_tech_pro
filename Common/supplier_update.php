@@ -14,13 +14,18 @@ include('Side_nav.php');
 $supplierId = $_GET['id'];
 
 // Fetch the relevant data of the supplier based on the ID
-$query= "SELECT * from supplier where id='$supplierId'";
-$supplierData =mysqli_query($con,$query);
+$query = "SELECT * from supplier where id='$supplierId'";
+$supplierData = mysqli_query($con, $query);
 while ($row = mysqli_fetch_assoc($supplierData)) {
-  $nameTitle = $row['code'];
+  $code = $row['code'];
+  $nametitle = $row['nametitle'];
   $name = $row['name'];
   $description = $row['description'];
-
+  $contact1 = $row['contact1'];
+  $contact2 = $row['contact2'];
+  $address = $row['address'];
+  $email = $row['email'];
+  $fax = $row['fax'];
 }
 // Replace the code below with your database query to fetch the supplier data
 // $supplierData = fetchSupplierData($supplierId);
@@ -116,7 +121,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
             <h4>
               <span>
                 <i class="fas fa-store"></i>
-            </span> Update Supplier
+              </span> Update Supplier
             </h4>
           </div>
           <div class="card-body">
@@ -132,8 +137,17 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   <b> Name Title: </b>
                 </label>
               </div>
+
+              <select class="form-select" aria-label="Select Option">
+                <option selected>Select Option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
+
+
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -143,7 +157,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   <b> Name: </b></label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($name) ?>">
               </div>
             </div>
 
@@ -153,7 +167,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Description:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>">
               </div>
             </div>
 
@@ -163,7 +177,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Logo:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -174,7 +188,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Gender:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -185,7 +199,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Contact Number1:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>">
               </div>
             </div>
 
@@ -197,7 +211,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Contact Number 2:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>">
               </div>
             </div>
 
@@ -209,7 +223,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Address:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
               </div>
             </div>
 
@@ -221,9 +235,20 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   E-mail:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
               </div>
             </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label">
+                  E-mail:</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fax) ?>">
+              </div>
+            </div>
+
 
 
 
@@ -233,7 +258,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Supplier Status:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nameTitle) ?>">
               </div>
             </div>
 
@@ -245,7 +270,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Supplier Type:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control"  value="<?php echo ( $nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nameTitle) ?>">
               </div>
             </div>
 

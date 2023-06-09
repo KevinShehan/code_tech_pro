@@ -16,7 +16,7 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
 ></script>
  -->
-
+ <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 </body>
 
 </html>
