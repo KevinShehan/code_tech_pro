@@ -1,126 +1,242 @@
+<?php
+//View supplier
+require('pages/Auth.php');
+include('config/dbconnection.php');
+include('pages/header.php');
+include('Top_nav.php');
+include('Side_nav.php');
+?>
+<main class="mt-5 pt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <span><i class="bi bi-table me-2"></i></span> Employees
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-12">
+                                    <style>
+                                        body {
+                                            background-color: lightcyan;
+                                        }
 
-    <?php
-    include('Pages/Header.php');
-    include('Top_nav.php');
-    include('Side_nav.php');
-    ?>
-    <!-- offcanvas -->
-    <main class="mt-5 pt-3">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <span><i class="bi bi-table me-2"></i></span> Employess
-                        </div>
-                        <div class="card-body">
+                                        .dataTables_wrapper {
+                                            margin-top: 20px;
+                                            /* Adjust the margin value as per your needs */
+                                        }
 
-                        <caption>
-        <h2>Users</h2>
-    </caption>
-    <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New User</a>
-    <table class="table">
+                                        .dataTables_filter {
+                                            margin-bottom: 10px;
+                                            /* Adjust the margin value as per your needs */
+                                        }
+                                    </style>
+                                    <div class="form-group row" id="custom-input">
+                                        <div class="col-sm-5">
+                                            <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add User</a>
+                                        </div>
+                                    </div>
 
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Username</th>
-                <th scope="col">Password</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>
-                    <img src="eye-fill.svg" alt="" srcset="">
-                    <img src="pencil-square.svg" alt="" srcset="">
-                    <img src="trash3.svg" alt="" srcset="">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td> <img src="eye-fill.svg" alt="" srcset="">
-                    <img src="pencil-square.svg" alt="" srcset="">
-                    <img src="trash3.svg" alt="" srcset="">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td> <img src="eye-fill.svg" alt="" srcset="">
-                    <img src="pencil-square.svg" alt="" srcset="">
-                    <img src="trash3.svg" alt="" srcset="">
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                    <table class="table table-striped table-bordered" id="supplierTable">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col">id</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Telephone</th>
+                                                <th scope="col" class="col-3">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Fetch latest supplier records from the database
+                                            $query = 'SELECT * FROM supplier';
+                                            $result = mysqli_query($con, $query);
 
-                            <div class="form-group row">
-                                <div class="col-sm-5 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary" onclick="generatePassword()">Update Details</button>
+                                            if (!$result) {
+                                                die('Error: ' . mysqli_error($con));
+                                            }
+
+                                            // Generate the HTML markup for supplier records
+                                            $html = '';
+                                            $number = 1;
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $id = $row['id'];
+                                                $html .= '<tr>';
+                                                $html .= '<td>' . $number . '</td>';
+                                                $html .= '<td>' . $row['name'] . '</td>';
+                                                $html .= '<td>' . $row['address'] . '</td>';
+                                                $html .= '<td>' . $row['contact1'] . '</td>';
+                                                $html .= '<td>
+                                                        <button class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></button>                                             
+                                                        <a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
+                                                </td>';
+                                                $html .= '</tr>';
+                                                $number++;
+                                            }
+
+                                            echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
+                                            ?>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Include jQuery -->
+                                    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+                                    <!-- Include SweetAlert JS -->
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Button click event handler
+                                            $(document).on('click', '.deleteBtn', function() {
+                                                var button = $(this);
+                                                var id = button.data('id');
+
+                                                // Display the confirmation dialog
+                                                Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Once deleted, you will not be able to recover this record!',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#d33',
+                                                    cancelButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Yes, delete it!',
+                                                    cancelButtonText: 'Cancel'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // User confirmed the delete operation
+                                                        // Call the delete function
+                                                        deleteRecord(id);
+                                                    }
+                                                });
+
+
+                                                function deleteRecord(id) {
+                                                    // Send AJAX request to delete.php with the ID parameter
+                                                    $.ajax({
+                                                        url: 'supplier_delete.php?id=' + id,
+                                                        type: 'GET',
+                                                        dataType: 'json',
+                                                        success: function(response) {
+                                                            if (response.success) {
+                                                                // Show SweetAlert popup
+                                                                Swal.fire({
+                                                                    title: 'Success',
+                                                                    text: 'Record deleted successfully',
+                                                                    icon: 'success'
+                                                                }).then(function() {
+                                                                    // Refresh the page
+                                                                    location.reload();
+                                                                });
+                                                            } else {
+                                                                // Show error message if deletion fails
+                                                                Swal.fire({
+                                                                    title: 'Error',
+                                                                    text: 'An error occurred while deleting the record',
+                                                                    icon: 'error'
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function() {
+                                                            // Show error message if the request fails
+                                                            Swal.fire({
+                                                                title: 'Error',
+                                                                text: 'An error occurred while deleting the record',
+                                                                icon: 'error'
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4 mb-3">
+                <div class="card sup_single">
+                    <div class="card-header">
+                        <h4>
+                            <span><i class="bi bi-funnel me-2"></i></span> Supplier View
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Name</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_name" placeholder="Enter name" readonly>
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Description</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_description" placeholder="Description" readonly>
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Gender</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_gender" placeholder="Gender" readonly>
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Contact 1</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_contact1" placeholder="Contact1" readonly>
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Contact 2</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_contact2" placeholder="Contact2" readonly>
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Address</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_address" placeholder="Address" readonly>
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Email</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_email" placeholder="Email" readonly>
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Fax</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="sup_fax" placeholder="FAX" readonly>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <?php
-    include('Pages/Footer.php');
-
-    ?>
-
-
-    <?php
-    // Database configuration
-    $host = 'localhost';
-    $dbName = 'v1';
-    $user = 'root';
-    $password = '1234';
-
-    // Create a new MySQLi instance
-    $con = new mysqli($host, $user, $password, $dbName);
-
-    // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $mysqli->connect_error);
-    }
-
-    // Retrieve data from the database
-    $query = "SELECT * FROM v1.user";
-    $result = mysqli_query($con, $query);
-
-
-    // Check if any records were found
-    if (mysqli_num_rows($result) > 0) {
-        // Start the HTML table
-        echo "<table>";
-        echo "<tr><th>id</th> <th>Username</th> <th>Password</th></tr>";
-
-        // Fetch and display each row of data
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['column1'] . "</td>";
-            echo "<td>" . $row['column2'] . "</td>";
-            echo "<td>" . $row['column3'] . "</td>";
-            echo "</tr>";
-        }
-
-        // End the HTML table
-        echo "</table>";
-    } else {
-        echo "No records found.";
-    }
-    ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php
+include('Pages/Footer.php');
+?>

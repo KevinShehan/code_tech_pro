@@ -27,6 +27,9 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
   $email = $row['email'];
   $fax = $row['fax'];
 }
+
+
+$query2 = "SELECT gender.name from supplier where id='$supplierId'";
 // Replace the code below with your database query to fetch the supplier data
 // $supplierData = fetchSupplierData($supplierId);
 
@@ -258,7 +261,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Supplier Status:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -270,7 +273,7 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
                   Supplier Type:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nameTitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 

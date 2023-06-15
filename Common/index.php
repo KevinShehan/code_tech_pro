@@ -1,11 +1,9 @@
 <?php
-session_start();
+// session_start();
 // if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
 //     // Set a cookie to store the email for 30 days
 //     setcookie('remembered_email', $_POST['username'], time() + (30 * 24 * 60 * 60), '/');
 // }
-
-
 require('pages/header.php');
 ?>
 <style>
@@ -187,10 +185,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION["loggedin"] = true;
             $_SESSION["username"] = $username;
             // Passwords match
-
-
-
-
 
 
 

@@ -77,8 +77,8 @@ include('Side_nav.php');
                                                 $html .= '<td>' . $row['contact1'] . '</td>';
                                                 $html .= '<td>
                                                         <button class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></button>                                             
-                                                        <a class="viewBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
+                                                        <a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
                                                 </td>';
                                                 $html .= '</tr>';
                                                 $number++;
@@ -165,7 +165,7 @@ include('Side_nav.php');
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="card">
+                <div class="card sup_single">
                     <div class="card-header">
                         <h4>
                             <span><i class="bi bi-funnel me-2"></i></span> Supplier View
@@ -176,42 +176,42 @@ include('Side_nav.php');
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Name</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Enter name" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_name" placeholder="Enter name" readonly>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Description</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Description" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_description" placeholder="Description" readonly>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Gender</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Gender" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_gender" placeholder="Gender" readonly>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Contact 1</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Contact1" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_contact1" placeholder="Contact1" readonly>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Contact 2</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Contact2" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_contact2" placeholder="Contact2" readonly>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Address</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Address" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_address" placeholder="Address" readonly>
 
                                 </div>
                             </div>
@@ -220,7 +220,7 @@ include('Side_nav.php');
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Email</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="Email" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_email" placeholder="Email" readonly>
 
                                 </div>
                             </div>
@@ -229,7 +229,7 @@ include('Side_nav.php');
                             <div class="mb-3">
                                 <label for="searchInput" class="form-label">Fax</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchInput" placeholder="FAX" readonly>
+                                    <input type="text" class="form-control me-2" id="sup_fax" placeholder="FAX" readonly>
 
                                 </div>
                             </div>
@@ -267,6 +267,66 @@ include('Side_nav.php');
                 }
             });
         }
+
+        function loadSupplierDetails(id) {
+            $.ajax({
+                url: 'supplier_single_view.php?id=' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Display the supplier details in the sup_single card
+                        $('#sup_name').val(response.data.name);
+                        $('#sup_description').val(response.data.description);
+                        $('#sup_gender').val(response.data.gender);
+                        $('#sup_contact1').val(response.data.contact1);
+                        $('#sup_contact2').val(response.data.contact2);
+                        $('#sup_address').val(response.data.address);
+                        $('#sup_email').val(response.data.email);
+                        $('#sup_fax').val(response.data.fax);
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Failed to load supplier details',
+                            icon: 'error'
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while loading the supplier details',
+                        icon: 'error'
+                    });
+                }
+            });
+        }
+
+
+
+
+
+
+        $(document).on('click', '.viewBtn', function(event) {
+            event.preventDefault();
+
+            var id = $(this).attr('href').split('?id=')[1];
+
+            // Call the function to load and display the supplier details
+            loadSupplierDetails(id);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
         // Load initial supplier records
         loadSupplierRecords();
 
