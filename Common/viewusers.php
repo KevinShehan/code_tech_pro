@@ -54,7 +54,7 @@ include('Side_nav.php');
                                         <tbody>
                                             <?php
                                             // Fetch latest supplier records from the database
-                                            $query = 'SELECT * FROM supplier';
+                                            $query = 'SELECT * FROM employee';
                                             $result = mysqli_query($con, $query);
 
                                             if (!$result) {
@@ -68,9 +68,9 @@ include('Side_nav.php');
                                                 $id = $row['id'];
                                                 $html .= '<tr>';
                                                 $html .= '<td>' . $number . '</td>';
-                                                $html .= '<td>' . $row['name'] . '</td>';
+                                                $html .= '<td>' . $row['callingname'] . '</td>';
                                                 $html .= '<td>' . $row['address'] . '</td>';
-                                                $html .= '<td>' . $row['contact1'] . '</td>';
+                                                $html .= '<td>' . $row['mobile'] . '</td>';
                                                 $html .= '<td>
                                                         <button class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></button>                                             
                                                         <a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
