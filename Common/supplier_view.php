@@ -14,7 +14,7 @@ include('Side_nav.php');
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 mb-3">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h4>
                             <span><i class="bi bi-table me-2"></i></span> Suppliers

@@ -6,8 +6,25 @@
   }
 </style>
 
-<div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+<?php
 
+
+function privilledge()
+{
+  if ($_SESSION['user_role'] == 'admin') {
+  } else {
+    if ($_SESSION['user_role'] == 'cashier') {
+    } else {
+      if ($_SESSION['user_role'] == 'technician') {
+      } else {
+      }
+    }
+  }
+}
+?>
+
+
+<div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
   <div class="offcanvas-body p-0">
     <nav class="navbar-dark">
       <ul class="navbar-nav">
@@ -38,7 +55,7 @@
                       // Display the image
                       echo '<img src="path_to_images_folder/' . $image . '" alt="Employee Image">';
                     } else {
-                      echo 'No image found for the user.';
+                      echo '<img src="Assets/images/dashboard/user_logo.png" style="width:40px;">';
                     }
                     ?>
                   </div>
@@ -173,6 +190,51 @@
 
 
 
+
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Item Management
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#itemsMenu">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Items</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="itemsMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>New Item</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>View Items</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+
+
+
+
+
+
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -182,7 +244,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Sales</span>
             <span class="ms-auto">
@@ -191,7 +253,7 @@
               </span>
             </span>
           </a>
-          <div class="collapse" id="layouts">
+          <div class="collapse" id="salesMenu">
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
@@ -209,6 +271,14 @@
           </div>
         </li>
 
+
+
+
+
+
+
+
+
         <li class="my-7">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -218,7 +288,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Purchase</span>
             <span class="ms-auto">
@@ -227,7 +297,7 @@
               </span>
             </span>
           </a>
-          <div class="collapse" id="layouts">
+          <div class="collapse" id="purchaseMenu">
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
@@ -251,13 +321,13 @@
         </li>
         <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-          <i class="fa fa-chart-line"></i>
+            <i class="fa fa-chart-line"></i>
             Report Management
           </div>
         </li>
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
-            <span class="me-2">  <i class="fa fa-chart-line"></i></span>
+            <span class="me-2"> <i class="fa fa-chart-line"></i></span>
             <span>Report</span>
             <span class="ms-auto">
               <span class="right-icon">
