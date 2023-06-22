@@ -14,6 +14,17 @@
       <div class="col-md-12">
         <h4>Dashboard
 
+
+      
+
+
+
+
+
+
+
+
+
         </h4>
       </div>
     </div>
@@ -82,7 +93,7 @@
               $result->free_result();
             } else {
               // Handle the query error
-              echo "Error: " . $conn->error;
+              echo "Error: " . $con->error;
             }
 
             ?>

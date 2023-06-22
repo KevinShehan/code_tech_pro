@@ -9,7 +9,7 @@ include('Side_nav.php');
 <main class="mt-5 pt-3">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 mb-3">
+            <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
                         <h4>
@@ -160,7 +160,7 @@ include('Side_nav.php');
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
                 <div class="card sup_single">
                     <div class="card-header">
                         <h4>
@@ -232,7 +232,7 @@ include('Side_nav.php');
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </main>

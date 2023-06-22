@@ -372,11 +372,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // $imageData = file_get_contents($image);
 
 
-  $employeeInsertQuery = "INSERT INTO employee (code, nametitle_id, callingname, fullname,
-  civilstatus_id, photo, dob, gender_id, nic, mobile, land, email, address ,dorecruite, employeestatus_id) 
-  VALUES ('$emp_code', '$nametitle', '$callname',' $fullname',' $civilstatus',' $image',
-  '$dob','$gender','$nic','$mobile1','$land','$username','$address','$dorecruite','$employeestatus_id')";
 
+  // Process and save the image
+  $targetDir = "db_data/employee/"; // Path to the folder where you want to save the images
+  $fileName = basename($_FILES["proimg"]["name"]);
+  $targetFilePath = $targetDir . $fileName;
+  $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+  // Check if the file is an actual image
+  $check = getimagesize($_FILES["proimg"]["tmp_name"]);
+
+
+  if ($check !== false) {
+    if (move_uploaded_file($_FILES["proimg"]["tmp_name"], $targetFilePath)) {
+
+
+      $employeeInsertQuery = "INSERT INTO employee (code, nametitle_id, callingname, fullname,
+    civilstatus_id, photo, dob, gender_id, nic, mobile, land, email, address ,dorecruite, employeestatus_id) 
+    VALUES ('$emp_code', '$nametitle', '$callname',' $fullname',' $civilstatus','$targetFilePath',
+    '$dob','$gender','$nic','$mobile1','$land','$username','$address','$dorecruite','$employeestatus_id')";
+    }
+  }
 
   // $stmt1 = $con->prepare($sql1);
   // $stmt1->bind_param("ss", $username,  $hashedPassword);
@@ -440,7 +456,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </script>
         ";
   }
-
 }
 
 //Close connection

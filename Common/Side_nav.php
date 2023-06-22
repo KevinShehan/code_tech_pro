@@ -38,25 +38,31 @@ function privilledge()
                   <div class="card-body">
                     <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
                     <?php
+
                     include('config/dbconnection.php');
                     // Assuming you have established a database connection
                     $username = $_SESSION["username"];
                     // Fetch the employee data from the database
-                    $query = "SELECT employee.photo
-                          FROM employee
-                          JOIN user ON employee.id = user.employee_id
-                          WHERE user.username = ' $username'";
-                    $result = mysqli_query($con, $query);
 
+                    $query = "SELECT employee.photo
+        FROM employee
+           JOIN user ON employee.id = user.employee_id
+  WHERE user.username = '$username'";
+                    $result = mysqli_query($con, $query);
                     if ($result && mysqli_num_rows($result) > 0) {
                       $row = mysqli_fetch_assoc($result);
-                      $image = $row['photo'];
+                      $imagePath = $row['photo'];
 
-                      // Display the image
-                      echo '<img src="path_to_images_folder/' . $image . '" alt="Employee Image">';
+                      // Step 3: Create the image tag
+                      $imageTag = '<img src="' . $imagePath . '" alt="profile _image" style="width:60px;height:60px; border-radius: 50%;
+  object-fit: cover;" class="shadow">';
+
+                      // Step 4: Output the image tag
+                      echo $imageTag;
                     } else {
-                      echo '<img src="Assets/images/dashboard/user_logo.png" style="width:40px;">';
+                      echo "Image not found.";
                     }
+
                     ?>
                   </div>
                 </div>
@@ -326,7 +332,7 @@ function privilledge()
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#reportMenu">
             <span class="me-2"> <i class="fa fa-chart-line"></i></span>
             <span>Report</span>
             <span class="ms-auto">
@@ -335,7 +341,7 @@ function privilledge()
               </span>
             </span>
           </a>
-          <div class="collapse" id="layouts">
+          <div class="collapse" id="reportMenu">
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="change_pw.php" class="nav-link px-3">

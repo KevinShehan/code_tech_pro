@@ -1,5 +1,8 @@
 <?php
 //register supplier
+
+// use LDAP\Result;
+
 require('pages/Auth.php');
 include('config/dbconnection.php');
 include('pages/header.php');
@@ -13,7 +16,7 @@ include('Side_nav.php');
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 mb-3">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h3>
                             <span><i class="bi bi-table me-2"></i></span> Change Password
@@ -30,9 +33,7 @@ include('Side_nav.php');
                                 text-align: right;
                             }
                         </style>
-                        <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" novalidate>
-
-
+                        <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
                             <div class="form-group row" id="custom-input">
                                 <label for="gender" class="col-sm-2 col-form-label">Current Password</label>
                                 <div class="col-sm-5">
@@ -59,7 +60,7 @@ include('Side_nav.php');
 
                             <div class="form-group row" id="custom-input">
                                 <div class="col-sm-5">
-                                    <button class="btn btn-success">Change Password</button>
+                                    <button class="btn btn-success" type="submit">Change Password</button>
                                 </div>
                             </div>
                         </form>
@@ -168,14 +169,54 @@ include('Side_nav.php');
 <!-- Backend Part -->
 <?php
 require('pages/footer.php');
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $currentPassword = $_POST['current_pw'];
-    $newPassword = $_POST['new_pw'];
-    $confirmPassword = $_POST['re_new_pw'];
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     $currentPassword = $_POST['current_pw'];
+//     $newPassword = $_POST['new_pw'];
+//     $confirmPassword = $_POST['re_new_pw'];
+//     $logged_usr = $_SESSION["username"];
 
-    if($newPassword== $confirmPassword){
-        echo "<scrip>alert('Pass');</script>";
+//     $query = "SELECT password from user where username=$logged_usr";
+//     // // $Result = mysqli_query($con, $query);
+//     echo $currentPassword;
+
+
+
+//     if ($result && mysqli_num_rows($result) > 0) {
+
+
+//     }
+
+
+
+
+//     password_verify( $currentPassword, $hashedPasswordFromDB)
+
+//     if ($newPassword == $confirmPassword) {
+
+//         echo "<scrip>alert('Pass');</script>";
+//     }
+//     else{
+//         echo "<scrip>alert('Fail');</script>";
+//     }
+// }
+// $con->close();
+?>
+
+
+
+
+
+<?php
+$id = $_SESSION["id"];/* userid of the user */
+
+if (count($_POST) > 0) {
+    $result = mysqli_query($con, "SELECT *from student WHERE name='" . $id . "'");
+    $row = mysqli_fetch_array($result);
+    if ($_POST["currentPassword"] == $row["password"] && $_POST["newPassword"] == $row["confirmPassword"]) {
+        mysqli_query($con, "UPDATE student set password='" . $_POST["newPassword"] . "' WHERE name='" . $id . "'");
+        $message = "Password Changed Sucessfully";
+    } else {
+        $message = "Password is not correct";
     }
 }
-$con->close();
 ?>
