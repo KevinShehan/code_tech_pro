@@ -31,10 +31,13 @@ $result= mysqli_query($con, $query);
 if ($result && mysqli_num_rows($result) > 0) {
   $row = mysqli_fetch_assoc($result);
   $callingname = $row['callingname'];
+  $nametitle = $row['nametitle_id'];
 }
 
-
-
+$query_nametitle="SELECT nametitle.name from nametitle JOIN employee ON nametitle.id=employee.nametitle_id where nametitle_id='$nametitle'";
+$result_nametitle= mysqli_query($con, $query_nametitle);
+$row_nametitle = mysqli_fetch_assoc($result_nametitle);
+$nametitle_new = $row['nametitle'];
 
 
 
@@ -72,16 +75,8 @@ include('Side_nav.php');
                 </label>
               </div>
 
-              <select class="form-select" aria-label="Select Option">
-                <option selected>Select Option</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
-
-
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle_new) ?>" readonly>
               </div>
             </div>
 
@@ -101,7 +96,7 @@ include('Side_nav.php');
                   Description:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -111,7 +106,7 @@ include('Side_nav.php');
                   Logo:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -122,7 +117,7 @@ include('Side_nav.php');
                   Gender:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -133,7 +128,7 @@ include('Side_nav.php');
                   Contact Number1:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -145,7 +140,7 @@ include('Side_nav.php');
                   Contact Number 2:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -157,7 +152,7 @@ include('Side_nav.php');
                   Address:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly >
               </div>
             </div>
 
@@ -169,7 +164,7 @@ include('Side_nav.php');
                   E-mail:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly >
               </div>
             </div>
 
@@ -179,7 +174,7 @@ include('Side_nav.php');
                   E-mail:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($fax) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
               </div>
             </div>
 
@@ -192,7 +187,7 @@ include('Side_nav.php');
                   Supplier Status:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
               </div>
             </div>
 
@@ -204,7 +199,7 @@ include('Side_nav.php');
                   Supplier Type:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
               </div>
             </div>
 
@@ -213,7 +208,7 @@ include('Side_nav.php');
 
             <div class="form-group row mb-3">
               <div class="offset-sm-4 col-sm-8">
-                <button type="submit" class="btn btn-success" name="submit">Update Supplier</button>
+                <button type="submit" class="btn btn-success" name="submit">Edit User</button>
               </div>
             </div>
 

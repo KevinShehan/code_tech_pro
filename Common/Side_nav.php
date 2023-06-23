@@ -34,70 +34,72 @@ function privilledge()
           <div class="card" style="background-color: #202529;color:aliceblue; border-color:aqua">
             <div class="card-body">
               <a href="Profile.php" target="_self" rel="noopener noreferrer" style=" text-decoration: none; color:white;">
-                <div class="card text-dark " style="width: 60px; height:60px;">
-                  <div class="card-body">
-                    <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
-                    <?php
 
-                    include('config/dbconnection.php');
-                    // Assuming you have established a database connection
-                    $username = $_SESSION["username"];
-                    // Fetch the employee data from the database
 
-                    $query = "SELECT employee.photo
-        FROM employee
-           JOIN user ON employee.id = user.employee_id
-  WHERE user.username = '$username'";
-                    $result = mysqli_query($con, $query);
-                    if ($result && mysqli_num_rows($result) > 0) {
-                      $row = mysqli_fetch_assoc($result);
-                      $imagePath = $row['photo'];
 
-                      // Step 3: Create the image tag
-                      $imageTag = '<img src="' . $imagePath . '" alt="profile _image" style="width:60px;height:60px; border-radius: 50%;
-  object-fit: cover;" class="shadow">';
+                <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
+                <?php
+                include('config/dbconnection.php');
 
-                      // Step 4: Output the image tag
-                      echo $imageTag;
-                    } else {
-                      echo "Image not found.";
-                    }
+                // Assuming you have established a database connection
+                $username = $_SESSION["username"];
 
-                    ?>
-                  </div>
-                </div>
-                <div>
+                // Fetch the employee data from the database
+                $query = "SELECT employee.photo FROM employee JOIN user ON employee.id = user.employee_id  WHERE user.username = '$username'";
+                $result = mysqli_query($con, $query);
+
+                if ($result && mysqli_num_rows($result) > 0) {
+                  $row = mysqli_fetch_assoc($result);
+                  $imagePath = $row['photo'];
+
+                  if (file_exists($imagePath)) {
+                    // Step 3: Create the image tag
+                    $imageTag = '<img src="' . $imagePath . '" alt="profile_image" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; float: left;" class="shadow">';
+                  } else {
+                    $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+                  }
+                } else {
+                  $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+                }
+
+                // Step 4: Output the image tag
+                echo $imageTag;
+                ?>
+
+
+                <div style="float: right;">
                   <?php
-                  include('config/dbconnection.php');
+
 
                   $username = $_SESSION["username"];
 
                   // Execute the SQL query
-                  $query = "SELECT employee.callingname
-                  FROM employee
-                  JOIN user ON user.employee_id = employee.id
-                   WHERE user.username = '$username'";
+                  $query = "SELECT employee.callingname FROM employee JOIN user ON user.employee_id = employee.id WHERE user.username = '$username'";
                   $result1 = mysqli_query($con, $query);
 
                   // Check if any rows were returned
                   if (mysqli_num_rows($result1) > 0) {
-                    // Fetch the role name from the query result
+                    // Fetch the calling name from the query result
                     $row = mysqli_fetch_assoc($result1);
                     $callingName = $row['callingname'];
 
-                    // Output the role name
-                    // echo "Role Name: " . $roleName;
+                    // Output the calling name
                     echo $callingName;
                   }
                   ?>
+                <br/>
+
+
+
+                  <span class="text-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                      <circle cx="4" cy="4" r="4" />
+                    </svg>
+                  </span>
+                  <?php
+                  echo $_SESSION["user_role"]; ?>
                 </div>
-                <span class="text-success">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-                    <circle cx="4" cy="4" r="4" />
-                  </svg>
-                </span>
-                <?php
-                echo $_SESSION["user_role"]; ?>
+
               </a>
             </div>
           </div>
