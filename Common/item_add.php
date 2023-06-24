@@ -30,7 +30,7 @@ include('Side_nav.php');
                             <label>Description</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Quantity</label>
-                            <input type="number" name="" id="" class="form-control">
+                            <input type="number" name="" id="" class="form-control"  min="0" required>
                             <label>Warrenty Period</label>
                             <input type="text" name="" id="" class="form-control">
                             <div class="input-group justify-content-end">

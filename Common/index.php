@@ -1,9 +1,9 @@
 <?php
-// session_start();
-// if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
-//     // Set a cookie to store the email for 30 days
-//     setcookie('remembered_email', $_POST['username'], time() + (30 * 24 * 60 * 60), '/');
-// }
+session_start();
+if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
+    // Set a cookie to store the email for 30 days
+    setcookie('remembered_email', $_POST['username'], time() + (30 * 24 * 60 * 60), '/');
+}
 require('pages/header.php');
 ?>
 <style>
@@ -62,8 +62,6 @@ require('pages/header.php');
         line-height: 24px;
         color: rgba(0, 0, 0, 0.8);
     }
-
-
     .input-field {
         display: flex;
         flex-direction: column;
@@ -148,7 +146,6 @@ require('pages/header.php');
                         <div class="forget">
                             <a href="forget_password.php" style="text-decoration: none;">Forget Password</a>
                         </div>
-
                         <button type="submit" class="btn btn-primary shadow">Login</button>
                     </form>
                 </div>
@@ -169,6 +166,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $userEnteredPassword = $password; // Assuming the user-entered password is received via a form post.
 
+
+
+     // Validate email using regex
+     $emailRegex = "/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/";
+     if (!preg_match($emailRegex, $username)) {
+        echo '<script>alert("Invalid email format");</script>';
+    } 
+
+
+
+
+
+
     $query = "SELECT password FROM user WHERE username = '$username'";
     $result = mysqli_query($con, $query);
 
@@ -186,15 +196,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION["username"] = $username;
             // Passwords match
 
-
-
-
-
             // Execute the SQL query
-            $query = "SELECT role.name
-            FROM user
-            JOIN role ON user.role_id = role.id
-            WHERE user.username = '$username'";
+            $query = "SELECT role.name FROM user JOIN role ON user.role_id = role.id WHERE user.username = '$username'";
             $result = mysqli_query($con, $query);
 
             // Check if any rows were returned
@@ -226,8 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 window.location.href = "dashboard.php";
                              });
                             };
-                    </script>
-                ';
+                    </script>';
             } else {
                 // Passwords do not match
                 echo "<script>swal('txt','Invalid Passsword','error');</script>";
@@ -243,5 +245,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

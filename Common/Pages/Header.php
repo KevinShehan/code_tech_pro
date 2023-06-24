@@ -28,8 +28,10 @@
   <!-- 
     <link rel="stylesheet" href="pages/css/adminlte.min.css"> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@5.3.5/dist/simplebar.min.css" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ 
+ <script type="text/javascript">
     google.charts.load('current', {
       'packages': ['corechart']
     });

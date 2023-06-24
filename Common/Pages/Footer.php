@@ -10,6 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" ></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/nanoscroller/0.8.7/jquery.nanoscroller.min.js"></script> -->
+<script src="https://unpkg.com/simplebar@5.3.5/dist/simplebar.min.js"></script>
 
 <!-- MDB -->
 <!-- <script
@@ -19,5 +20,4 @@
  -->
 
 </body>
-
 </html>

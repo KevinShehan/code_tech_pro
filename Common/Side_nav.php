@@ -7,8 +7,6 @@
 </style>
 
 <?php
-
-
 function privilledge()
 {
   if ($_SESSION['user_role'] == 'admin') {
@@ -22,10 +20,38 @@ function privilledge()
   }
 }
 ?>
+<script>
+  new SimpleBar(document.getElementById('sideNavigation'));
+</script>
+<style>
+#sideNavigation {
+  /* Set the width and height of your side navigation */
+  width: 200px;
+  height: 300px;
+  /* Set the overflow to auto to enable scrolling */
+  overflow: auto;
+}
 
+/* Add custom styles to the scrollbar track */
+#sideNavigation::-webkit-scrollbar-track {
+  background-color: red;
+}
 
-<div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
-  <div class="offcanvas-body p-0">
+/* Add custom styles to the scrollbar thumb */
+#sideNavigation::-webkit-scrollbar-thumb {
+  background-color: blue;
+}
+
+/* Add custom styles to the scrollbar thumb on hover */
+#sideNavigation::-webkit-scrollbar-thumb:hover {
+  background-color: green;
+}
+</style>
+<!-- <div id="sideNavigation" class="simplebar"> -->
+  <!-- Your side navigation content here -->
+
+  <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="background-color: #1e2d32;width: 250px;">
+  <div class="offcanvas-body p-2" style="background-color: #1e2d32;width: 250px;">
     <nav class="navbar-dark">
       <ul class="navbar-nav">
         <!-- Menu items -->
@@ -87,7 +113,7 @@ function privilledge()
                     echo $callingName;
                   }
                   ?>
-                <br/>
+                  <br />
 
 
 
@@ -111,21 +137,28 @@ function privilledge()
           </div>
         </li>
         <li>
+
+
+
           <!-- Dashboard item -->
           <a href="dashboard.php" class="nav-link px-3 active">
             <span class="me-2"> <i class="fa fa-tachometer-alt"></i></span>
             <span>Dashboard</span>
           </a>
         </li>
-        <li class="my-2">
+
+
+
+
+        <li class="my-1">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3 ">
             <i class="fas fa-users"></i>
             Employee Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
             <span class="me-2"> <i class="fas fa-users"></i></i></span>
@@ -163,11 +196,11 @@ function privilledge()
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             Suplier Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
@@ -202,11 +235,11 @@ function privilledge()
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             Item Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#itemsMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
@@ -240,11 +273,11 @@ function privilledge()
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             Sales Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
@@ -278,11 +311,11 @@ function privilledge()
         <li class="my-7">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             Purchase Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
@@ -315,12 +348,12 @@ function privilledge()
         <li class="my-8">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             <i class="fa fa-chart-line"></i>
             Report Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#reportMenu">
             <span class="me-2"> <i class="fa fa-chart-line"></i></span>
@@ -352,11 +385,11 @@ function privilledge()
         <li class="my-8">
           <hr class="dropdown-divider bg-light" />
         </li>
-        <li>
+        <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
             Profile Management
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
@@ -391,6 +424,22 @@ function privilledge()
     </nav>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- </div> -->
+
+
 
 <script>
   // Get all sidebar links with collapse behavior
