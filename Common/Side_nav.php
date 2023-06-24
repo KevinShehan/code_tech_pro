@@ -220,7 +220,7 @@ function privilledge()
           <div class="collapse" id="itemsMenu">
             <ul class="navbar-nav ps-3">
               <li>
-                <a href="sales_save.php" class="nav-link px-3">
+                <a href="item_add.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                   <span>New Item</span>
                 </a>
@@ -234,12 +234,6 @@ function privilledge()
             </ul>
           </div>
         </li>
-
-
-
-
-
-
 
 
 
@@ -278,12 +272,6 @@ function privilledge()
             </ul>
           </div>
         </li>
-
-
-
-
-
-
 
 
 
@@ -360,9 +348,6 @@ function privilledge()
             </ul>
           </div>
         </li>
-
-
-
 
         <li class="my-8">
           <hr class="dropdown-divider bg-light" />

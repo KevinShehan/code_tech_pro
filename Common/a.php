@@ -1,46 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Money Input Example</title>
+  <script>
+    // Format the input value as currency in Sri Lankan Rupees
+    function formatCurrency(input) {
+      var formatter = new Intl.NumberFormat('si-LK', {
+        style: 'currency',
+        currency: 'LKR',
+      });
+      input.value = formatter.format(input.value);
+    }
+  </script>
 </head>
 <body>
-  <div class="container">
-    <div class="form-group">
-      <label for="password">Password</label>
-      <div class="input-group">
-        <input type="password" class="form-control" id="password" placeholder="Enter password">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-            <i class="fas fa-eye"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Toggle password visibility
-      $('#togglePassword').click(function() {
-        var passwordInput = $('#password');
-        var passwordFieldType = passwordInput.attr('type');
-
-        if (passwordFieldType === 'password') {
-          passwordInput.attr('type', 'text');
-          $(this).html('<i class="fas fa-eye-slash"></i>');
-        } else {
-          passwordInput.attr('type', 'password');
-          $(this).html('<i class="fas fa-eye"></i>');
-        }
-      });
-    });
-  </script>
+  <label for="money-input">Enter amount:</label>
+  <input type="number" id="money-input" onkeyup="formatCurrency(this)">
 </body>
 </html>
