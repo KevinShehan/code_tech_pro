@@ -190,6 +190,62 @@ function privilledge()
 
 
 
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Suplier Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Quotation</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="SupplierMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="supplier_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>New Quotation</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>View Quoatation List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -267,6 +323,58 @@ function privilledge()
             </ul>
           </div>
         </li>
+
+
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Category</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="categoryMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="category_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Add Category</span>
+                </a>
+              </li>
+              <li>
+                <a href="category_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>View Categories</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
