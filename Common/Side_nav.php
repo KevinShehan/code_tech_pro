@@ -327,7 +327,7 @@ function privilledge()
 
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
             <span>Category</span>
             <span class="ms-auto">
               <span class="right-icon">
@@ -340,15 +340,15 @@ function privilledge()
               <li>
                 <a href="category_save.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Add Category</span>
+                  <span>Categories</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="category_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                   <span>View Categories</span>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </li>
