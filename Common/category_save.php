@@ -50,7 +50,7 @@ include('Side_nav.php');
                 <div class="col-sm-7">
                   <div class="input-group">
                     <div class="col-sm-2">
-                    <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_name" readonly>
+                      <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code">
                     </div>
                     <input type="text" placeholder="Enter Category" required class="form-control col-sm-5" name="cat_name">
                     <div class="input-group-append">
@@ -91,7 +91,7 @@ include('Side_nav.php');
                     echo '<td>' . $row['name'] . '</td>';
                     echo '<td>' .
                       '<button class="btn btn-warning" style="background-color: purple;color:#ffffff;"><i class="fas fa-pencil-alt"></i></button>' .
-                      '&nbsp;'.
+                      '&nbsp;' .
                       '<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>';
                     echo "</tr>";
                   }
@@ -125,4 +125,32 @@ include('Side_nav.php');
 </script>
 <?php
 require('pages/footer.php');
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  // Access the submitted values
+  $cat_code = $_POST['cat_code'];
+  $cat_name = $_POST['cat_name'];
+  $query_cat = "INSERT into category(code,name) values('$cat_code', '$cat_name' );";
+
+  if ($result_cat = mysqli_query($con, $query_cat)) {
+    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+    echo '<script>';
+    echo 'window.onload = function() {';
+    echo '  Swal.fire({';
+    echo '    icon: "success",';
+    echo '    title: "Success",';
+    echo '    text: "Category saved successfully"';
+    echo '  });';
+    echo '};';
+    echo '</script>';
+  }
+}
+
+
+
+
+
+
 ?>

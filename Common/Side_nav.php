@@ -211,13 +211,13 @@ function privilledge()
           <div class="collapse" id="SupplierMenu">
             <ul class="navbar-nav ps-3">
               <li>
-                <a href="supplier_save.php" class="nav-link px-3">
+                <a href="Quotation_add.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                   <span>New Quotation</span>
                 </a>
               </li>
               <li>
-                <a href="supplier_view.php" class="nav-link px-3">
+                <a href="Quotation_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                   <span>View Quoatation List</span>
                 </a>
@@ -298,7 +298,7 @@ function privilledge()
         </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#itemsMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span class="me-2"><i class="fas fa-shopping-basket"></i></span>
             <span>Items</span>
             <span class="ms-auto">
               <span class="right-icon">
@@ -352,24 +352,6 @@ function privilledge()
             </ul>
           </div>
         </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -451,6 +433,47 @@ function privilledge()
             </ul>
           </div>
         </li>
+        </li>
+
+
+        <li class="my-7">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Purchase Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
+            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span>Customer</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="purchaseMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>Add Customer</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>View Customers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
+
+
 
 
         <li class="my-8">
@@ -500,7 +523,7 @@ function privilledge()
         </li> -->
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#layouts">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
+            <span class="me-2"><i class="fas fa-cog"></i></span>
             <span>Profile</span>
             <span class="ms-auto">
               <span class="right-icon">
@@ -512,14 +535,14 @@ function privilledge()
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="change_pw.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span class="me-2"><i class="fas fa-lock"></i></span>
                   <span>Change Password</span>
                 </a>
               </li>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Employee Reports</span>
+                  <span class="me-2"><i class="fas fa-cog"></i></span>
+                  <span>Profile Setting</span>
                 </a>
               </li>
             </ul>

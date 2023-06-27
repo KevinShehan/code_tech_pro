@@ -163,8 +163,8 @@ include('Side_nav.php');
 
                                 </tbody>
                             </table>
-                            <button class="btn btn-success">Print</button>
-                            <button class="btn btn-success">Print</button>
+                            <button class="btn btn-success">Create Invoice</button>
+
                         </form>
                     </div>
                 </div>

@@ -20,7 +20,18 @@ include('Side_nav.php');
                             <label>Item Name</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Category</label>
-                            <input type="text" name="" id="" class="form-control">
+                            <select class="form-control" name="nametitle">
+                                <?php
+                                // Retrieve data from the SQL table
+                                $query_category = "SELECT id,name FROM category";
+                                $result_category = mysqli_query($con, $query_category);
+
+                                // Loop through the query result and display data within <option> tags
+                                while ($row = mysqli_fetch_assoc($result_category)) {
+                                    echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                }
+                                ?>
+                            </select>
                             <label>ROP Price</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Wholesale Price</label>
@@ -30,7 +41,7 @@ include('Side_nav.php');
                             <label>Description</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Quantity</label>
-                            <input type="number" name="" id="" class="form-control"  min="0" required>
+                            <input type="number" name="" id="" class="form-control" min="0" required>
                             <label>Warrenty Period</label>
                             <input type="text" name="" id="" class="form-control">
                             <div class="input-group justify-content-end">
@@ -57,9 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    $query;
-    $result;
-    
+    $query="INSERT INTO item(name,category_id, itemstatus_id,Warrenty_id,qty,rop,wop,price) VALUES('$itemname',' $category ',' $Itemstatus ','$Warrenty ','$qty',' $rop',' $wop','  $dop')";
+    $result=mysqli_query($con,$query);
 }
 
 
