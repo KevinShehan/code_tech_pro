@@ -540,7 +540,7 @@ function privilledge()
                 </a>
               </li>
               <li>
-                <a href="supplier_view.php" class="nav-link px-3">
+                <a href="profile.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-cog"></i></span>
                   <span>Profile Setting</span>
                 </a>

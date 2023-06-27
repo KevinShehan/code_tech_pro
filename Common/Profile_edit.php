@@ -58,11 +58,6 @@ if ($result && mysqli_num_rows($result) > 0) {
   $result_gender = mysqli_query($con, $query_gender);
   $row_gender = mysqli_fetch_assoc($result_gender);
   $gender_new = $row_gender['name'];
-
-  $query_gender = "SELECT name FROM gender WHERE id='$gender'";
-  $result_gender = mysqli_query($con, $query_gender);
-  $row_gender = mysqli_fetch_assoc($result_gender);
-  $gender_new = $row_gender['name'];
 }
 
 
@@ -229,7 +224,7 @@ include('Side_nav.php');
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label">
-                  <b>User Status:</b>
+                  <b>Supplier Status:</b>
                 </label>
               </div>
               <div class="col-sm-8">
@@ -239,7 +234,16 @@ include('Side_nav.php');
 
 
 
-    
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label">
+                  <b>Supplier Type: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
+              </div>
+            </div>
 
 
             <!-- Remaining label and input field pairs -->

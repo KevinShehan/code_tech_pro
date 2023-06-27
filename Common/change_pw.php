@@ -188,7 +188,9 @@ include('Side_nav.php');
           <div class="card-body">
             <form class="form-horizontal" id="passwordForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-3 col-form-label">Current Password:</label>
+                <label for="gender" class="col-sm-3 col-form-label">Current Password:
+                  <span style="color: red;">*</span>
+                </label>
                 <div class="col-sm-5">
                   <input type="password" id="currentPassword" name="currentPassword" class="form-control form-control-sm" placeholder="Enter current password">
                   <div id="currentPasswordError" class="alert alert-danger d-none  alert-sm"></div>
@@ -196,7 +198,9 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-3 col-form-label">New Password :</label>
+                <label for="gender" class="col-sm-3 col-form-label">New Password :
+                  <span style="color: red;">*</span>
+                </label>
                 <div class="col-sm-5">
                   <input type="password" id="newPassword" name="newPassword" class="form-control form-control-sm" placeholder="Enter new password">
                   <div id="newPasswordError" class="text-danger"></div>
@@ -204,7 +208,9 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-3 col-form-label">Reenter Password :</label>
+                <label for="gender" class="col-sm-3 col-form-label">Reenter Password :
+                  <span style="color: red;">*</span>
+                </label>
                 <div class="col-sm-5">
                   <input type="password" id="reenterPassword" name="reenterPassword" class="form-control form-control-sm" placeholder="Re-enter new password">
                   <div id="reenterPasswordError" class="text-danger"></div>
