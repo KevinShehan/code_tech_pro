@@ -7,50 +7,64 @@
 </style>
 
 <?php
-function privilledge()
-{
-  if ($_SESSION['user_role'] == 'admin') {
-  } else {
-    if ($_SESSION['user_role'] == 'cashier') {
-    } else {
-      if ($_SESSION['user_role'] == 'technician') {
-      } else {
-      }
-    }
-  }
+include('config/dbconnection.php');
+// Retrieve the user's role from the session
+$userrole = $_SESSION["user_role"];
+
+// Retrieve the role ID based on the role name
+$sql_roleid = "SELECT id FROM role WHERE name = '$userrole'";
+$result_roleid = mysqli_query($con, $sql_roleid);
+$row_roleid = mysqli_fetch_assoc($result_roleid);
+$userRoleId = $row_roleid['id'];
+
+// Retrieve the associated use cases for the user's role from the database
+$sql = "SELECT u.name FROM role r
+        INNER JOIN roleusecase ru ON r.id = ru.role_id
+        INNER JOIN usecase u ON ru.usecase_id = u.id
+        WHERE r.id = $userRoleId";
+
+$result = mysqli_query($con, $sql);
+
+$allowedUseCases = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+  // Store the allowed use cases in an array
+  $allowedUseCases[] = $row['name'];
 }
+
 ?>
+
 <script>
   new SimpleBar(document.getElementById('sideNavigation'));
 </script>
 <style>
-#sideNavigation {
-  /* Set the width and height of your side navigation */
-  width: 200px;
-  height: 300px;
-  /* Set the overflow to auto to enable scrolling */
-  overflow: auto;
-}
+  #sideNavigation {
+    /* Set the width and height of your side navigation */
+    width: 200px;
+    height: 300px;
+    /* Set the overflow to auto to enable scrolling */
+    overflow: auto;
+  }
 
-/* Add custom styles to the scrollbar track */
-#sideNavigation::-webkit-scrollbar-track {
-  background-color: red;
-}
+  /* Add custom styles to the scrollbar track */
+  #sideNavigation::-webkit-scrollbar-track {
+    background-color: red;
+  }
 
-/* Add custom styles to the scrollbar thumb */
-#sideNavigation::-webkit-scrollbar-thumb {
-  background-color: blue;
-}
+  /* Add custom styles to the scrollbar thumb */
+  #sideNavigation::-webkit-scrollbar-thumb {
+    background-color: blue;
+  }
 
-/* Add custom styles to the scrollbar thumb on hover */
-#sideNavigation::-webkit-scrollbar-thumb:hover {
-  background-color: green;
-}
+  /* Add custom styles to the scrollbar thumb on hover */
+  #sideNavigation::-webkit-scrollbar-thumb:hover {
+    background-color: green;
+  }
 </style>
 <!-- <div id="sideNavigation" class="simplebar"> -->
-  <!-- Your side navigation content here -->
+<!-- Your side navigation content here -->
 
-  <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="background-color: #1e2d32;width: 250px;">
+<div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="background-color: #1e2d32;width: 250px;">
   <div class="offcanvas-body p-2" style="background-color: #1e2d32;width: 250px;">
     <nav class="navbar-dark">
       <ul class="navbar-nav">
@@ -95,8 +109,6 @@ function privilledge()
 
                 <div style="float: right;">
                   <?php
-
-
                   $username = $_SESSION["username"];
 
                   // Execute the SQL query
@@ -115,8 +127,6 @@ function privilledge()
                   ?>
                   <br />
 
-
-
                   <span class="text-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
                       <circle cx="4" cy="4" r="4" />
@@ -125,7 +135,6 @@ function privilledge()
                   <?php
                   echo $_SESSION["user_role"]; ?>
                 </div>
-
               </a>
             </div>
           </div>
@@ -150,7 +159,7 @@ function privilledge()
 
 
 
-        <li class="my-1">
+        <li class="my-1" id="">
           <hr class="dropdown-divider bg-light" />
         </li>
         <!-- <li>
@@ -227,28 +236,6 @@ function privilledge()
         </li>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -284,8 +271,6 @@ function privilledge()
             </ul>
           </div>
         </li>
-
-
 
 
         <li class="my-6">
@@ -325,7 +310,34 @@ function privilledge()
         </li>
 
 
-        <li>
+        <ul>
+          <?php if (in_array('create_supplier', $allowedUseCases)) { ?>
+            <li>
+              <button id="create_supplier">Create Supplier</button>
+            </li>
+          <?php } ?>
+
+          <?php if (in_array('update_supplier', $allowedUseCases)) : ?>
+            <li>
+              <button id="update_supplier">Update Supplier</button>
+            </li>
+          <?php endif; ?>
+
+          <?php if (in_array('view_supplier', $allowedUseCases)) : ?>
+            <li>
+              <button id="view_supplier">View Supplier</button>
+            </li>
+          <?php endif; ?>
+
+          <?php if (in_array('delete_supplier', $allowedUseCases)) : ?>
+            <li>
+              <button id="delete_supplier">Delete Supplier</button>
+            </li>
+          <?php endif; ?>
+        </ul>
+
+
+        <li id="delete_supplier">
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
             <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
             <span>Category</span>
