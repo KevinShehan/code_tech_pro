@@ -49,11 +49,11 @@
           <i class="bi bi-person-fill"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" href="Profile.php">
             <i class="fas fa-user"></i>
             Profile
           </a>
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" href="Profile_edit.php">
             <i class="fas fa-cog"></i>
             Setting
           </a>
@@ -64,27 +64,6 @@
       </li>
     </ul>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
   </div>

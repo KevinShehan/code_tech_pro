@@ -96,10 +96,11 @@ include('Side_nav.php');
 				<body>
 					<div class="container">
 						<div class="input-group input-group-sm mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-							</div>
-							<input type="date" class="form-control form-control-sm" id="invoiceDate" placeholder="Invoice Date">
+							<input type="date" class="form-control form-control-sm" id="startDate" placeholder="Invoice Date">
+						</div>
+						<div class="input-group input-group-sm mb-3">
+							
+							<input type="date" class="form-control form-control-sm" id="endDate" placeholder="Invoice Date">
 						</div>
 					</div>
 
@@ -150,61 +151,18 @@ include('Side_nav.php');
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					<div class="container">
 						<!-- Modal -->
-						<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="customerModalLabel">Select An Existing Customer</h5>
+						<div class="card fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+							<div class="card-dialog modal-dialog-centered" role="document">
+								<div class="card-content">
+									<div class="card-header">
+										<h5 class="card-title" id="customerModalLabel">Select An Existing Customer</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">
+									<div class="card-body">
 										<table class="table table-striped table-bordered" id="myTable">
 											<thead>
 												<tr>

@@ -1,14 +1,13 @@
 <?php
 //Authentication
 require('pages/Auth.php');
-//Database Connection
-require('config/dbconnection.php');
-//HTML HEAD SEACtion include Body tag
-include('pages/header.php');
-//HTML Navigation Bar
+//Profile
+include('config/dbconnection.php');
+include('pages/Header.php');
 include('Top_nav.php');
-//HTML Side Navigation Bar
 include('Side_nav.php');
+
+
 ?>
 
 <style>
@@ -16,9 +15,6 @@ include('Side_nav.php');
     background-color: lightcyan;
   }
 
-  body {
-    background-color: lightcyan;
-  }
 
   .dataTables_wrapper {
     margin-top: 20px;
@@ -30,6 +26,7 @@ include('Side_nav.php');
     /* Adjust the margin value as per your needs */
   }
 </style>
+
 
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
@@ -44,7 +41,7 @@ include('Side_nav.php');
             </h3>
           </div>
           <div class="card-body">
-            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label">Category Name:</label>
                 <div class="col-sm-7">
@@ -71,38 +68,92 @@ include('Side_nav.php');
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <?php
-                  // Fetch latest supplier records from the database
-                  $query = 'SELECT * FROM category';
-                  $result = mysqli_query($con, $query);
+                <?php
+                // Fetch latest category records from the database
+                $query = 'SELECT * FROM category';
+                $result = mysqli_query($con, $query);
 
-                  if (!$result) {
-                    die('Error: ' . mysqli_error($con));
-                  }
+                if (!$result) {
+                  die('Error: ' . mysqli_error($con));
+                }
 
-                  // Generate the HTML markup for supplier records
-                  $html = '';
-                  $number = 1;
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo '<td>' . $row['id'] . '</td>';
-                    echo '<td>' . $row['code'] . '</td>';
-                    echo '<td>' . $row['name'] . '</td>';
-                    echo '<td>' .
-                      '<button class="btn btn-warning" style="background-color: purple;color:#ffffff;"><i class="fas fa-pencil-alt"></i></button>' .
-                      '&nbsp;' .
-                      '<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>';
-                    echo "</tr>";
-                  }
-                  echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
-                  ?>
+                // Generate the HTML markup for category records
+                $number = 1;
+                while ($row = mysqli_fetch_assoc($result)) {
+                  echo "<tr>";
+                  echo '<td>' . $number . '</td>';
+                  echo '<td>' . $row['code'] . '</td>';
+                  echo '<td>' . $row['name'] . '</td>';
+                  echo '<td>' .
+                    '<button class="btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
+                    '&nbsp;' .
+                    '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
+                  echo "</tr>";
+                  $number++;
+                }
+                ?>
               </tbody>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      <i class="fas fa-folder"></i>&nbsp; Category Update
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+
+                    <?php
+                    if (isset($_GET['id'])) {
+                      $categoryId = $_GET['id'];
+                      // Retrieve the category details based on the categoryId
+                      $query = "SELECT * FROM category WHERE id = $categoryId";
+                      $result = mysqli_query($con, $query);
+                      $row = mysqli_fetch_assoc($result);
+                    ?>
+                      <form id="categoryForm">
+                        <div class="mb-3">
+                          <label for="code" class="form-label">CODE</label>
+                          <input type="text" class="form-control" id="code" name="code" value="<?php echo $row['code']; ?>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="categoryName" class="form-label">Category Name</label>
+                          <input type="text" class="form-control" id="categoryName" name="categoryName" value="<?php echo $row['name']; ?>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="brand" class="form-label">Brand</label>
+                          <input type="text" class="form-control" id="brand" name="brand" value="<?php echo $row['brand']; ?>">
+                        </div>
+                        <input type="hidden" id="categoryId" name="categoryId" value="<?php echo $categoryId; ?>">
+                      </form>
+                    <?php
+                    }
+                    ?>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
+
+      <!-- Include Bootstrap JS -->
+
+
+
     </div>
+  </div>
+  </div>
+  </div>
+  </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
@@ -123,9 +174,77 @@ include('Side_nav.php');
     });
   });
 </script>
-<?php
-require('pages/footer.php');
 
+
+<!-- Include SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Button click event handler
+    $(document).on('click', '.deleteBtn', function() {
+      var button = $(this);
+      var id = button.data('id');
+
+      // Display the confirmation dialog
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Once deleted, you will not be able to recover this record!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // User confirmed the delete operation
+          // Call the delete function
+          deleteRecord(id);
+        }
+      });
+
+
+      function deleteRecord(id) {
+        // Send AJAX request to delete.php with the ID parameter
+        $.ajax({
+          url: 'category_delete.php?id=' + id,
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) {
+              // Show SweetAlert popup
+              Swal.fire({
+                title: 'Success',
+                text: 'Record deleted successfully',
+                icon: 'success'
+              }).then(function() {
+                // Refresh the page
+                location.reload();
+              });
+            } else {
+              // Show error message if deletion fails
+              Swal.fire({
+                title: 'Error',
+                text: 'An error occurred while deleting the record',
+                icon: 'error'
+              });
+            }
+          },
+          error: function() {
+            // Show error message if the request fails
+            Swal.fire({
+              title: 'Error',
+              text: 'An error occurred while deleting the record',
+              icon: 'error'
+            });
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -147,10 +266,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo '</script>';
   }
 }
-
-
-
-
-
-
 ?>
+
+
+
+
+
+<?php include('pages/Footer.php'); ?>

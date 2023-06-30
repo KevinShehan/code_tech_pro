@@ -68,6 +68,9 @@ include('Top_nav.php');
 include('Side_nav.php');
 ?>
 
+
+
+
 <main class="mt-5 pt-3">
   <div class="container-fluid">
     <div class="row">
@@ -93,19 +96,30 @@ include('Side_nav.php');
                   <b> Name Title: </b>
                 </label>
               </div>
-
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle_new) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle_new) ?>" >
+              </div>
+            </div>
+
+            
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label">
+                  <b>Calling Name:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" >
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label">
-                  <b> Name: </b></label>
+                  <b>Full Name: </b></label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" >
               </div>
             </div>
 
@@ -116,7 +130,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" >
               </div>
             </div>
 
@@ -127,12 +141,9 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>" >
               </div>
             </div>
-
-
-
 
 
             <div class="row mb-3">
@@ -142,7 +153,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $civilstatus_new) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $civilstatus_new) ?>" >
               </div>
             </div>
 
@@ -154,7 +165,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($gender_new) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($gender_new) ?>" >
               </div>
             </div>
 
@@ -166,7 +177,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($mobile) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($mobile) ?>" >
               </div>
             </div>
 
@@ -179,7 +190,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($land) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($land) ?>" >
               </div>
             </div>
 
@@ -192,7 +203,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
               </div>
             </div>
 
@@ -205,52 +216,28 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" >
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label">
-                  <b>E-mail: </b>
+                  <b>Image : </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($callingname) ?>" readonly>
+              <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
               </div>
             </div>
 
-
-            <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  <b>Supplier Status:</b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
-              </div>
-            </div>
-
-
-
-            <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  <b>Supplier Type: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
-              </div>
-            </div>
 
 
             <!-- Remaining label and input field pairs -->
 
             <div class="form-group row mb-3">
               <div class="offset-sm-4 col-sm-8">
-                <button type="submit" class="btn btn-success" name="submit">Edit Profile</button>
+                <button type="submit" class="btn btn-success" name="submit" id="myButton">Update Profile</button>
               </div>
             </div>
 
@@ -312,6 +299,34 @@ include('Side_nav.php');
     background-color: lightcyan;
   }
 </style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+ document.getElementById("myButton").addEventListener("click", function() {
+  // Displaying a confirmation message using SweetAlert2
+  Swal.fire({
+    title: 'Confirmation',
+    text: 'Are you sure you want to proceed?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // If the user confirms, show a sweet alert popup message
+      Swal.fire({
+        title: 'Success!',
+        text: 'Action completed successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+    }
+  });
+});
+</script>
+
+
 
 <?php
 include('pages/Footer.php');

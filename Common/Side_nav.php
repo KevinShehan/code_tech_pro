@@ -1,66 +1,10 @@
-<style>
-  .li-top:hover {
-    background-color: #0070fc;
-    color: white;
-    /* Background color on hover */
-  }
-</style>
-
 <?php
 include('config/dbconnection.php');
-// Retrieve the user's role from the session
-$userrole = $_SESSION["user_role"];
-
-// Retrieve the role ID based on the role name
-$sql_roleid = "SELECT id FROM role WHERE name = '$userrole'";
-$result_roleid = mysqli_query($con, $sql_roleid);
-$row_roleid = mysqli_fetch_assoc($result_roleid);
-$userRoleId = $row_roleid['id'];
-
-// Retrieve the associated use cases for the user's role from the database
-$sql = "SELECT u.name FROM role r
-        INNER JOIN roleusecase ru ON r.id = ru.role_id
-        INNER JOIN usecase u ON ru.usecase_id = u.id
-        WHERE r.id = $userRoleId";
-
-$result = mysqli_query($con, $sql);
-
-$allowedUseCases = [];
-
-while ($row = mysqli_fetch_assoc($result)) {
-  // Store the allowed use cases in an array
-  $allowedUseCases[] = $row['name'];
-}
-
+require('pages/functions/priveleges_functions.php');
+require('pages/functions/side_nav_functions.php');
+require('pages/css/side_nav_css.php');
 ?>
 
-<script>
-  new SimpleBar(document.getElementById('sideNavigation'));
-</script>
-<style>
-  #sideNavigation {
-    /* Set the width and height of your side navigation */
-    width: 200px;
-    height: 300px;
-    /* Set the overflow to auto to enable scrolling */
-    overflow: auto;
-  }
-
-  /* Add custom styles to the scrollbar track */
-  #sideNavigation::-webkit-scrollbar-track {
-    background-color: red;
-  }
-
-  /* Add custom styles to the scrollbar thumb */
-  #sideNavigation::-webkit-scrollbar-thumb {
-    background-color: blue;
-  }
-
-  /* Add custom styles to the scrollbar thumb on hover */
-  #sideNavigation::-webkit-scrollbar-thumb:hover {
-    background-color: green;
-  }
-</style>
 <!-- <div id="sideNavigation" class="simplebar"> -->
 <!-- Your side navigation content here -->
 
@@ -74,56 +18,14 @@ while ($row = mysqli_fetch_assoc($result)) {
           <div class="card" style="background-color: #202529;color:aliceblue; border-color:aqua">
             <div class="card-body">
               <a href="Profile.php" target="_self" rel="noopener noreferrer" style=" text-decoration: none; color:white;">
-
-
-
                 <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
                 <?php
-                include('config/dbconnection.php');
-
-                // Assuming you have established a database connection
-                $username = $_SESSION["username"];
-
-                // Fetch the employee data from the database
-                $query = "SELECT employee.photo FROM employee JOIN user ON employee.id = user.employee_id  WHERE user.username = '$username'";
-                $result = mysqli_query($con, $query);
-
-                if ($result && mysqli_num_rows($result) > 0) {
-                  $row = mysqli_fetch_assoc($result);
-                  $imagePath = $row['photo'];
-
-                  if (file_exists($imagePath)) {
-                    // Step 3: Create the image tag
-                    $imageTag = '<img src="' . $imagePath . '" alt="profile_image" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; float: left;" class="shadow">';
-                  } else {
-                    $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
-                  }
-                } else {
-                  $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:50px;height:50px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
-                }
-
-                // Step 4: Output the image tag
-                echo $imageTag;
+                image($con);
                 ?>
-
 
                 <div style="float: right;">
                   <?php
-                  $username = $_SESSION["username"];
-
-                  // Execute the SQL query
-                  $query = "SELECT employee.callingname FROM employee JOIN user ON user.employee_id = employee.id WHERE user.username = '$username'";
-                  $result1 = mysqli_query($con, $query);
-
-                  // Check if any rows were returned
-                  if (mysqli_num_rows($result1) > 0) {
-                    // Fetch the calling name from the query result
-                    $row = mysqli_fetch_assoc($result1);
-                    $callingName = $row['callingname'];
-
-                    // Output the calling name
-                    echo $callingName;
-                  }
+                  callname($con);
                   ?>
                   <br />
 
@@ -159,43 +61,52 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 
-        <li class="my-1" id="">
+        <!-- <li class="my-1" id="">
           <hr class="dropdown-divider bg-light" />
-        </li>
+        </li> -->
         <!-- <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3 ">
             <i class="fas fa-users"></i>
             Employee Management
           </div>
         </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
-            <span class="me-2"> <i class="fas fa-users"></i></i></span>
-            <span>Employee</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="employeeMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="viewusers.php" class="nav-link px-3">
-                  <span class="me-2"><i class="fa fa-address-book"></i></span>
-                  <span>View Employees</span>
-                </a>
-              </li>
-              <li>
-                <a href="emp_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="fa fa-user-plus"></i></i></span>
-                  <span>Add Employee</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
 
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <li class="my-6">
+            <hr class="dropdown-divider bg-light" />
+          </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
+              <span class="me-2"> <i class="fas fa-users"></i></i></span>
+              <span>Employee</span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="employeeMenu">
+              <ul class="navbar-nav ps-3">
+                <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <li>
+                    <a href="viewusers.php" class="nav-link px-3">
+                      <span class="me-2"><i class="fa fa-address-book"></i></span>
+                      <span>View Employees</span>
+                    </a>
+                  </li>
+                <?php endif; ?>
+                <?php if (in_array('update_user', $allowedUseCases)) : ?>
+                  <li>
+                    <a href="emp_save.php" class="nav-link px-3">
+                      <span class="me-2"><i class="fa fa-user-plus"></i></i></span>
+                      <span>Add Employee</span>
+                    </a>
+                  </li>
+                <?php endif; ?>
+              </ul>
+            </div>
+          </li>
+        <?php endif; ?>
 
 
 
@@ -208,7 +119,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
         </li> -->
         <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#QuotationMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Quotation</span>
             <span class="ms-auto">
@@ -217,7 +128,7 @@ while ($row = mysqli_fetch_assoc($result)) {
               </span>
             </span>
           </a>
-          <div class="collapse" id="SupplierMenu">
+          <div class="collapse" id="QuotationMenu">
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="Quotation_add.php" class="nav-link px-3">
@@ -309,32 +220,6 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
         </li>
 
-
-        <ul>
-          <?php if (in_array('create_supplier', $allowedUseCases)) { ?>
-            <li>
-              <button id="create_supplier">Create Supplier</button>
-            </li>
-          <?php } ?>
-
-          <?php if (in_array('update_supplier', $allowedUseCases)) : ?>
-            <li>
-              <button id="update_supplier">Update Supplier</button>
-            </li>
-          <?php endif; ?>
-
-          <?php if (in_array('view_supplier', $allowedUseCases)) : ?>
-            <li>
-              <button id="view_supplier">View Supplier</button>
-            </li>
-          <?php endif; ?>
-
-          <?php if (in_array('delete_supplier', $allowedUseCases)) : ?>
-            <li>
-              <button id="delete_supplier">Delete Supplier</button>
-            </li>
-          <?php endif; ?>
-        </ul>
 
 
         <li id="delete_supplier">
@@ -457,7 +342,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
         </li> -->
         <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#customerMenu">
             <span class="me-2"><i class="bi bi-layout-split"></i></span>
             <span>Customer</span>
             <span class="ms-auto">
@@ -466,7 +351,7 @@ while ($row = mysqli_fetch_assoc($result)) {
               </span>
             </span>
           </a>
-          <div class="collapse" id="purchaseMenu">
+          <div class="collapse" id="customerMenu">
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
@@ -570,39 +455,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 <!-- </div> -->
-
-
-
-<script>
-  // Get all sidebar links with collapse behavior
-  const sidebarLinks = document.querySelectorAll('.sidebar-link[data-bs-toggle="collapse"]');
-
-  // Add click event listener to each sidebar link
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      const targetId = link.getAttribute('href');
-
-      // Collapse all menus
-      sidebarLinks.forEach(otherLink => {
-        const otherTargetId = otherLink.getAttribute('href');
-        if (otherTargetId !== targetId) {
-          const otherMenu = document.querySelector(otherTargetId);
-          if (otherMenu.classList.contains('show')) {
-            otherLink.click();
-          }
-        }
-      });
-    });
-  });
-</script>
+<?php
+require('pages/js/side_nav_js.php'); ?>
