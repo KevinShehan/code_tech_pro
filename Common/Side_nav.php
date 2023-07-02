@@ -328,6 +328,7 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="purchaseMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-cart-plus"></i></span>
@@ -371,6 +372,7 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="returnMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-reply"></i>
@@ -454,6 +456,7 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="reportMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="change_pw.php" class="nav-link px-3">
                   <span class="me-2"> <i class="fas fa-chart-pie"></i>
@@ -495,6 +498,7 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="layouts">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="change_pw.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-lock"></i></span>
