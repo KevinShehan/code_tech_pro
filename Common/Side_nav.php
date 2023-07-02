@@ -71,7 +71,7 @@ require('pages/css/side_nav_css.php');
           </div>
         </li> -->
 
-
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-7">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -107,9 +107,11 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
 
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -145,8 +147,11 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
+
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -182,9 +187,11 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
 
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li id="delete_supplier">
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
             <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
@@ -212,22 +219,12 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -263,8 +260,11 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
+
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-6">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -300,12 +300,14 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
 
 
 
 
 
 
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-7">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -341,7 +343,9 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
-        </li>
+      
+        <?php endif; ?>
+
 
 
 
@@ -384,6 +388,8 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
+
 
 
 
@@ -465,6 +471,8 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
+
 
         <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-8">
@@ -502,6 +510,8 @@ require('pages/css/side_nav_css.php');
             </ul>
           </div>
         </li>
+        <?php endif; ?>
+
         <!-- Pages item -->
 
         <!-- Other menu items -->

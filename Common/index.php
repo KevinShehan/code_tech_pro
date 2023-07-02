@@ -46,7 +46,7 @@ require('pages/css/index_css.php');
                             </div>
                         </h1>
                         <div>
-                            <label for="exampleInputEmail1" class="form-label mt-3"> Username</label>
+                            <label for="exampleInputEmail1" class="form-label mt-4"> Username</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" value="<?php echo isset($_COOKIE['remembered_email']) ? htmlspecialchars($_COOKIE['remembered_email']) : ''; ?>">
                             <div id="emailHelp" class="form-text">Hint - Username email address</div>
                             <div class="invalid-feedback" id="username-error"></div>
