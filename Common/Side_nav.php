@@ -92,18 +92,22 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="customerMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
                   <span class="me-2"><span class="fas fa-plus-circle"></span></span>
                   <span>Add Customer</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><span class="fas fa-table"></span></span>
                   <span>View Customers</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -132,18 +136,22 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="salesMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="sales_save.php" class="nav-link px-3">
                   <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
                   <span>New Invoices</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"> <span class="fas fa-list"></span></span>
                   <span>Sales Invoices</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -172,18 +180,23 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="itemsMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="item_add.php" class="nav-link px-3">
                   <span class="me-2"> <span class="fas fa-plus"></span> </span>
                   <span>New Item</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><span class="fas fa-eye"></span></span>
                   <span>View Items</span>
                 </a>
               </li>
+              <?php endif; ?>
+
             </ul>
           </div>
         </li>
@@ -204,12 +217,14 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="categoryMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="category_save.php" class="nav-link px-3">
                   <span class="me-2"><span class="fas fa-tags"></span></span>
                   <span>Categories</span>
                 </a>
               </li>
+              <?php endif; ?>
               <!-- <li>
                 <a href="category_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-speedometer2"></i></span>
@@ -245,18 +260,22 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="QuotationMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="Quotation_add.php" class="nav-link px-3">
                   <span class="me-2"><i class="bi bi-chat-left-quote"></i></span>
                   <span>New Quotation</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="Quotation_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-list"></i></span>
                   <span>Quotation List</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -285,18 +304,22 @@ require('pages/css/side_nav_css.php');
           </a>
           <div class="collapse" id="SupplierMenu">
             <ul class="navbar-nav ps-3">
+            <?php if (in_array('view_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_save.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-truck"></i></span>
                   <span>Add Supplier</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-users"></i></span>
                   <span>View Supplier List</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -335,16 +358,18 @@ require('pages/css/side_nav_css.php');
                   <span>Create Purchase</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-history"></i></span>
                   <span>Purchase History</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
-      
         <?php endif; ?>
 
 
@@ -380,6 +405,8 @@ require('pages/css/side_nav_css.php');
                   <span>Create return</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-history"></i>
@@ -387,6 +414,7 @@ require('pages/css/side_nav_css.php');
                   <span>Return history</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -464,6 +492,8 @@ require('pages/css/side_nav_css.php');
                   <span>Customer Report</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-chart-pie"></i>
@@ -471,6 +501,7 @@ require('pages/css/side_nav_css.php');
                   <span>Supplier Reports</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
@@ -505,12 +536,15 @@ require('pages/css/side_nav_css.php');
                   <span>Change Password</span>
                 </a>
               </li>
+              <?php endif; ?>
+              <?php if (in_array('create_user', $allowedUseCases)) : ?>
               <li>
                 <a href="profile.php" class="nav-link px-3">
                   <span class="me-2"><i class="fas fa-cog"></i></span>
                   <span>Profile Setting</span>
                 </a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>
