@@ -36,16 +36,20 @@ Author Kevin Shehan Perera <br/>
 <div>
 Instruction to use <br/>
 (before run this project) <br/>
-    1. Create Database named as V3  <br/>
-    2. import the Database file and execute  <br/>
-    3. after execute this open Web browser (Firefox,Chrome) -> Type  <br/>
-        localhost/v3/common  <br/>
-    4. Username :- admin@gmail.com  <br/> 
-       Password :- admin@gmail.com <br/>
+<ul>
+<li>   1. Create Database named as V3  <br/> </li>
+<li>   2. import the Database file and execute  <br/></li>
+<li>   3. after execute this open Web browser (Firefox,Chrome) -> Type  <br/>
+        localhost/v3/common  <br/></li>
+<li>     4. Username :- <b>admin@gmail.com</b> <br/> 
+       Password :- <b>admin@gmail.com </b> <br/></li>
+</ul>
 </div>
 
 <div>
-Used Tool <br/>
-Database Manage - Mysql Workbench <br/>
-IDE - Visual Studio Code  <br/>
+<dl>
+  <dt>Used Tool </dt>
+  <dd>Database Manage - Mysql Workbench <br/></dd>
+    <dd>IDE - Visual Studio Code  <br/></dd>
+</dl>
 </div>
