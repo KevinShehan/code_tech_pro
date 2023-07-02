@@ -3,6 +3,7 @@
 <br/>
 <h2> Final Year Individual Project (Year 3) </h2>
 
+<img src="![Alt text](image-1.png)" />
 Computer Shop Management System
 Author Kevin Shehan Perera
 USed Technology 
