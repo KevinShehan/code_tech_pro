@@ -10,21 +10,27 @@
 <div>
 Computer Shop Management System <br/>
 Author Kevin Shehan Perera <br/>
-USed Technology  <br/>
-    -> Pure PHP as Back End <br/>
-    -> Front End HTML, CSS, Bootstrap 5.0 <br/>
+
+<dl>
+  <dt>USed Technology  </dt>
+  <dd> -> Pure PHP as Back End </dd>
+  <dd>-> Front End HTML, CSS, Bootstrap 5.0 </dd>
+</dl>
 </div>
 
 <div>
-Used Other Libraries <br/>
-    -> JQUERY, AJAX <br/>
-    -> SweetAlert js <br/>
+<dl>
+  <dt>Used Other Libraries </dt>
+  <dd>   -> JQUERY, AJAX </dd>
+  <dd> -> SweetAlert js </dd>
+</dl>
 </div>
 
 <div>
-Database
-    -> MySQL Database
-
+<dl>
+  <dt>Database </dt>
+  <dd>     -> MySQL Database</dd>
+</dl>
 </div>
 
 <div>
@@ -37,7 +43,6 @@ Instruction to use <br/>
     4. Username :- admin@gmail.com  <br/> 
        Password :- admin@gmail.com <br/>
 </div>
-
 
 <div>
 Used Tool <br/>
