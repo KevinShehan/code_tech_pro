@@ -19,14 +19,10 @@ require('pages/css/side_nav_css.php');
             <div class="card-body">
               <a href="Profile.php" target="_self" rel="noopener noreferrer" style=" text-decoration: none; color:white;">
                 <!-- <img src="assets/images/dashboard/user_logo.png" alt="" srcset="" style="width: 30px; margin: 5px;"> -->
-                <?php
-                image($con);
-                ?>
+                <?php image($con); ?>
 
                 <div style="float: right;">
-                  <?php
-                  callname($con);
-                  ?>
+                  <?php callname($con); ?>
                   <br />
 
                   <span class="text-success">
@@ -211,7 +207,7 @@ require('pages/css/side_nav_css.php');
             <span>Category</span>
             <span class="ms-auto">
               <span class="right-icon">
-                <span class="fas fa-plus fa-sm"></span>
+              <i class="bi bi-chevron-down"></i>
               </span>
             </span>
           </a>
@@ -424,7 +420,7 @@ require('pages/css/side_nav_css.php');
 
 
         <?php if (in_array('create_user', $allowedUseCases)) : ?>
-          <li class="my-6">
+          <li class="my-7">
             <hr class="dropdown-divider bg-light" />
           </li>
           <li>

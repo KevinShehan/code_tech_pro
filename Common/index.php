@@ -12,33 +12,6 @@ require('pages/css/index_css.php');
                     <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
                         <img src="Assets/images/Login/user.png" alt="usr_logo" srcset="" class="logo1">
                         <h1 class="head">
-
-                            <style>
-                                .hr-text {
-                                    display: flex;
-                                    align-items: center;
-                                    text-align: center;
-                                }
-
-                                .hr-text::before,
-                                .hr-text::after {
-                                    content: '';
-                                    flex: 1;
-                                    border-bottom: 2px solid #000;
-                                }
-
-                                .hr-text::before {
-                                    margin-right: 0.5em;
-                                }
-
-                                .hr-text::after {
-                                    margin-left: 0.5em;
-                                }
-                            </style>
-                            <link rel="preconnect" href="https://fonts.googleapis.com">
-                            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                            <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
                             <div class="s1 hr-text mt-3" style="margin-top:12px">
                                 <span style="background-color: white;color:black; padding: 0 10px;font-weight:900;  font-weight: bold;font-size:x-large; margin-top:5px;    font-family: 'Poppins', sans-serif;" class="social mt-3">
                                     Administrative Login
@@ -72,7 +45,6 @@ require('pages/css/index_css.php');
 </div>
 
 <?php
-
 // if (isset($_COOKIE['remembered_email'])) {
 //     $rememberedEmail = $_COOKIE['remembered_email'];
 //     echo "Remembered email: " . $rememberedEmail;
