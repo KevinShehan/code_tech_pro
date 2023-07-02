@@ -319,7 +319,7 @@ require('pages/css/side_nav_css.php');
         <li>
           <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
             <span class="me-2"><span class="fas fa-shopping-cart"></span></span>
-            <span>Purchase</span>
+            <span>Purchase  .</span>
             <span class="ms-auto">
               <span class="right-icon">
                 <i class="bi bi-chevron-down"></i>
