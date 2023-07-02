@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                icon: 'success',
                }).then(function() {
              // Redirect to view.php
-              window.location.href = 'emp_view.php';
+              window.location.href = 'viewusers.php';
             });
         </script>
           ";
@@ -117,10 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                title: 'Error!',
               text: 'User Not Saved !.',
                icon: 'success',
-               }).then(function() {
-             // Redirect to view.php
-              window.location.href = 'emp_view.php';
-            });
+               });
         </script>
           ";
     }
@@ -133,10 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              title: 'Error !',
             text: 'Query executed successfully.',
              icon: 'success',
-             }).then(function() {
-           // Redirect to view.php
-            window.location.href = 'emp_view.php';
-          });
+             });
       </script>
         ";
   }

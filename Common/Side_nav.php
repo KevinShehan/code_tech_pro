@@ -43,7 +43,7 @@ require('pages/css/side_nav_css.php');
         </li>
         <li>
           <!-- Overview item -->
-          <div class="text-muted small fw-bold text-uppercase px-3">
+          <div class="text-muted small fw-bold text-uppercase px-3 mt-2">
             OVERVIEW
           </div>
         </li>
@@ -70,6 +70,322 @@ require('pages/css/side_nav_css.php');
             Employee Management
           </div>
         </li> -->
+
+
+        <li class="my-7">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Purchase Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#customerMenu">
+            <span class="me-2"><span class="fas fa-person-booth"></span></span>
+            <span>Customer</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="customerMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><span class="fas fa-plus-circle"></span></span>
+                  <span>Add Customer</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><span class="fas fa-table"></span></span>
+                  <span>View Customers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Sales Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
+            <span class="me-2"><span class="fas fa-dollar-sign"></span></span>
+            <span>Sales</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="salesMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
+                  <span>New Invoices</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"> <span class="fas fa-list"></span></span>
+                  <span>Sales Invoices</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Item Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#itemsMenu">
+            <span class="me-2"><i class="fas fa-shopping-basket"></i></span>
+            <span>Items</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="itemsMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="item_add.php" class="nav-link px-3">
+                  <span class="me-2"> <span class="fas fa-plus"></span> </span>
+                  <span>New Item</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><span class="fas fa-eye"></span></span>
+                  <span>View Items</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+        <li id="delete_supplier">
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
+            <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
+            <span>Category</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <span class="fas fa-plus fa-sm"></span>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="categoryMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="category_save.php" class="nav-link px-3">
+                  <span class="me-2"><span class="fas fa-tags"></span></span>
+                  <span>Categories</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="category_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                  <span>View Categories</span>
+                </a>
+              </li> -->
+            </ul>
+          </div>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Suplier Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#QuotationMenu">
+            <span class="me-2"><span class="fas fa-file-invoice"></span></span>
+            <span>Quotation</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="QuotationMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="Quotation_add.php" class="nav-link px-3">
+                  <span class="me-2"><i class="bi bi-chat-left-quote"></i></span>
+                  <span>New Quotation</span>
+                </a>
+              </li>
+              <li>
+                <a href="Quotation_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-list"></i></span>
+                  <span>Quotation List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+        <li class="my-6">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Suplier Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
+            <span class="me-2"><span class="fas fa-truck"></span></span>
+            <span>Supplier</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="SupplierMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="supplier_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-truck"></i></span>
+                  <span>Add Supplier</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-users"></i></span>
+                  <span>View Supplier List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
+
+
+
+
+        <li class="my-7">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Purchase Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
+            <span class="me-2"><span class="fas fa-shopping-cart"></span></span>
+            <span>Purchase</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="purchaseMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-cart-plus"></i></span>
+                  <span>Create Purchase</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-history"></i></span>
+                  <span>Purchase History</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
+
+
+
+
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
+        <li class="my-7">
+          <hr class="dropdown-divider bg-light" />
+        </li>
+        <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Purchase Management
+          </div>
+        </li> -->
+        <li>
+          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#returnMenu">
+            <span class="me-2"><span class="fas fa-undo"></span></span>
+            <span>Return</span>
+            <span class="ms-auto">
+              <span class="right-icon">
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </span>
+          </a>
+          <div class="collapse" id="returnMenu">
+            <ul class="navbar-nav ps-3">
+              <li>
+                <a href="sales_save.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-reply"></i>
+                  </span>
+                  <span>Create return</span>
+                </a>
+              </li>
+              <li>
+                <a href="supplier_view.php" class="nav-link px-3">
+                  <span class="me-2"><i class="fas fa-history"></i>
+                  </span>
+                  <span>Return history</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+
 
         <?php if (in_array('create_user', $allowedUseCases)) : ?>
           <li class="my-6">
@@ -110,269 +426,7 @@ require('pages/css/side_nav_css.php');
 
 
 
-        <li class="my-6">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Suplier Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#QuotationMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Quotation</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="QuotationMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="Quotation_add.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>New Quotation</span>
-                </a>
-              </li>
-              <li>
-                <a href="Quotation_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Quoatation List</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-
-        <li class="my-6">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Suplier Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#SupplierMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Supplier</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="SupplierMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="supplier_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Add Supplier</span>
-                </a>
-              </li>
-              <li>
-                <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Supplier List</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-
-        <li class="my-6">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Item Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#itemsMenu">
-            <span class="me-2"><i class="fas fa-shopping-basket"></i></span>
-            <span>Items</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="itemsMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="item_add.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>New Item</span>
-                </a>
-              </li>
-              <li>
-                <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Items</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-
-
-        <li id="delete_supplier">
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
-            <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
-            <span>Category</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="categoryMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="category_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Categories</span>
-                </a>
-              </li>
-              <!-- <li>
-                <a href="category_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Categories</span>
-                </a>
-              </li> -->
-            </ul>
-          </div>
-        </li>
-
-
-
-
-
-
-
-
-        <li class="my-6">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Sales Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Sales</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="salesMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="sales_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>New Invoices</span>
-                </a>
-              </li>
-              <li>
-                <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Sales Invoices</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-
-
-        <li class="my-7">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Purchase Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#purchaseMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Purchase</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="purchaseMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="sales_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Supplier Report</span>
-                </a>
-              </li>
-              <li>
-                <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Employee Reports</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        </li>
-
-
-        <li class="my-7">
-          <hr class="dropdown-divider bg-light" />
-        </li>
-        <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Purchase Management
-          </div>
-        </li> -->
-        <li>
-          <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#customerMenu">
-            <span class="me-2"><i class="bi bi-layout-split"></i></span>
-            <span>Customer</span>
-            <span class="ms-auto">
-              <span class="right-icon">
-                <i class="bi bi-chevron-down"></i>
-              </span>
-            </span>
-          </a>
-          <div class="collapse" id="customerMenu">
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="sales_save.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>Add Customer</span>
-                </a>
-              </li>
-              <li>
-                <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                  <span>View Customers</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        </li>
-
-
-
-
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-8">
           <hr class="dropdown-divider bg-light" />
         </li>
@@ -396,13 +450,15 @@ require('pages/css/side_nav_css.php');
             <ul class="navbar-nav ps-3">
               <li>
                 <a href="change_pw.php" class="nav-link px-3">
-                  <span class="me-2"> <i class="fa fa-chart-line"></i></span>
+                  <span class="me-2"> <i class="fas fa-chart-pie"></i>
+                  </span>
                   <span>Customer Report</span>
                 </a>
               </li>
               <li>
                 <a href="supplier_view.php" class="nav-link px-3">
-                  <span class="me-2"> <i class="fa fa-chart-line"></i></span>
+                  <span class="me-2"><i class="fas fa-chart-pie"></i>
+                  </span>
                   <span>Supplier Reports</span>
                 </a>
               </li>
@@ -410,6 +466,7 @@ require('pages/css/side_nav_css.php');
           </div>
         </li>
 
+        <?php if (in_array('create_user', $allowedUseCases)) : ?>
         <li class="my-8">
           <hr class="dropdown-divider bg-light" />
         </li>

@@ -7,22 +7,32 @@ include('Top_nav.php');
 include('Side_nav.php');
 ?>
 <style>
-	/* Hide elements in the printed version */
-	@media print {
-		.hidden-print {
-			display: none;
-		}
+	.print-content {
+		display: none;
+	}
 
-		.print-only {
-			display: block;
+	@media print {
+		.print-content {
+			display: block !important;
 		}
 	}
 </style>
 
+
 <script>
 	function printPage() {
+		var printContent = document.getElementById("printContent");
+		printContent.classList.add("print-content");
+
+		// Print the content
 		window.print();
+
+		// Remove the print class to hide the content again
+		printContent.classList.remove("print-content");
 	}
+
+
+
 
 
 	function addRow() {
@@ -69,15 +79,39 @@ include('Side_nav.php');
 		<div class="row">
 			<div class="col-md-12 mb-3">
 				<!-- Quotation View Section -->
-				<div class="heading">
+				<div class="heading" id="print-content" style="display: none;">
 					<img src="Assets/images/Picture1.png" alt="" width="30%">
 					<h3 style="text-align: center;"> Quotation</h3>
+
+
+					<div> Name </div>
+					<div> Address</div>
+
+					<div> Name </div>
+					<div> Address</div>
+
+					<div>
+						Date
+					</div>
+					<div>
+						Valid Until
+					</div>
+
+
+
+					<div>This is valid only given period</div>
+
+					<div class="div text-end">
+						<div> .......................... </div>
+						<div class="font-weight-bold">Signature </div>
+					</div>
 				</div>
+
+
 
 				<!-- Quotation End  View Section -->
 
 
-				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
 
 				<!-- Add the Font Awesome CSS link -->
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -99,52 +133,10 @@ include('Side_nav.php');
 							<input type="date" class="form-control form-control-sm" id="startDate" placeholder="Invoice Date">
 						</div>
 						<div class="input-group input-group-sm mb-3">
-							
+
 							<input type="date" class="form-control form-control-sm" id="endDate" placeholder="Invoice Date">
 						</div>
 					</div>
-
-					<!-- Add the Bootstrap JS and jQuery scripts (required for some Bootstrap features) -->
-					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-					<script>
-						// Function to handle the placeholder behavior
-						function handlePlaceholder() {
-							const invoiceDateInput = document.getElementById('invoiceDate');
-							const placeholderText = 'Invoice Date';
-
-							invoiceDateInput.addEventListener('focus', function() {
-								if (this.value === '') {
-									this.type = 'date';
-									this.classList.remove('placeholder');
-								}
-							});
-
-							invoiceDateInput.addEventListener('blur', function() {
-								if (this.value === '') {
-									this.type = 'text';
-									this.classList.add('placeholder');
-								}
-							});
-
-							invoiceDateInput.addEventListener('change', function() {
-								this.classList.remove('placeholder');
-							});
-
-							// Set initial state
-							if (invoiceDateInput.value === '') {
-								invoiceDateInput.type = 'text';
-								invoiceDateInput.classList.add('placeholder');
-								invoiceDateInput.value = placeholderText;
-							}
-						}
-
-						handlePlaceholder();
-					</script>
-
-
-
 
 
 
@@ -199,33 +191,6 @@ include('Side_nav.php');
 						</div>
 					</div>
 
-					<div class="card" style="width: 50%;">
-						<div class="card-header">
-							<h5 class="card-title">Customer Information
-								<b>OR</b> <!-- Button trigger modal -->
-								<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#customerModal" style="color: #007cb7;">
-									Select Existing Customer
-								</button>
-							</h5>
-						</div>
-
-						<!-- Your HTML form -->
-						<form>
-							<div class="form-group">
-								<label for="name">Name</label>
-								<input type="text" class="form-control" id="name" name="name" placeholder="Name">
-							</div>
-							<div class="form-group">
-								<label for="address">Address</label>
-								<input type="text" class="form-control" id="address" name="address" placeholder="Address">
-							</div>
-							<div class="form-group">
-								<label for="Mobile1">Mobile</label>
-								<input type="text" class="form-control" id="Mobile1" name="Mobile1" placeholder="Mobile">
-							</div>
-						</form>
-					</div>
-
 					<!-- JavaScript code -->
 					<script>
 						function fillForm(name, address, Mobile1) {
@@ -235,47 +200,6 @@ include('Side_nav.php');
 							$('#customerModal').modal('hide'); // Hide the modal after filling the form
 						}
 					</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					<script>
-						function fillForm(name, address, Mobile1) {
-							document.getElementById('name').value = name;
-							document.getElementById('address').value = address;
-							document.getElementById('Mobile1').value = Mobile1;
-							$('#customerModal').modal('hide'); // Hide the modal after filling the form
-						}
-					</script>
-
-
-
-
-
-
-
 					<div class="container">
 						<!-- Modal -->
 						<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
@@ -333,12 +257,9 @@ include('Side_nav.php');
 									<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#customerModal" style="color: #007cb7;">
 										Select Existing Customer
 									</button>
-
 								</h5>
 							</div>
 							<div class="card-body">
-
-
 								<div class="row">
 									<form>
 										<div class="input-group mb-3">
@@ -351,7 +272,7 @@ include('Side_nav.php');
 										</div>
 										<div class="form-group">
 											<label for="nameInput">Name:</label>
-											<input type="text" class="form-control form-control-sm"  id="name" name="name" placeholder="Name">
+											<input type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Name">
 										</div>
 										<div class="form-group">
 											<label for="emailInput">Email:</label>
@@ -428,6 +349,48 @@ include('Side_nav.php');
 			</div>
 		</div>
 </main>
+
+
+<!-- Add the Bootstrap JS and jQuery scripts (required for some Bootstrap features) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+	// Function to handle the placeholder behavior
+	function handlePlaceholder() {
+		const invoiceDateInput = document.getElementById('invoiceDate');
+		const placeholderText = 'Invoice Date';
+
+		invoiceDateInput.addEventListener('focus', function() {
+			if (this.value === '') {
+				this.type = 'date';
+				this.classList.remove('placeholder');
+			}
+		});
+
+		invoiceDateInput.addEventListener('blur', function() {
+			if (this.value === '') {
+				this.type = 'text';
+				this.classList.add('placeholder');
+			}
+		});
+
+		invoiceDateInput.addEventListener('change', function() {
+			this.classList.remove('placeholder');
+		});
+
+		// Set initial state
+		if (invoiceDateInput.value === '') {
+			invoiceDateInput.type = 'text';
+			invoiceDateInput.classList.add('placeholder');
+			invoiceDateInput.value = placeholderText;
+		}
+	}
+
+	handlePlaceholder();
+</script>
+
+
 
 
 

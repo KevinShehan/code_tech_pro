@@ -47,7 +47,28 @@ include('Side_nav.php');
                 <div class="col-sm-7">
                   <div class="input-group">
                     <div class="col-sm-2">
-                      <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code">
+                      <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput">
+
+                      <script>
+                        function generateUniqueCode() {
+                          var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                          var counter = 1;
+                          var code = 'CA';
+
+                          function incrementCounter() {
+                            var number = counter.toString().padStart(2, '0');
+                            counter++;
+                            return number;
+                          }
+                          code += incrementCounter();
+                          for (var i = 0; i < 3; i++) {
+                            code += characters.charAt(Math.floor(Math.random() * characters.length));
+                          }
+                          document.getElementById('codeInput').value = code;
+                        }
+                        // Automatically generate code when the page loads
+                        window.addEventListener('load', generateUniqueCode);
+                      </script>
                     </div>
                     <input type="text" placeholder="Enter Category" required class="form-control col-sm-5" name="cat_name">
                     <div class="input-group-append">
@@ -242,7 +263,40 @@ include('Side_nav.php');
       }
     });
   });
+
+
+  $(document).ready(function() {
+  // Initialize DataTables
+  var table = $('#categoryTable').DataTable();
+
+  // Function to reload the table data
+  function reloadTable() {
+    table.ajax.reload(null, false); // Reload the table without resetting the current page
+  }
+
+  // Reload the table every 5 seconds
+  setInterval(reloadTable, 5000);
+});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 
