@@ -73,7 +73,7 @@ require('pages/css/side_nav_css.php');
           </div>
         </li> -->
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_customer', $allowedUseCases)) : ?>
             <li class="my-7">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -94,7 +94,7 @@ require('pages/css/side_nav_css.php');
               </a>
               <div class="collapse" id="customerMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('read_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_customer', $allowedUseCases)) : ?>
                     <li>
                       <a href="sales_save.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-plus-circle"></span></span>
@@ -102,7 +102,7 @@ require('pages/css/side_nav_css.php');
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_customer', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-table"></span></span>
