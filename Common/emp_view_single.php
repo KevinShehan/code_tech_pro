@@ -18,18 +18,20 @@ $query = "SELECT * from employee where id='$empId'";
 $supplierData = mysqli_query($con, $query);
 while ($row = mysqli_fetch_assoc($supplierData)) {
   $code = $row['code'];
-  $nametitle = $row['nametitle'];
+  $nametitle = $row['nametitle_id'];
   $name = $row['callingname'];
   $description = $row['fullname'];
   $contact1 = $row['mobile'];
   $contact2 = $row['land'];
   $address = $row['address'];
   $email = $row['email'];
-  $fax = $row['fax'];
 }
 
 
-$query2 = "SELECT gender.name from supplier where id='$supplierId'";
+$query2 = "SELECT nametitle.name from nametitle where id=' $nametitle'";
+$result2 = mysqli_query($con, $query2);
+$row = mysqli_fetch_assoc($result2);
+$nametitlenew = $row['name'];
 // Replace the code below with your database query to fetch the supplier data
 // $supplierData = fetchSupplierData($supplierId);
 
@@ -123,7 +125,7 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
           <div class="card-header">
             <h4>
               <span>
-                <i class="fas fa-store"></i>
+                <i class="fas fa-user"></i>
               </span> View Single User
             </h4>
           </div>
@@ -134,30 +136,37 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
               Return Employee List
             </a>
 
+
             <div class="row mb-3">
-              <div class="col-sm-4 text-end font-weight-bold">
-                <label for="gender" class="col-form-label  ">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Code:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $code) ?>" readonly>
+              </div>
+            </div>
+
+
+
+           <div class="row mb-3">
+              <div class="col-sm-4 text-end ">
+                <label for="gender" class="col-form-label  font-weight-bold">
                   <b> Name Title: </b>
                 </label>
               </div>
 
-              <select class="form-select" aria-label="Select Option">
-                <option selected>Select Option</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
-
-
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitlenew) ?>" readonly>
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  <b> Name: </b></label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Name:</b>
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($name) ?>" readonly>
@@ -166,8 +175,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Description:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Description:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>" readonly>
@@ -176,8 +186,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Logo:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Profile Image:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
@@ -187,8 +198,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Gender:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Gender:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
@@ -198,8 +210,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Contact Number1:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Contact Number1:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>">
@@ -210,8 +223,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Contact Number 2:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Contact Number 2:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>">
@@ -222,8 +236,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Address:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Address:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
@@ -234,8 +249,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  E-mail:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  E-mail:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
@@ -244,8 +260,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  E-mail:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  E-mail:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($fax) ?>">
@@ -257,8 +274,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Supplier Status:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Supplier Status:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
@@ -269,8 +287,9 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label">
-                  Supplier Type:</label>
+                <label for="gender" class="col-form-label font-weight-bold">
+                  Supplier Type:
+                </label>
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
@@ -282,7 +301,7 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 
             <div class="form-group row mb-3">
               <div class="offset-sm-4 col-sm-8">
-                <button type="submit" class="btn btn-success" name="submit">Update Employee</button>
+                <button type="submit" class="btn btn-success" name="submit"> Edit Employee </button>
               </div>
             </div>
 
@@ -292,33 +311,33 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
       </div>
       <div class="col-md-3">
         <div class="card p-3">
-        <?php
-                include('config/dbconnection.php');
+          <?php
+          include('config/dbconnection.php');
 
-                // Assuming you have established a database connection
-                $username = $_SESSION["username"];
+          // Assuming you have established a database connection
+          $username = $_SESSION["username"];
 
-                // Fetch the employee data from the database
-                $query = "SELECT employee.photo FROM employee JOIN user ON employee.id = user.employee_id  WHERE user.username = '$username'";
-                $result = mysqli_query($con, $query);
+          // Fetch the employee data from the database
+          $query = "SELECT employee.photo FROM employee JOIN user ON employee.id = user.employee_id  WHERE user.username = '$username'";
+          $result = mysqli_query($con, $query);
 
-                if ($result && mysqli_num_rows($result) > 0) {
-                  $row = mysqli_fetch_assoc($result);
-                  $imagePath = $row['photo'];
+          if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $imagePath = $row['photo'];
 
-                  if (file_exists($imagePath)) {
-                    // Step 3: Create the image tag
-                    $imageTag = '<img src="' . $imagePath . '" alt="profile_image" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; float: left;" class="shadow">';
-                  } else {
-                    $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
-                  }
-                } else {
-                  $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
-                }
+            if (file_exists($imagePath)) {
+              // Step 3: Create the image tag
+              $imageTag = '<img src="' . $imagePath . '" alt="profile_image" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; float: left;" class="shadow">';
+            } else {
+              $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+            }
+          } else {
+            $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+          }
 
-                // Step 4: Output the image tag
-                echo $imageTag;
-                ?>
+          // Step 4: Output the image tag
+          echo $imageTag;
+          ?>
 
         </div>
       </div>
