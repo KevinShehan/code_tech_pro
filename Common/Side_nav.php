@@ -94,7 +94,7 @@ require('pages/css/side_nav_css.php');
               </a>
               <div class="collapse" id="customerMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('read_user', $allowedUseCases)) : ?>
                     <li>
                       <a href="sales_save.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-plus-circle"></span></span>

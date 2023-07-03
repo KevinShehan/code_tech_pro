@@ -168,7 +168,7 @@
             ?>
           </div>
           <div class="card-footer d-flex">
-            <a href="../common/supplier_view.php" class="text-light">
+            <a href="../common/category_views.php" class="text-light">
               View Details
               <span class="ms-auto">
                 <i class="bi bi-chevron-right"></i>
