@@ -8,7 +8,24 @@ require('pages/css/side_nav_css.php');
 <!-- <div id="sideNavigation" class="simplebar"> -->
 <!-- Your side navigation content here -->
 
+<?php
+$username = $_SESSION["username"];
+$status_query = "SELECT employeestatus_id from employee where  email='$username' ";
+$status_result = mysqli_query($con, $status_query);
+// Check if the query executed successfully
+if ($status_result) {
+  // Fetch the result
+  $row = mysqli_fetch_assoc($status_result);
+  $employeestatus_id = $row['employeestatus_id'];
+  $_SESSION["employeestatus_id"] = $employeestatus_id;
 
+  // Echo the result
+  echo $employeestatus_id;
+} else {
+  // Query execution failed
+  echo "Error executing query: " . mysqli_error($con);
+}
+?>
 
 <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="background-color: #1e2d32;width: 250px;">
   <div class="offcanvas-body p-2" style="background-color: #1e2d32;width: 250px;">
@@ -25,14 +42,24 @@ require('pages/css/side_nav_css.php');
 
                 <div style="float: right;">
                   <?php callname($con); ?>
-                  <br />
 
-                  <span class="text-success">
+
+                  <br />
+                  <?php $status = $_SESSION["employeestatus_id"];
+                  if ($status == 1) {
+                    echo ' <span class="text-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
                       <circle cx="4" cy="4" r="4" />
                     </svg>
-                  </span>
-                  <?php
+                  </span>';
+                  } else {
+                    echo '  <span class="text-success shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                      <circle cx="4" cy="4" r="4" />
+                    </svg>
+                  </span>';
+                  }
+
                   echo $_SESSION["user_role"]; ?>
                 </div>
               </a>
@@ -40,8 +67,7 @@ require('pages/css/side_nav_css.php');
           </div>
         </li>
         <?php
-        $status="Active";
-        if ($status == "Active") {
+        if ($status == 1) {
         ?>
           <li>
             <!-- Overview item -->
@@ -117,7 +143,7 @@ require('pages/css/side_nav_css.php');
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_sale', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -138,7 +164,7 @@ require('pages/css/side_nav_css.php');
               </a>
               <div class="collapse" id="salesMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_sale', $allowedUseCases)) : ?>
                     <li>
                       <a href="sales_save.php" class="nav-link px-3">
                         <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
@@ -146,7 +172,7 @@ require('pages/css/side_nav_css.php');
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_sale', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"> <span class="fas fa-list"></span></span>
@@ -161,7 +187,7 @@ require('pages/css/side_nav_css.php');
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_item', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -237,6 +263,79 @@ require('pages/css/side_nav_css.php');
               </div>
             </li>
           <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+          <?php if (in_array('view_sale', $allowedUseCases)) : ?>
+            <li class="my-6">
+              <hr class="dropdown-divider bg-light" />
+            </li>
+            <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Sales Management
+          </div>
+        </li> -->
+            <li>
+              <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
+                <span class="me-2"><span class="fas fa-dollar-sign"></span></span>
+                <span>Sales</span>
+                <span class="ms-auto">
+                  <span class="right-icon">
+                    <i class="bi bi-chevron-down"></i>
+                  </span>
+                </span>
+              </a>
+              <div class="collapse" id="salesMenu">
+                <ul class="navbar-nav ps-3">
+                  <?php if (in_array('create_sale', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="sales_save.php" class="nav-link px-3">
+                        <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
+                        <span>New Invoices</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php if (in_array('view_sale', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="supplier_view.php" class="nav-link px-3">
+                        <span class="me-2"> <span class="fas fa-list"></span></span>
+                        <span>Sales Invoices</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                </ul>
+              </div>
+            </li>
+          <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
