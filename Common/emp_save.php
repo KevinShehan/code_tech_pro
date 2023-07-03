@@ -1,13 +1,13 @@
 <?php
 
 //Auth employee
-// require('pages/Auth.php');
+require('pages/Auth.php');
 
 
 require('config/dbconnection.php');
 include('pages/header.php');
-// include('Top_nav.php');
-// include('Side_nav.php');
+include('Top_nav.php');
+include('Side_nav.php');
 
 require('pages/js/emp_save_js.php');
 require('pages/css/emp_save_css.php');

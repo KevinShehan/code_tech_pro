@@ -28,13 +28,41 @@
             </div>
             <div class="mt-5">
               <h6>
-                Today Customers
+               Customers
               </h6>
             </div>
-            <h2>6</h2>
+            <?php
+            //offcanvas data calculation
+            include('config/dbconnection.php');
+
+
+            $query_supplier = "SELECT COUNT(*) supplier_count FROM v3.customer";
+            // $result_supplier = mysqli_query($con, $query_supplier);
+
+            $result = $con->query($query_supplier);
+
+            if ($result) {
+              // Fetch the count value
+              $row = $result->fetch_assoc();
+              $supplierCount = $row['supplier_count'];
+
+              // Convert the count to a string
+              $countAsString = strval($supplierCount);
+
+              // Display the count on the web page
+              echo '<h2>' . $countAsString . '</h2>';
+
+              // Free the result set
+              $result->free_result();
+            } else {
+              // Handle the query error
+              echo "Error: " . $con->error;
+            }
+
+            ?>
           </div>
           <div class=" card-footer d-flex">
-            <a href="../common/supplier_view.php" class="text-light">
+            <a href="../common/viewusers.php" class="text-light">
               View Details
               <span class="ms-auto">
                 <i class="bi bi-chevron-right"></i>
@@ -109,7 +137,35 @@
                 Catergory
               </h6>
             </div>
-            <h2>6</h2>
+            <?php
+            //offcanvas data calculation
+            include('config/dbconnection.php');
+
+
+            $query_supplier = "SELECT COUNT(*) supplier_count FROM v3.category";
+            // $result_supplier = mysqli_query($con, $query_supplier);
+
+            $result = $con->query($query_supplier);
+
+            if ($result) {
+              // Fetch the count value
+              $row = $result->fetch_assoc();
+              $supplierCount = $row['supplier_count'];
+
+              // Convert the count to a string
+              $countAsString = strval($supplierCount);
+
+              // Display the count on the web page
+              echo '<h2>' . $countAsString . '</h2>';
+
+              // Free the result set
+              $result->free_result();
+            } else {
+              // Handle the query error
+              echo "Error: " . $con->error;
+            }
+
+            ?>
           </div>
           <div class="card-footer d-flex">
             <a href="../common/supplier_view.php" class="text-light">
@@ -132,7 +188,35 @@
                 Items
               </h6>
             </div>
-            <h2>6</h2>
+            <?php
+            //offcanvas data calculation
+            include('config/dbconnection.php');
+
+
+            $query_supplier = "SELECT COUNT(*) supplier_count FROM v3.item";
+            // $result_supplier = mysqli_query($con, $query_supplier);
+
+            $result = $con->query($query_supplier);
+
+            if ($result) {
+              // Fetch the count value
+              $row = $result->fetch_assoc();
+              $supplierCount = $row['supplier_count'];
+
+              // Convert the count to a string
+              $countAsString = strval($supplierCount);
+
+              // Display the count on the web page
+              echo '<h2>' . $countAsString . '</h2>';
+
+              // Free the result set
+              $result->free_result();
+            } else {
+              // Handle the query error
+              echo "Error: " . $con->error;
+            }
+
+            ?>
           </div>
           <div class="card-footer d-flex">
             <a href="../common/supplier_view.php" class="text-light">
