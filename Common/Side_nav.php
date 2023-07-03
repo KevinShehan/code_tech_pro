@@ -240,7 +240,7 @@ if ($status_result) {
             Sales Management
           </div>
         </li> -->
-        <li id="delete_supplier">
+            <li id="delete_supplier">
               <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
                 <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
                 <span>Category</span>
