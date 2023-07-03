@@ -1,13 +1,79 @@
 <?php
 //register supplier
-session_start();
-
-include('config/dbconnection.php');
+require('pages/Auth.php');
+require('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
-
 ?>
+
+
+
+<?php
+// Retrieve the supplier ID from the URL parameter
+$empId = $_GET['id'];
+
+// Fetch the relevant data of the supplier based on the ID
+$query = "SELECT * from employee where id='$empId'";
+$supplierData = mysqli_query($con, $query);
+while ($row = mysqli_fetch_assoc($supplierData)) {
+  $code = $row['code'];
+  $nametitle = $row['nametitle_id'];
+  $name = $row['callingname'];
+  $fullname = $row['fullname'];
+  $contact1 = $row['mobile'];
+  $contact2 = $row['land'];
+  $address = $row['address'];
+  $email = $row['email'];
+  $civilstatus_id = $row['civilstatus_id'];
+  $dob = $row['dob'];
+  $gender_id = $row['gender_id'];
+  $nic=$row['nic'];
+  $employeestatus_id=$row['employeestatus_id'];
+}
+
+
+$query2 = "SELECT nametitle.name from nametitle where id=' $nametitle'";
+$result2 = mysqli_query($con, $query2);
+$row = mysqli_fetch_assoc($result2);
+$nametitlenew = $row['name'];
+
+
+$query3 = "SELECT civilstatus.name from civilstatus where id='$civilstatus_id'";
+$result3 = mysqli_query($con, $query3);
+$row = mysqli_fetch_assoc($result3);
+$civilstatusnew = $row['name'];
+
+
+$query4 = "SELECT gender.name from gender where id='$gender_id'";
+$result4 = mysqli_query($con, $query4);
+$row = mysqli_fetch_assoc($result4);
+$gendernew = $row['name'];
+
+
+$query5 = "SELECT employeestatus.name from employeestatus where id='$employeestatus_id'";
+$result5 = mysqli_query($con, $query5);
+$row = mysqli_fetch_assoc($result5);
+$employeestatusnew = $row['name'];
+
+// Replace the code below with your database query to fetch the supplier data
+// $supplierData = fetchSupplierData($supplierId);
+
+// Populate the form fields with the retrieved data
+
+// Add more fields as needed
+
+// $query6 = "SELECT role.name from user where Employee_id='$empId'";
+$query6 = "SELECT role.name 
+          FROM user 
+          INNER JOIN role ON user.role_id = role.id 
+          WHERE user.employee_id = '$empId'";
+$result6 = mysqli_query($con, $query6);
+$row = mysqli_fetch_assoc($result6);
+$employeerole = $row['name'];
+?>
+
+
 <!-- <script>
     // Add event listener to the delete button
     document.getElementById('deleteButton').addEventListener('click', function() {
@@ -48,7 +114,7 @@ include('Side_nav.php');
             type: 'POST',
             dataType: 'json',
             data: {
-                userId: <?php //echo $Id; 
+                userId: <?php   // echo $Id; 
                         ?>
             }, // Pass the user ID to delete.php
             success: function(response) {
@@ -84,268 +150,287 @@ include('Side_nav.php');
             });
     });
 </script> -->
-
-
-
-<!-- offcanvas -->
 <main class="mt-5 pt-3">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <div class="card">
-                    <div class="card-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>
+              <span>
+                <i class="fas fa-user"></i>
+              </span> Employee Update 
+            </h4>
+          </div>
+          <div class="card-body">
 
-                        <h1>
-                            <span><i class="bi bi-table me-2"></i></span> Employee
-                        </h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="">
-                            <div class="row">
-                                <div class="col-4">
-                                    <h2> Search</h2>
-                                    <input type="search" name="" id="" class="form-control">
-                                </div>
-                                <div class="col-8">
-
-
-                                    <style>
-                                        body {
-                                            background-color: lightcyan;
-                                        }
-                                    </style>
-                                    <div class="form-group row" id="custom-input">
-                                        <div class="col-sm-5 ">
-                                            <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add Supplier</a>
-                                        </div>
-                                    </div>
-
-                                    <table class="table" id="supplierTable">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">id</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php /*
-
-                                // Fetch data from table
-                                $sql = "SELECT * FROM v3.supplier";
-                                $result =  mysqli_query($con, $sql);
-
-                                // Check if there are any records
-                                if ($result->num_rows > 0) {
-
-                                    // Loop through each record
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        // Display table row for each record
-                                        $id = $row['id'];
-                                        $name = $row['name'];
-                                        $address = $row['address'];
-
-                                        echo '<tr>';
-                                        echo '<td>' . $id . '</td>';
-                                        echo '<td>' . $name . '</td>';
-                                        echo '<td>' . $address . '</td>';
-                                        echo '<td>
-                                            <a class="btn btn-info" onclick="return confirm("Are you sure to view?")" href="Supplier_view.php?id=<?php echo $id; ?>">View</a>
-                                            <a class="btn btn btn-warning" onclick="return confirm("Are you sure to Update?")" href="Supplier_update.php?id=<?php echo $id; ?>">Update</a>
-                                            <button  class="deleteBtn btn btn-danger" data-id="' . $row['id'] . '"> Delete</button>
-                                    </tr>';
-                                    }
-                                } else {
-                                    echo '<tr><td colspan="4">No records found.</td></tr>';
-                                } */
+            <a href="viewusers.php" class="btn btn-purple">
+              <i class="fas fa-arrow-left"></i>
+              Return Employee List
+            </a>
 
 
-                                            // Fetch latest supplier records from the database
-                                            $query = 'SELECT * FROM employee';
-                                            $result = mysqli_query($con, $query);
-
-                                            if (!$result) {
-                                                die('Error: ' . mysqli_error($con));
-                                            }
-
-                                            // Generate the HTML markup for supplier records
-                                            $html = '';
-                                            $number = 1;
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $id = $row['id'];
-                                                $html .= '<tr>';
-                                                $html .= '<td>' . $number . '</td>';
-                                                $html .= '<td>' . $row['name'] . '</td>';
-                                                $html .= '<td>' . $row['name'] . '</td>';
-                                                $html .= '<td>
-                                                            <button class=" btn ">
-                                                            <a class="viewBtn btn btn-info" href="supplier_single_view.php?id=' . $id . '">View</a></button>
-                                                            <button class="updateBtn btn btn-warning" data-id="' . $row['id'] . '" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
-                                                            <button class="deleteBtn btn btn-danger" data-id="' . $row['id'] . '">Delete</button>
-                                                        </td>';
-                                                $html .= '</tr>';
-                                                $number++;
-                                            }
-
-                                            echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
-                                            ?>
-                                        </tbody>
-                                    </table>
-
-                                    <!-- Include jQuery -->
-                                    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-                                    <!-- Include SweetAlert JS -->
-                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
-                                    <script>
-                                        $(document).ready(function() {
-                                            // Button click event handler
-                                            $(document).on('click', '.deleteBtn', function() {
-                                                var button = $(this);
-                                                var id = button.data('id');
-
-                                                // Send AJAX request to delete.php with the ID parameter
-                                                $.ajax({
-                                                    url: 'supplier_delete.php?id=' + id,
-                                                    type: 'GET',
-                                                    dataType: 'json',
-                                                    success: function(response) {
-                                                        if (response.success) {
-                                                            // Show SweetAlert popup
-                                                            Swal.fire({
-                                                                title: 'Success',
-                                                                text: 'Record deleted successfully',
-                                                                icon: 'success'
-                                                            }).then(function() {
-                                                                // Refresh the page
-                                                                location.reload();
-                                                            });
-                                                        } else {
-                                                            // Show error message if deletion fails
-                                                            Swal.fire({
-                                                                title: 'Error',
-                                                                text: 'An error occurred while deleting the record',
-                                                                icon: 'error'
-                                                            });
-                                                        }
-                                                    },
-                                                    error: function() {
-                                                        // Show error message if the request fails
-                                                        Swal.fire({
-                                                            title: 'Error',
-                                                            text: 'An error occurred while deleting the record',
-                                                            icon: 'error'
-                                                        });
-                                                    }
-                                                });
-                                            });
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Code:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($code) ?>" >
+              </div>
             </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end ">
+                <label for="gender" class="col-form-label  font-weight-bold">
+                  <b> Name Title: </b>
+                </label>
+              </div>
+
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitlenew) ?>" >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b>Full Name:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b>Civil Status: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatusnew) ?>" >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b>Date of Birth: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>">
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Gender:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($gendernew) ?>">
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Mobile: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>" >
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b>Land:</b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>" >
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Address: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>" >
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> E-mail: </b>
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                 <b>NIC: </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" >
+              </div>
+            </div>
+
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Employee Status:  </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeestatusnew) ?>" >
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                <b>Employee Role:   </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeerole) ?>" >
+              </div>
+            </div>
+
+
+            <!-- Remaining label and input field pairs -->
+
+            <div class="form-group row mb-3">
+              <div class="offset-sm-4 col-sm-8">
+                <button type="submit" class="btn btn-success" name="submit"> Edit Employee </button>
+              </div>
+            </div>
+
+
+          </div>
         </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <?php
+          include('config/dbconnection.php');
+
+          // Assuming you have established a database connection
+          $username = $_SESSION["username"];
+
+          // Fetch the employee data from the database
+          $query = "SELECT employee.photo FROM employee JOIN user ON employee.id = user.employee_id  WHERE user.username = '$username'";
+          $result = mysqli_query($con, $query);
+
+          if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $imagePath = $row['photo'];
+
+            if (file_exists($imagePath)) {
+              // Step 3: Create the image tag
+              $imageTag = '<img src="' . $imagePath . '" alt="profile_image" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; float: left;" class="shadow">';
+            } else {
+              $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+            }
+          } else {
+            $imageTag = '<img src="Assets/images/dashboard/user_logo.png" alt="profile_image_alt" style="width:150px;height:150px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); float: left;" class="shadow">';
+          }
+
+          // Step 4: Output the image tag
+          echo $imageTag;
+          ?>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 
 
+<style>
+  .btn-purple {
+    color: #fff;
+    background-color: purple;
+    border-color: purple;
+  }
+
+  .btn-purple:hover {
+    color: #fff;
+    background-color: darkviolet;
+    border-color: darkviolet;
+  }
+
+  body {
+    background-color: lightcyan;
+  }
+</style>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Supplier Update Form</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Mr </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin Shehan Perera </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Description :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kodal </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Logo :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">imge </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact1 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact2 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Address :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kegalle </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Email :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin.shehan30@gmail.com </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Include SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Function to load and update supplier records
-        function loadSupplierRecords() {
-            $.ajax({
-                url: '',
-                type: 'GET',
-                dataType: 'html',
-                success: function(response) {
-                    $('#supplierTable tbody').html(response);
-                },
-                error: function() {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Failed to load supplier records',
-                        icon: 'error'
-                    });
-                }
-            });
+  $(document).ready(function() {
+    // Function to load and update supplier records
+    function loadSupplierRecords() {
+      $.ajax({
+        url: '',
+        type: 'GET',
+        dataType: 'html',
+        success: function(response) {
+          $('#supplierTable tbody').html(response);
+        },
+        error: function() {
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to load supplier records',
+            icon: 'error'
+          });
         }
+      });
+    }
 
-        // Load initial supplier records
-        loadSupplierRecords();
+    // Load initial supplier records
+    loadSupplierRecords();
 
-        // Refresh supplier records periodically
-        setInterval(function() {
-            loadSupplierRecords();
-        }, 5000); // Refresh every 5 seconds
-    });
+    // Refresh supplier records periodically
+    setInterval(function() {
+      loadSupplierRecords();
+    }, 5000); // Refresh every 5 seconds
+  });
 </script>
 <!-- 
 <script>
@@ -379,6 +464,7 @@ include('Side_nav.php');
         });
     });
 </script> -->
+
 
 <?php
 require('pages/footer.php');
