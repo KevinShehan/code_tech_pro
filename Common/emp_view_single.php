@@ -20,11 +20,16 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
   $code = $row['code'];
   $nametitle = $row['nametitle_id'];
   $name = $row['callingname'];
-  $description = $row['fullname'];
+  $fullname = $row['fullname'];
   $contact1 = $row['mobile'];
   $contact2 = $row['land'];
   $address = $row['address'];
   $email = $row['email'];
+  $civilstatus_id = $row['civilstatus_id'];
+  $dob = $row['dob'];
+  $gender_id = $row['gender_id'];
+  $nic=$row['nic'];
+  $employeestatus_id=$row['employeestatus_id'];
 }
 
 
@@ -32,12 +37,40 @@ $query2 = "SELECT nametitle.name from nametitle where id=' $nametitle'";
 $result2 = mysqli_query($con, $query2);
 $row = mysqli_fetch_assoc($result2);
 $nametitlenew = $row['name'];
+
+
+$query3 = "SELECT civilstatus.name from civilstatus where id='$civilstatus_id'";
+$result3 = mysqli_query($con, $query3);
+$row = mysqli_fetch_assoc($result3);
+$civilstatusnew = $row['name'];
+
+
+$query4 = "SELECT gender.name from gender where id='$gender_id'";
+$result4 = mysqli_query($con, $query4);
+$row = mysqli_fetch_assoc($result4);
+$gendernew = $row['name'];
+
+
+$query5 = "SELECT employeestatus.name from employeestatus where id='$employeestatus_id'";
+$result5 = mysqli_query($con, $query5);
+$row = mysqli_fetch_assoc($result5);
+$employeestatusnew = $row['name'];
+
 // Replace the code below with your database query to fetch the supplier data
 // $supplierData = fetchSupplierData($supplierId);
 
 // Populate the form fields with the retrieved data
 
 // Add more fields as needed
+
+// $query6 = "SELECT role.name from user where Employee_id='$empId'";
+$query6 = "SELECT role.name 
+          FROM user 
+          INNER JOIN role ON user.role_id = role.id 
+          WHERE user.employee_id = '$empId'";
+$result6 = mysqli_query($con, $query6);
+$row = mysqli_fetch_assoc($result6);
+$employeerole = $row['name'];
 ?>
 
 
@@ -144,13 +177,13 @@ $nametitlenew = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $code) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($code) ?>" readonly>
               </div>
             </div>
 
 
 
-           <div class="row mb-3">
+            <div class="row mb-3">
               <div class="col-sm-4 text-end ">
                 <label for="gender" class="col-form-label  font-weight-bold">
                   <b> Name Title: </b>
@@ -165,45 +198,33 @@ $nametitlenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  <b> Name:</b>
+                  <b>Full Name:</b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($name) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" readonly>
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Description:
+                  <b>Civil Status: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatusnew) ?>" readonly>
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Profile Image:
+                  <b>Date of Birth: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
-              </div>
-            </div>
-
-
-            <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  Gender:
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" readonly>
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>" readonly>
               </div>
             </div>
 
@@ -211,24 +232,23 @@ $nametitlenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Contact Number1:
+                  <b> Gender:</b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($gendernew) ?>" readonly>
               </div>
             </div>
-
 
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Contact Number 2:
+                  <b> Mobile: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>" readonly>
               </div>
             </div>
 
@@ -237,11 +257,11 @@ $nametitlenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Address:
+                  <b>Land:</b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>" readonly>
               </div>
             </div>
 
@@ -250,36 +270,11 @@ $nametitlenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  E-mail:
+                  <b> Address: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  E-mail:
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($fax) ?>">
-              </div>
-            </div>
-
-
-
-
-            <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  Supplier Status:
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>" readonly>
               </div>
             </div>
 
@@ -288,11 +283,49 @@ $nametitlenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  Supplier Type:
+                  <b> E-mail: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" readonly>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                 <b>NIC: </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" readonly>
+              </div>
+            </div>
+
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                  <b> Employee Status:  </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeestatusnew) ?>" readonly>
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3">
+              <div class="col-sm-4 text-end">
+                <label for="gender" class="col-form-label font-weight-bold">
+                <b>Employee Role:   </b> 
+                </label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeerole) ?>" readonly>
               </div>
             </div>
 
