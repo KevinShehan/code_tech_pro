@@ -224,7 +224,6 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-
                 </ul>
               </div>
             </li>
@@ -232,8 +231,16 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
-            <li id="delete_supplier">
+          <?php if (in_array('view_sale', $allowedUseCases)) : ?>
+            <li class="my-6">
+              <hr class="dropdown-divider bg-light" />
+            </li>
+            <!-- <li>
+          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+            Sales Management
+          </div>
+        </li> -->
+        <li id="delete_supplier">
               <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#categoryMenu">
                 <span class="me-2"><i class="fa fa-list-alt" aria-hidden="true"></i></span>
                 <span>Category</span>
@@ -259,59 +266,6 @@ if ($status_result) {
                   <span>View Categories</span>
                 </a>
               </li> -->
-                </ul>
-              </div>
-            </li>
-          <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-          <?php if (in_array('view_sale', $allowedUseCases)) : ?>
-            <li class="my-6">
-              <hr class="dropdown-divider bg-light" />
-            </li>
-            <!-- <li>
-          <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-            Sales Management
-          </div>
-        </li> -->
-            <li>
-              <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#salesMenu">
-                <span class="me-2"><span class="fas fa-dollar-sign"></span></span>
-                <span>Sales</span>
-                <span class="ms-auto">
-                  <span class="right-icon">
-                    <i class="bi bi-chevron-down"></i>
-                  </span>
-                </span>
-              </a>
-              <div class="collapse" id="salesMenu">
-                <ul class="navbar-nav ps-3">
-                  <?php if (in_array('create_sale', $allowedUseCases)) : ?>
-                    <li>
-                      <a href="sales_save.php" class="nav-link px-3">
-                        <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
-                        <span>New Invoices</span>
-                      </a>
-                    </li>
-                  <?php endif; ?>
-                  <?php if (in_array('view_sale', $allowedUseCases)) : ?>
-                    <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
-                        <span class="me-2"> <span class="fas fa-list"></span></span>
-                        <span>Sales Invoices</span>
-                      </a>
-                    </li>
-                  <?php endif; ?>
                 </ul>
               </div>
             </li>
