@@ -89,7 +89,11 @@ require('pages/css/viewusers_css.php');
                 <div class="card">
                     <div class="card-header">
                         <h4>
-                            <span><i class="bi bi-table me-2"></i></span> Employees
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm5 10h-1.3c-.34-.6-.75-1.13-1.25-1.61.55-.52.95-1.26.95-2.11 0-1.37-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5c0 .85.4 1.59.95 2.11-.5.48-.91 1.01-1.25 1.61H7c-1.1 0-2 .9-2 2v1c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-1c0-1.1-.9-2-2-2z" />
+                                </svg>
+                            </span> Employees
                         </h4>
                     </div>
                     <div class="card-body">
@@ -99,7 +103,7 @@ require('pages/css/viewusers_css.php');
 
                                     <div class="form-group row" id="custom-input">
                                         <div class="col-sm-5">
-                                            <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add User</a>
+                                            <a href="emp_save.php" class="btn btn-success" value="Submit"> + Add User</a>
                                         </div>
                                     </div>
 
