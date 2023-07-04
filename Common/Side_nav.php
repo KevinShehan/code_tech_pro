@@ -208,7 +208,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="itemsMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_item', $allowedUseCases)) : ?>
                     <li>
                       <a href="item_add.php" class="nav-link px-3">
                         <span class="me-2"> <span class="fas fa-plus"></span> </span>
@@ -216,7 +216,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_item', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-eye"></span></span>
