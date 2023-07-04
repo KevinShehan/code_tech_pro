@@ -104,7 +104,7 @@ include('Side_nav.php');
                   echo '<td>' . $row['code'] . '</td>';
                   echo '<td>' . $row['name'] . '</td>';
                   echo '<td>' .
-                    '<button class="btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
+                    '<button class="updateBtn btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
                     '&nbsp;' .
                     '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
                   echo "</tr>";
@@ -261,6 +261,52 @@ include('Side_nav.php');
       }
     });
   });
+
+
+
+
+
+  $(document).on('click', '.updateBtn', function() {
+    var button = $(this);
+    var id = button.data('id');
+
+    $.ajax({
+      url: 'category_get.php',
+      type: 'GET',
+      data: {
+        id: id
+      },
+      dataType: 'json',
+      success: function(response) {
+        $('#categoryIdUpdate').val(response.id);
+        $('#cat_code').val(response.cat_code);
+        $('#cat_name').val(response.cat_name);
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   $(document).ready(function() {
