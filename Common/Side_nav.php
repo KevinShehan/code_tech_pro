@@ -272,28 +272,6 @@ if ($status_result) {
           <?php endif; ?>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <?php if (in_array('create_user', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
