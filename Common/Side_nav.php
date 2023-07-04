@@ -272,7 +272,7 @@ if ($status_result) {
           <?php endif; ?>
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_quotation', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -293,7 +293,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="QuotationMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_quotation', $allowedUseCases)) : ?>
                     <li>
                       <a href="Quotation_add.php" class="nav-link px-3">
                         <span class="me-2"><i class="bi bi-chat-left-quote"></i></span>
@@ -301,7 +301,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_quotation', $allowedUseCases)) : ?>
                     <li>
                       <a href="Quotation_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-list"></i></span>
@@ -316,7 +316,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_supplier', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -337,7 +337,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="SupplierMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_supplier', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-truck"></i></span>
@@ -345,7 +345,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_supplier', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-users"></i></span>
