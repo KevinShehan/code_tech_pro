@@ -406,7 +406,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_return', $allowedUseCases)) : ?>
             <li class="my-7">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -427,7 +427,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="returnMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_return', $allowedUseCases)) : ?>
                     <li>
                       <a href="sales_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-reply"></i>
@@ -436,7 +436,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_return', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-history"></i>
@@ -453,7 +453,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('read_user', $allowedUseCases)) : ?>
             <li class="my-7">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -469,7 +469,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="employeeMenu">
                 <ul class="navbar-nav ps-3">
-                <?php if (in_array('update_user', $allowedUseCases)) : ?>
+                <?php if (in_array('create_user', $allowedUseCases)) : ?>
                     <li>
                       <a href="emp_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fa fa-user-plus"></i><i class="fa fa-sitemap" ></i></span>
@@ -493,7 +493,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_report', $allowedUseCases)) : ?>
             <li class="my-8">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -515,7 +515,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="reportMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
                     <li>
                       <a href="change_pw.php" class="nav-link px-3">
                         <span class="me-2"> <i class="fas fa-chart-pie"></i>
@@ -524,7 +524,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-chart-pie"></i>
