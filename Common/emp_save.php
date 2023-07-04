@@ -14,7 +14,43 @@ require('pages/css/emp_save_css.php');
 require('pages/functions/emp_save_functions.php');
 
 ?>
+<script>
+  function autoFillBirthday() {
+  var nicNumber = document.getElementById("nicNumber").value;
 
+  if (nicNumber.length === 10) {
+    var year = parseInt(nicNumber.substr(0, 2));
+    var days = parseInt(nicNumber.substr(2, 3));
+    var isMale = parseInt(nicNumber.substr(9, 1)) < 5;
+
+    var birthYear = year < 20 ? 2000 + year : 1900 + year;
+    var birthMonth = "";
+    
+    if (days > 500) {
+      birthYear += 1;
+      days -= 500;
+    }
+
+    if (days <= 31) {
+      birthMonth = "01";
+    } else if (days <= 59) {
+      birthMonth = "02";
+      days -= 31;
+    } else if (days <= 90) {
+      birthMonth = "03";
+      days -= 59;
+    }
+    
+    // ... Repeat the above for the remaining months (04 to 12)
+
+    var birthDate = birthYear + "-" + birthMonth.padStart(2, '0') + "-" + days.toString().padStart(2, '0');
+    document.getElementById("birthday").value = birthDate;
+  } else {
+    document.getElementById("birthday").value = ""; // Clear the birthday field if NIC number is invalid
+  }
+}
+
+</script>
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
@@ -120,7 +156,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end">Date of Birth:</label>
                 <div class="col-sm-5">
-                  <input type="date" class="form-control datepicker" placeholder="Select a date" name="dob" id="dob" />
+                  <input type="date" class="form-control datepicker" placeholder="Select a date"  id="birthday" name="birthday" readonly />
                   <div id="dob-validation" class="invalid-feedback">
                     Please enter a valid Date of Birth.
                   </div>
@@ -150,7 +186,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end">NIC :</label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter NIC " required class="form-control" name="nic" />
+                  <input type="text" placeholder="Enter NIC " required class="form-control" id="nicNumber" name="nicNumber" oninput="autoFillBirthday()" required />
                 </div>
               </div>
 

@@ -17,6 +17,29 @@ include('Side_nav.php');
                     <div class="card-body">
                         <h5 class="card-title">+Product Add</h5>
                         <form method="post" action="">
+                            
+                      <script>
+                        function generateUniqueCode() {
+                          var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                          var counter = 1;
+                          var code = 'IT';
+
+                          function incrementCounter() {
+                            var number = counter.toString().padStart(2, '0');
+                            counter++;
+                            return number;
+                          }
+                          code += incrementCounter();
+                          for (var i = 0; i < 2; i++) {
+                            code += characters.charAt(Math.floor(Math.random() * characters.length));
+                          }
+                          document.getElementById('codeInput').value = code;
+                        }
+                        // Automatically generate code when the page loads
+                        window.addEventListener('load', generateUniqueCode);
+                      </script>
+                        <label>CODE</label>
+                            <input type="text" name="" id="codeInput" class="form-control" readonly>
                             <label>Item Name</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Category</label>
@@ -32,11 +55,11 @@ include('Side_nav.php');
                                 }
                                 ?>
                             </select>
-                            <label>ROP Price</label>
+                            <label>Retail of Price</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Wholesale Price</label>
-                            <input type="text" name="" id="" class="form-control">
-                            <label>Price</label>
+                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
+                            <label>Dealer of Price</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Description</label>
                             <input type="text" name="" id="" class="form-control">
