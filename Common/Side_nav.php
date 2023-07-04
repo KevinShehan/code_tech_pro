@@ -231,7 +231,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('view_sale', $allowedUseCases)) : ?>
+          <?php if (in_array('view_category', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -252,7 +252,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="categoryMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_category', $allowedUseCases)) : ?>
                     <li>
                       <a href="category_save.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-tags"></span></span>
