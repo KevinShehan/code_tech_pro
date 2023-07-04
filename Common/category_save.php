@@ -6,8 +6,6 @@ include('config/dbconnection.php');
 include('pages/Header.php');
 include('Top_nav.php');
 include('Side_nav.php');
-
-
 ?>
 
 <style>
@@ -61,7 +59,7 @@ include('Side_nav.php');
                             return number;
                           }
                           code += incrementCounter();
-                          for (var i = 0; i < 3; i++) {
+                          for (var i = 0; i < 2; i++) {
                             code += characters.charAt(Math.floor(Math.random() * characters.length));
                           }
                           document.getElementById('codeInput').value = code;
@@ -266,25 +264,15 @@ include('Side_nav.php');
 
 
   $(document).ready(function() {
-  // Initialize DataTables
-  var table = $('#categoryTable').DataTable();
-
-  // Function to reload the table data
-  function reloadTable() {
-    table.ajax.reload(null, false); // Reload the table without resetting the current page
-  }
-
-  // Reload the table every 5 seconds
-  setInterval(reloadTable, 5000);
-});
+    $('#categoryTable').DataTable();
+  });
 </script>
 
 
 
+
 <?php
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
   // Access the submitted values
   $cat_code = $_POST['cat_code'];
   $cat_name = $_POST['cat_name'];
@@ -298,15 +286,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo '    icon: "success",';
     echo '    title: "Success",';
     echo '    text: "Category saved successfully"';
+    echo '  }).then(function() {';
+    echo '    location.href = "Category_save.php";';
+    echo '  });';
+    echo '};';
+    echo '</script>';
+  } else {
+    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+    echo '<script>';
+    echo 'window.onload = function() {';
+    echo '  Swal.fire({';
+    echo '    icon: "error",';
+    echo '    title: "Error",';
+    echo '    text: "An error occurred while saving the category"';
     echo '  });';
     echo '};';
     echo '</script>';
   }
 }
 ?>
-
-
-
-
 
 <?php include('pages/Footer.php'); ?>
