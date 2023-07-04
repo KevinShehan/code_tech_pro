@@ -122,7 +122,7 @@ if ($status_result) {
                 <ul class="navbar-nav ps-3">
                   <?php if (in_array('create_customer', $allowedUseCases)) : ?>
                     <li>
-                      <a href="sales_save.php" class="nav-link px-3">
+                      <a href="customer_save.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-plus-circle"></span></span>
                         <span>Add Customer</span>
                       </a>
@@ -174,7 +174,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_sale', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="Sales_view.php" class="nav-link px-3">
                         <span class="me-2"> <span class="fas fa-list"></span></span>
                         <span>Sales Invoices</span>
                       </a>
@@ -383,7 +383,7 @@ if ($status_result) {
                 <ul class="navbar-nav ps-3">
                   <?php if (in_array('create_purchase', $allowedUseCases)) : ?>
                     <li>
-                      <a href="sales_save.php" class="nav-link px-3">
+                      <a href="Purchase_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-cart-plus"></i></span>
                         <span>Create Purchase</span>
                       </a>
@@ -391,7 +391,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_purchase', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="Purchase_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-history"></i></span>
                         <span>Purchase History</span>
                       </a>
@@ -429,7 +429,7 @@ if ($status_result) {
                 <ul class="navbar-nav ps-3">
                   <?php if (in_array('create_return', $allowedUseCases)) : ?>
                     <li>
-                      <a href="sales_save.php" class="nav-link px-3">
+                      <a href="Return_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-reply"></i>
                         </span>
                         <span>Create return</span>
@@ -438,7 +438,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_return', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="Return_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-history"></i>
                         </span>
                         <span>Return history</span>
@@ -519,7 +519,7 @@ if ($status_result) {
                 <ul class="navbar-nav ps-3">
                   <?php if (in_array('view_report', $allowedUseCases)) : ?>
                     <li>
-                      <a href="change_pw.php" class="nav-link px-3">
+                      <a href="Report_customer.php" class="nav-link px-3">
                         <span class="me-2"> <i class="fas fa-chart-pie"></i>
                         </span>
                         <span>Customer Report</span>
@@ -528,10 +528,46 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_report', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="Report_supplie.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-chart-pie"></i>
                         </span>
                         <span>Supplier Reports</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="Report_purchase.php" class="nav-link px-3">
+                        <span class="me-2"><i class="fas fa-chart-pie"></i>
+                        </span>
+                        <span>Purchase Reports</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="Report_item.php" class="nav-link px-3">
+                        <span class="me-2"><i class="fas fa-chart-pie"></i>
+                        </span>
+                        <span>Item Reports</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="Report_sale.php" class="nav-link px-3">
+                        <span class="me-2"><i class="fas fa-chart-pie"></i>
+                        </span>
+                        <span>Sales Reports</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php if (in_array('view_report', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="Report_reorder.php" class="nav-link px-3">
+                        <span class="me-2"><i class="fas fa-chart-pie"></i>
+                        </span>
+                        <span>Reorder Reports</span>
                       </a>
                     </li>
                   <?php endif; ?>
