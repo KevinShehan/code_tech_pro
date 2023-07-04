@@ -17,28 +17,30 @@ include('Side_nav.php');
                     <div class="card-body">
                         <h5 class="card-title">+Product Add</h5>
                         <form method="post" action="">
-                            
-                      <script>
-                        function generateUniqueCode() {
-                          var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                          var counter = 1;
-                          var code = 'IT';
 
-                          function incrementCounter() {
-                            var number = counter.toString().padStart(2, '0');
-                            counter++;
-                            return number;
-                          }
-                          code += incrementCounter();
-                          for (var i = 0; i < 2; i++) {
-                            code += characters.charAt(Math.floor(Math.random() * characters.length));
-                          }
-                          document.getElementById('codeInput').value = code;
-                        }
-                        // Automatically generate code when the page loads
-                        window.addEventListener('load', generateUniqueCode);
-                      </script>
-                        <label>CODE</label>
+                            <script>
+                                function generateUniqueCode() {
+                                    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                                    var counter = 1;
+                                    var code = 'IT';
+
+                                    function incrementCounter() {
+                                        var number = counter.toString().padStart(2, '0');
+                                        counter++;
+                                        return number;
+                                    }
+                                    code += incrementCounter();
+                                    for (var i = 0; i < 2; i++) {
+                                        code += characters.charAt(Math.floor(Math.random() * characters.length));
+                                    }
+                                    document.getElementById('codeInput').value = code;
+                                }
+                                // Automatically generate code when the page loads
+                                window.addEventListener('load', generateUniqueCode);
+                            </script>
+
+
+                            <label>CODE</label>
                             <input type="text" name="" id="codeInput" class="form-control" readonly>
                             <label>Item Name</label>
                             <input type="text" name="" id="" class="form-control">
@@ -56,11 +58,11 @@ include('Side_nav.php');
                                 ?>
                             </select>
                             <label>Retail of Price</label>
-                            <input type="text" name="" id="" class="form-control">
+                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
                             <label>Wholesale Price</label>
                             <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
                             <label>Dealer of Price</label>
-                            <input type="text" name="" id="" class="form-control">
+                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
                             <label>Description</label>
                             <input type="text" name="" id="" class="form-control">
                             <label>Quantity</label>
@@ -77,9 +79,9 @@ include('Side_nav.php');
                                     echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                                 }
                                 ?>
-                            <div class="input-group justify-content-end">
-                                <button class="btn btn-success float-end">+Add Product</button>
-                            </div>
+                                <div class="input-group justify-content-end">
+                                    <button class="btn btn-success float-end">+Add Product</button>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -101,8 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    $query="INSERT INTO item(name,category_id, itemstatus_id,Warrenty_id,qty,rop,wop,price) VALUES('$itemname',' $category ',' $Itemstatus ','$Warrenty ','$qty',' $rop',' $wop','  $dop')";
-    $result=mysqli_query($con,$query);
+    $query = "INSERT INTO item(name,category_id, itemstatus_id,Warrenty_id,qty,rop,wop,price) VALUES('$itemname',' $category ',' $Itemstatus ','$Warrenty ','$qty',' $rop',' $wop','  $dop')";
+    $result = mysqli_query($con, $query);
 }
 
 
