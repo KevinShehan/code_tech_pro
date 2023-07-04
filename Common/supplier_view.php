@@ -17,7 +17,7 @@ include('Side_nav.php');
                 <div class="card shadow">
                     <div class="card-header">
                         <h4>
-                            <span><i class="bi bi-table me-2"></i></span> Suppliers
+                            <span><i class="fas fa-building"></i></span> Suppliers
                         </h4>
                     </div>
                     <div class="card-body">

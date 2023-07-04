@@ -31,9 +31,12 @@ include('Side_nav.php');
         <div class="card">
           <div class="card-header">
 
-            <h1>
-              <span><i class="bi bi-table me-2"></i></span> Supplier Registration
-            </h1>
+            <h3>
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path d="M20.4 8H18V5.6c0-.5-.4-.9-.9-.9h-6.2c-.5 0-.9.4-.9.9V8H3.6c-.5 0-.9.4-.9.9v10.2c0 .5.4.9.9.9h16.8c.5 0 .9-.4.9-.9V8.9c0-.5-.4-.9-.9-.9zm-9.6 0h2.4V5.6h-2.4V8zm7.2 10.2H4.8V9.8h13.2v8.4zm0-9.3H4.8V8.9h13.2v.9zm0-1.9H4.8V6.9h13.2v.8z" />
+                </svg>
+              </span> Supplier Registration
+            </h3>
           </div>
           <div class="card-body">
 
@@ -48,8 +51,9 @@ include('Side_nav.php');
             </style>
             <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" novalidate>
               <div class="form-group row" id="custom-input">
-                <label for="code" class="control-label col-sm-2">Code
-                  <span class="align-right"> :</span></label>
+                <label for="code" class="control-label col-sm-2 text-end">
+                  <b> Code: </b>
+                </label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Code " required class="form-control" name="sup_code" id="codeInput" readonly />
                 </div>
@@ -85,7 +89,7 @@ include('Side_nav.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Gender :</b> </label>
                 <div class="col-sm-5">
                   <select class="form-control" name="gender">
                     <?php
@@ -101,7 +105,7 @@ include('Side_nav.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Name Title :</b></label>
                 <div class="col-sm-5">
                   <select class="form-control" name="nametitle">
                     <?php
@@ -115,7 +119,7 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Full Name</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Full Name :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
                   <div class="alert alert-danger" id="nameError" style="display: none;">Please Enter Valid Name</div>
@@ -123,14 +127,14 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Description :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Description :</b></label>
                 <div class="col-sm-5">
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">LOGO :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>LOGO :</b></label>
                 <div class="col-sm-5">
                   <div id="thumbnailContainer"></div>
                   <input type="file" class="form-control-file" id="exampleFormControlFile1 accept=" image/*" onchange="previewImage(event)" name="logoimg" />
@@ -158,7 +162,7 @@ include('Side_nav.php');
               </script>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">email :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>E-mail :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" id="emailInput" name="email" />
                   <div class="alert alert-danger" id="emailError" style="display: none;">Please Enter Valid Email !</div>
@@ -166,7 +170,7 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Address :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Address :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="address" />
                   <div class="alert alert-danger" id="errorMessage" style="display: none;"></div>
@@ -174,7 +178,7 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Mobile1 :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Mobile1 :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile1" />
                   <div class="alert alert-danger" id="errorMessage" style="display: none;"></div>
@@ -182,21 +186,21 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Mobile2 :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Mobile2 :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile2" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">FAX :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>FAX :</label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="fax" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Supplier Status :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Supplier Status :</label>
                 <div class="col-sm-5">
                   <select class="form-control" name="supplier_status">
                     <?php
@@ -211,7 +215,7 @@ include('Side_nav.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Supplier Type :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Supplier Type :</label>
                 <div class="col-sm-5">
                   <select class="form-control" name="supplier_type">
                     <?php
