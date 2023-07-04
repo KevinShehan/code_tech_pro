@@ -24,11 +24,47 @@
         <div class="card t-card bg-primary text-white h-100 ">
           <div class="card-body ">
             <div>
-              <img src="Pages/dash_card/team.png" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
+              <style>
+                @keyframes shake {
+                  0% {
+                    transform: translateX(0);
+                  }
+
+                  25% {
+                    transform: translateX(-1px) rotate(-1deg);
+                  }
+
+                  50% {
+                    transform: translateX(1px) rotate(1deg);
+                  }
+
+                  75% {
+                    transform: translateX(-1px) rotate(-1deg);
+                  }
+
+                  100% {
+                    transform: translateX(0);
+                  }
+                }
+
+                .shake-image {
+                  animation: shake 3.0s infinite;
+                }
+              </style>
+
+              <img src="Pages/dash_card/team.png" id="shake-image" class="card-img-top card-row1" alt="Image Description" style="width:25%; float: right;">
+
+              <script>
+                window.onload = function() {
+                  const image = document.getElementById('shake-image');
+                  image.classList.add('shake-image');
+                };
+              </script>
+
             </div>
             <div class="mt-5">
               <h6>
-               Customers
+                Customers
               </h6>
             </div>
             <?php

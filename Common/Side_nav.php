@@ -485,7 +485,7 @@ if ($status_result) {
             <li>
               <a class="nav-link px-3 sidebar-link li-top" data-bs-toggle="collapse" href="#employeeMenu">
                 <span class="me-2"> <i class="fas fa-users"></i></i></span>
-                <span>Employee</span>
+                <span>Users</span>
                 <span class="ms-auto">
                   <span class="right-icon">
                     <i class="bi bi-chevron-down"></i>
@@ -494,22 +494,23 @@ if ($status_result) {
               </a>
               <div class="collapse" id="employeeMenu">
                 <ul class="navbar-nav ps-3">
+                <?php if (in_array('update_user', $allowedUseCases)) : ?>
+                    <li>
+                      <a href="emp_save.php" class="nav-link px-3">
+                        <span class="me-2"><i class="fa fa-user-plus"></i><i class="fa fa-sitemap" ></i></span>
+                        <span>Add User</span>
+                      </a>
+                    </li>
+                  <?php endif; ?>
                   <?php if (in_array('read_user', $allowedUseCases)) : ?>
                     <li>
                       <a href="viewusers.php" class="nav-link px-3">
                         <span class="me-2"><i class="fa fa-address-book"></i></span>
-                        <span>View Employees</span>
+                        <span>View Users</span>
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('update_user', $allowedUseCases)) : ?>
-                    <li>
-                      <a href="emp_save.php" class="nav-link px-3">
-                        <span class="me-2"><i class="fa fa-user-plus"></i></i></span>
-                        <span>Add Employee</span>
-                      </a>
-                    </li>
-                  <?php endif; ?>
+               
                 </ul>
               </div>
             </li>

@@ -97,11 +97,11 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle_new) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle_new) ?>">
               </div>
             </div>
 
-            
+
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label">
@@ -109,7 +109,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -119,7 +119,7 @@ include('Side_nav.php');
                   <b>Full Name: </b></label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>">
               </div>
             </div>
 
@@ -130,7 +130,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>">
               </div>
             </div>
 
@@ -141,7 +141,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>">
               </div>
             </div>
 
@@ -153,7 +153,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ( $civilstatus_new) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatus_new) ?>">
               </div>
             </div>
 
@@ -165,7 +165,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($gender_new) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($gender_new) ?>">
               </div>
             </div>
 
@@ -177,7 +177,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($mobile) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($mobile) ?>">
               </div>
             </div>
 
@@ -190,7 +190,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($land) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($land) ?>">
               </div>
             </div>
 
@@ -216,7 +216,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
               </div>
             </div>
 
@@ -227,7 +227,7 @@ include('Side_nav.php');
                 </label>
               </div>
               <div class="col-sm-8">
-              <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
               </div>
             </div>
 
@@ -275,6 +275,22 @@ include('Side_nav.php');
           echo $imageTag;
           ?>
         </div>
+
+        <script>
+          var fileInput = document.getElementById("imageUpload");
+          var image = document.getElementById("profileImage");
+
+          fileInput.addEventListener("change", function(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              image.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+          });
+        </script>
       </div>
     </div>
   </div>
@@ -303,27 +319,27 @@ include('Side_nav.php');
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
- document.getElementById("myButton").addEventListener("click", function() {
-  // Displaying a confirmation message using SweetAlert2
-  Swal.fire({
-    title: 'Confirmation',
-    text: 'Are you sure you want to proceed?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'No'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // If the user confirms, show a sweet alert popup message
-      Swal.fire({
-        title: 'Success!',
-        text: 'Action completed successfully.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
-    }
+  document.getElementById("myButton").addEventListener("click", function() {
+    // Displaying a confirmation message using SweetAlert2
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to proceed?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirms, show a sweet alert popup message
+        Swal.fire({
+          title: 'Success!',
+          text: 'Action completed successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   });
-});
 </script>
 
 
