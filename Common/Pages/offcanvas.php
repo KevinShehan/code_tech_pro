@@ -97,14 +97,17 @@
 
             ?>
           </div>
-          <div class=" card-footer d-flex">
-            <a href="../common/viewusers.php" class="text-light">
-              View Details
-              <span class="ms-auto">
-                <i class="bi bi-chevron-right"></i>
-              </span>
-            </a>
-          </div>
+          <?php $x = 1;
+          if ($x == 2) { ?>
+            <div class=" card-footer d-flex">
+              <a href="../common/viewusers.php" class="text-light">
+                View Details
+                <span class="ms-auto">
+                  <i class="bi bi-chevron-right"></i>
+                </span>
+              </a>
+            </div>
+          <?php } ?>
         </div>
       </div>
 
@@ -151,6 +154,8 @@
             ?>
 
           </div>
+          <?php $x = 1;
+          if ($x == 2) { ?>
           <div class="card-footer d-flex">
             <a href="../common/supplier_view.php" class="text-light">
               View Details
@@ -159,6 +164,7 @@
               </span>
             </a>
           </div>
+          <?php }?>
         </div>
 
       </div>
@@ -203,6 +209,8 @@
 
             ?>
           </div>
+          <?php $x = 1;
+          if ($x == 2) { ?>
           <div class="card-footer d-flex">
             <a href="../common/category_views.php" class="text-light">
               View Details
@@ -211,6 +219,7 @@
               </span>
             </a>
           </div>
+          <?php } ?>
         </div>
       </div>
       <div class="col-md-3 mb-3">
@@ -254,6 +263,8 @@
 
             ?>
           </div>
+          <?php $x = 1;
+          if ($x == 2) { ?>
           <div class="card-footer d-flex">
             <a href="../common/supplier_view.php" class="text-light">
               View Details
@@ -262,6 +273,7 @@
               </span>
             </a>
           </div>
+          <?php } ?>
         </div>
       </div>
     </div>
