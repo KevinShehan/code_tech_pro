@@ -469,10 +469,10 @@ if ($status_result) {
               </a>
               <div class="collapse" id="employeeMenu">
                 <ul class="navbar-nav ps-3">
-                <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
                     <li>
                       <a href="emp_save.php" class="nav-link px-3">
-                        <span class="me-2"><i class="fa fa-user-plus"></i><i class="fa fa-sitemap" ></i></span>
+                        <span class="me-2"><i class="fa fa-user-plus"></i><i class="fa fa-sitemap"></i></span>
                         <span>Add User</span>
                       </a>
                     </li>
@@ -485,7 +485,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-               
+
                 </ul>
               </div>
             </li>
@@ -539,7 +539,8 @@ if ($status_result) {
           <?php endif; ?>
 
         <?php  } ?>
-        <?php if (in_array('create_user', $allowedUseCases)) : ?>
+
+        <?php if (in_array('view_profile', $allowedUseCases)) : ?>
           <li class="my-8">
             <hr class="dropdown-divider bg-light" />
           </li>
@@ -560,7 +561,7 @@ if ($status_result) {
             </a>
             <div class="collapse" id="layouts">
               <ul class="navbar-nav ps-3">
-                <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                <?php if (in_array('update_profile', $allowedUseCases)) : ?>
                   <li>
                     <a href="change_pw.php" class="nav-link px-3">
                       <span class="me-2"><i class="fas fa-lock"></i></span>
@@ -568,7 +569,7 @@ if ($status_result) {
                     </a>
                   </li>
                 <?php endif; ?>
-                <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                <?php if (in_array('update_profile', $allowedUseCases)) : ?>
                   <li>
                     <a href="profile.php" class="nav-link px-3">
                       <span class="me-2"><i class="fas fa-cog"></i></span>
