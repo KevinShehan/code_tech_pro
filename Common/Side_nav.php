@@ -360,10 +360,7 @@ if ($status_result) {
 
 
 
-
-
-
-          <?php if (in_array('create_user', $allowedUseCases)) : ?>
+          <?php if (in_array('view_purchase', $allowedUseCases)) : ?>
             <li class="my-7">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -384,7 +381,7 @@ if ($status_result) {
               </a>
               <div class="collapse" id="purchaseMenu">
                 <ul class="navbar-nav ps-3">
-                  <?php if (in_array('view_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('create_purchase', $allowedUseCases)) : ?>
                     <li>
                       <a href="sales_save.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-cart-plus"></i></span>
@@ -392,7 +389,7 @@ if ($status_result) {
                       </a>
                     </li>
                   <?php endif; ?>
-                  <?php if (in_array('create_user', $allowedUseCases)) : ?>
+                  <?php if (in_array('view_purchase', $allowedUseCases)) : ?>
                     <li>
                       <a href="supplier_view.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-history"></i></span>
