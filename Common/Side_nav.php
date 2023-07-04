@@ -218,7 +218,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_item', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="items_view.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-eye"></span></span>
                         <span>View Items</span>
                       </a>
@@ -472,7 +472,9 @@ if ($status_result) {
                   <?php if (in_array('create_user', $allowedUseCases)) : ?>
                     <li>
                       <a href="emp_save.php" class="nav-link px-3">
-                        <span class="me-2"><i class="fa fa-user-plus"></i><i class="fa fa-sitemap"></i></span>
+                        <span class="me-2"><i class="fa fa-user-plus"></i>
+                          <!-- <i class="fa fa-sitemap"></i> -->
+                        </span>
                         <span>Add User</span>
                       </a>
                     </li>
