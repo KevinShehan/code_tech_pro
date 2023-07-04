@@ -169,11 +169,8 @@ function tbldata($con)
         $html .= '</tr>';
         $number++;
     }
-
     echo '<script>$("#userTable tbody").html(`' . $html . '`);</script>';
 } ?>
-
-
 
 <?php
 include('Pages/Footer.php');

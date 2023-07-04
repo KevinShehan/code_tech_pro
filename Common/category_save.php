@@ -298,17 +298,6 @@ include('Side_nav.php');
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   $(document).ready(function() {
     $('#categoryTable').DataTable();
   });
