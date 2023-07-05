@@ -145,25 +145,25 @@ include('Side_nav.php');
                   <input type="text" placeholder="Enter Mobile1" required class="form-control" name="mobile1" />
                 </div>
               </div>
-
+              <!-- 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Mobile2 :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Address :</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Mobile2" required class="form-control" name="mobile2" />
                 </div>
-              </div>
-
-              <!-- <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">FAX :</label>
-                <div class="col-sm-10">
-                  <input type="text" placeholder="Enter Mobile2" required class="form-control" name="fax" />
-                </div>
               </div> -->
+
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Description :</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="message" name="message" rows="4" cols="50"></textarea>
+                </div>
+              </div>
 
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Employee Status :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Customer Type :</label>
                 <div class="col-sm-10">
                   <select class="form-control" name="customerstatus">
                     <?php
@@ -248,8 +248,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $customerstatus_id = $_POST['customerstatus'];
 
-  $sql = "INSERT INTO customers ( code, nametitle_id, name,gender_id, nic, mobile1, mobile2,
-    address, fax,customerstatus_id) VALUES ('$sup_code',$nametitle, 
+  $sql = "INSERT INTO customer ( code, nametitle_id, name,gender_id, nic, mobile1,
+    address, user_id,description,customertype_id) VALUES ('$sup_code',$nametitle, 
      '$fullname','$gender','$nic','$contact1','$contact2','$address','$fax',
      $customerstatus_id)";
   $result = mysqli_query($con, $sql);

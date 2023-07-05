@@ -63,8 +63,10 @@ require('pages/functions/emp_save_functions.php');
             </h4>
           </div>
 
+
+
           <div class="card-body">
-            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" onsubmit="validateForm(event); return false;">
 
               <div class="form-group row" id="custom-input">
                 <label for="email" class="control-label col-sm-2 text-end"><b>Code :</b> </label>
@@ -438,30 +440,44 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
               <script>
-  function validateForm() {
-    var isValid = true;
+                function validateForm() {
+                  var isValid = true;
 
-    // Perform your validation checks
-    // Example: Check if the callname input is empty
-    var callname = document.getElementById("callname").value;
-    if (callname.trim() === "") {
-      document.getElementById("callname-validation").style.display = "block";
-      isValid = false;
-    } else {
-      document.getElementById("callname-validation").style.display = "none";
-    }
+                  // Perform your validation checks
+                  // Example: Check if the callname input is empty
+                  var callname = document.getElementById("callname").value;
+                  if (callname.trim() === "") {
+                    document.getElementById("callname-validation").style.display = "block";
+                    isValid = false;
+                  } else {
+                    document.getElementById("callname-validation").style.display = "none";
+                  }
 
-    // Add more validation checks for other fields
+                  // Add more validation checks for other fields
 
-    // Enable/disable the submit button based on the validation status
-    var submitButton = document.getElementById("submitButton");
-    submitButton.disabled = !isValid;
+                  // Enable/disable the submit button based on the validation status
+                  var submitButton = document.getElementById("submitButton");
+                  submitButton.disabled = !isValid;
 
-    // Return false to prevent the form submission if validation fails
-    return isValid;
-  }
-</script>
+                  // Return false to prevent the form submission if validation fails
+                  return isValid;
+                }
+              </script>
+              <script>
+                const formInputs = {
+                  name: false,
+                  email: false,
+                }
 
+                //formInputs.name = true;
+
+                function validateForm(event) {
+                  event.preventDefault(); // Prevents the default form submission behavior
+
+                  const isError = Object.values(formInputs).filter(value => value === false)
+
+                }
+              </script>
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
                   <button type="submit" class="btn btn-primary shadow" value="Submit">Register</button>
