@@ -119,12 +119,12 @@ include('Side_nav.php');
                 </div>
               </div>
 
-              <div class="form-group row" id="custom-input">
+              <!-- <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Email :</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Email" required class="form-control" name="email" />
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Address :</label>
@@ -264,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $customerstatus_id = $_POST['customerstatus'];
 
   $sql = "INSERT INTO customer ( code, nametitle_id, name,gender_id, nic, mobile1,
-    address, user_id,description,customertype_id) VALUES ('$sup_code',$nametitle, 
+    address, user_id,description,customertype_id) VALUES ('$cus_code',$nametitle, 
      '$fullname','$gender','$nic','$contact1','$address','$user_id','$description',
      $customerstatus_id)";
   $result = mysqli_query($con, $sql);
