@@ -133,12 +133,12 @@ include('Side_nav.php');
                 </div>
               </div>
 
-              <div class="form-group row" id="custom-input">
+              <!-- <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Land :</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter LAND Phone Number" required class="form-control" name="land" />
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Mobile1 :</label>
@@ -157,7 +157,7 @@ include('Side_nav.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Description :</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="message" name="message" rows="4" cols="50"></textarea>
+                  <textarea class="form-control" id="message" name="description" rows="4" cols="50"></textarea>
                 </div>
               </div>
 
@@ -166,7 +166,7 @@ include('Side_nav.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Customer Type :</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="customerstatus">
+                  <select class="form-control" name="customertype">
                     <?php
                     // Loop through the query result and display data within <option> tags
                     while ($row = mysqli_fetch_assoc($result_customerstatus)) {
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // }
 
   // Access the submitted values
-  $sup_code = $_POST['cus_code'];
+  $cus_code = $_POST['cus_code'];
 
   //should get values from foreign tables id's
   $nametitle = $_POST['nametitle'];
@@ -255,18 +255,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nic = $_POST['nic'];
   $gender = $_POST['gender'];
   $contact1 = $_POST['mobile1'];
-  $contact2 = $_POST['mobile2'];
   $address = $_POST['address'];
-  $email = $_POST['email'];
-  $fax = $_POST['fax'];
+ 
 
 
-  $customerstatus_id = $_POST['customerstatus'];
+  $customertype = $_POST['customertype'];
+  $description = $_POST['description'];
 
   $sql = "INSERT INTO customer ( code, nametitle_id, name,gender_id, nic, mobile1,
     address, user_id,description,customertype_id) VALUES ('$cus_code',$nametitle, 
      '$fullname','$gender','$nic','$contact1','$address','$user_id','$description',
-     $customerstatus_id)";
+     $customertype)";
   $result = mysqli_query($con, $sql);
 
   // Print the query statement
