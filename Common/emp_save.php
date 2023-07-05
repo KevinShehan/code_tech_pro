@@ -64,7 +64,7 @@ require('pages/functions/emp_save_functions.php');
           </div>
 
           <div class="card-body">
-            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
 
               <div class="form-group row" id="custom-input">
                 <label for="email" class="control-label col-sm-2 text-end"><b>Code :</b> </label>
@@ -94,7 +94,7 @@ require('pages/functions/emp_save_functions.php');
                   <b> Call Name:</b>
                   <span style="color: red">*</span></label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Calling Name" required class="form-control" name="callname" id="callname" />
+                  <input type="text" placeholder="Enter Calling Name" required class="form-control" name="callname" id="callname" required />
                   <div id="callname-validation" class="invalid-feedback">
                     Please enter a valid Call Name with only alphabetic letters (no special characters or spaces).
                   </div>
@@ -107,7 +107,7 @@ require('pages/functions/emp_save_functions.php');
                 <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Full Name :</b>
                   <span style="color: red">*</span></label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
+                  <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" required />
                   <div id="callname-validation" class="invalid-feedback">
                     Please enter a valid Call Name with only alphabetic letters (no special characters or spaces).
                   </div>
@@ -117,7 +117,8 @@ require('pages/functions/emp_save_functions.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Gender :</b> </label>
+                <label for="gender" class="col-sm-2 col-form-label  text-end">
+                  <b>Gender :</b> </label>
                 <div class="col-sm-5">
                   <select class="form-control" name="gender">
                     <?php
@@ -131,12 +132,33 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  const nicInput = document.getElementById('nicNumber');
+
+                  nicInput.addEventListener('input', function() {
+                    const isValid = /^[0-9]{9}[VvXx]$/.test(nicInput.value);
+
+                    if (isValid) {
+                      nicInput.classList.remove('is-invalid');
+                      nicInput.classList.add('is-valid');
+                    } else {
+                      nicInput.classList.remove('is-valid');
+                      nicInput.classList.add('is-invalid');
+                    }
+                  });
+                });
+              </script>
+
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b>NIC :</b> </label>
+                <label for="nicNumber" class="col-sm-2 col-form-label text-end"><b>NIC:</b></label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter NIC " required class="form-control" id="nicNumber" name="nic" oninput="autoFillBirthday()" required />
+                  <input type="text" placeholder="Enter NIC" required class="form-control" id="nicNumber" name="nic" oninput="autoFillBirthday()" required />
+                  <div class="invalid-feedback">Please enter a valid Sri Lankan NIC number.</div>
+                  <div class="valid-feedback">Valid NIC number!</div>
                 </div>
               </div>
+
 
 
 
@@ -154,14 +176,57 @@ require('pages/functions/emp_save_functions.php');
                   </select>
                 </div>
               </div>
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  const imageInput = document.getElementById('exampleFormControlFile1');
+
+                  imageInput.addEventListener('change', function() {
+                    const file = imageInput.files[0];
+                    const isValid = file != null;
+
+                    if (isValid) {
+                      // Show image preview
+                      const previewImage = document.getElementById('preview');
+                      previewImage.src = URL.createObjectURL(file);
+                      previewImage.style.display = 'block';
+
+                      imageInput.classList.remove('is-invalid');
+                      imageInput.classList.add('is-valid');
+                    } else {
+                      // Hide image preview
+                      const previewImage = document.getElementById('preview');
+                      previewImage.src = '#';
+                      previewImage.style.display = 'none';
+
+                      imageInput.classList.remove('is-valid');
+                      imageInput.classList.add('is-invalid');
+                    }
+                  });
+                });
+
+                function previewImage(event) {
+                  const input = event.target;
+                  const previewImage = document.getElementById('preview');
+
+                  if (input.files && input.files[0]) {
+                    previewImage.src = URL.createObjectURL(input.files[0]);
+                    previewImage.style.display = 'block';
+                  } else {
+                    previewImage.src = '#';
+                    previewImage.style.display = 'none';
+                  }
+                }
+              </script>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Image :</b> </label>
+                <label for="exampleFormControlFile1" class="col-sm-2 col-form-label text-end"><b>Image:</b></label>
                 <div class="col-sm-5">
-                  <div id="thumbnailContainer" style="width:20%">
+                  <div id="thumbnailContainer" style="width: 20%">
                     <img id="preview" src="#" alt="Image Preview" style="width: 100px; display: none;">
                   </div>
-                  <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" onchange="previewImage(event)" placeholder="s " name="proimg" />
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1" accept="image/*" onchange="previewImage(event)" name="proimg" required />
+                  <div class="invalid-feedback">Please select an image file.</div>
+                  <div class="valid-feedback">Valid image selected!</div>
                 </div>
               </div>
 
@@ -169,7 +234,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Date of Birth :</b> </label>
                 <div class="col-sm-5">
-                  <input type="date" class="form-control datepicker" placeholder="Select a date" id="birthday" name="dob" readonly />
+                  <input type="date" class="form-control datepicker" placeholder="Select a date" id="birthday" name="dob" readonly required />
                   <div id="dob-validation" class="invalid-feedback">
                     Please enter a valid Date of Birth.
                   </div>
@@ -181,7 +246,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Email Address :</b> </label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Email Address" required class="form-control" name="username" id="email" />
+                  <input type="text" placeholder="Enter Email Address" required class="form-control" name="username" id="email" required />
                   <div id="email-validation" class="invalid-feedback">
                     Please enter a valid Email Address.
                   </div>
@@ -189,18 +254,60 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  const addressInput = document.querySelector('input[name="address"]');
+
+                  addressInput.addEventListener('input', function() {
+                    const addressValue = addressInput.value;
+                    const isValid = addressValue.trim() !== '';
+
+                    if (isValid) {
+                      addressInput.classList.remove('is-invalid');
+                      addressInput.classList.add('is-valid');
+                    } else {
+                      addressInput.classList.remove('is-valid');
+                      addressInput.classList.add('is-invalid');
+                    }
+                  });
+                });
+              </script>
+
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Postal Address :</b> </label>
+                <label for="address" class="col-sm-2 col-form-label text-end"><b>Postal Address:</b></label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Postal Address " required class="form-control" name="address" />
+                  <input type="text" placeholder="Enter Postal Address" required class="form-control" name="address" required />
+                  <div class="invalid-feedback">Please enter a postal address.</div>
+                  <div class="valid-feedback">Valid postal address!</div>
                 </div>
               </div>
+
+
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  const telephoneInput = document.getElementById('land');
+
+                  telephoneInput.addEventListener('input', function() {
+                    const isValid = /^\d{10}$/.test(telephoneInput.value);
+
+                    if (isValid) {
+                      telephoneInput.classList.remove('is-invalid');
+                      telephoneInput.classList.add('is-valid');
+                    } else {
+                      telephoneInput.classList.remove('is-valid');
+                      telephoneInput.classList.add('is-invalid');
+                    }
+                  });
+                });
+              </script>
 
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end"><b>Land :</b> </label>
                 <div class="col-sm-5">
-                  <input type="text" placeholder="Enter Land Phone Number " required class="form-control" name="land" />
+                  <input type="text" placeholder="Enter Land Phone Number " required class="form-control" name="land" id="land" required />
+                  <div class="invalid-feedback">Please enter a 10-digit number.</div>
+                  <div class="valid-feedback">Valid telephone number!</div>
                 </div>
               </div>
 
@@ -225,7 +332,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="mobile1" class="col-sm-2 col-form-label text-end"><b>Mobile:</b></label>
                 <div class="col-sm-5">
-                  <input type="tel" pattern="[0-9]{10}" placeholder="Enter Mobile 1" required class="form-control" id="mobile1" name="mobile1" required/>
+                  <input type="tel" pattern="[0-9]{10}" placeholder="Enter Mobile 1" required class="form-control" id="mobile1" name="mobile1" required />
                   <div class="invalid-feedback">Please enter a 10-digit number.</div>
                   <div class="valid-feedback">Valid telephone number!</div>
                 </div>
@@ -262,7 +369,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="password" class="col-sm-2 col-form-label text-end"><b>Password:</b></label>
                 <div class="col-sm-5">
-                  <input type="password" placeholder="Enter Password" required class="form-control" name="password"  required/>
+                  <input type="password" placeholder="Enter Password" required class="form-control" name="password" required />
                   <div class="invalid-feedback">Password must be at least 10 characters long.</div>
                   <div class="valid-feedback">Valid password!</div>
                 </div>
@@ -271,7 +378,8 @@ require('pages/functions/emp_save_functions.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b></b> Role :</label>
+                <label for="gender" class="col-sm-2 col-form-label  text-end">
+                  <b> Role :</b></label>
                 <div class="col-sm-5">
                   <select class="form-control" name="role">
                     <?php
@@ -315,7 +423,8 @@ require('pages/functions/emp_save_functions.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b></b> Employee Status :</label>
+                <label for="gender" class="col-sm-2 col-form-label  text-end">
+                  <b>Employee Status :</b> </label>
                 <div class="col-sm-5">
                   <select class="form-control" name="employeestatus">
                     <?php
@@ -327,6 +436,31 @@ require('pages/functions/emp_save_functions.php');
                   </select>
                 </div>
               </div>
+
+              <script>
+  function validateForm() {
+    var isValid = true;
+
+    // Perform your validation checks
+    // Example: Check if the callname input is empty
+    var callname = document.getElementById("callname").value;
+    if (callname.trim() === "") {
+      document.getElementById("callname-validation").style.display = "block";
+      isValid = false;
+    } else {
+      document.getElementById("callname-validation").style.display = "none";
+    }
+
+    // Add more validation checks for other fields
+
+    // Enable/disable the submit button based on the validation status
+    var submitButton = document.getElementById("submitButton");
+    submitButton.disabled = !isValid;
+
+    // Return false to prevent the form submission if validation fails
+    return isValid;
+  }
+</script>
 
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
