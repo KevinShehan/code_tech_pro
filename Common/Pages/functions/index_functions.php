@@ -35,6 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION["username"] = $username;
             // Passwords match
 
+
+
+
+
             // Execute the SQL query
             $query = "SELECT role.name FROM user JOIN role ON user.role_id = role.id WHERE user.username = '$username'";
             $result = mysqli_query($con, $query);
@@ -99,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </script>';
         }
     } else {
-       // User not found or both username and password are incorrect
+        // User not found or both username and password are incorrect
         echo '
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
         <script>
@@ -115,4 +119,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>';
     }
 }
-?>

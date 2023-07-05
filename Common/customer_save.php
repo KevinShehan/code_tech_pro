@@ -29,6 +29,7 @@ include('Side_nav.php');
                 <i class="fas fa-user-friends"></i>
               </span>
               Customer Registration
+              <?php ?>
             </h3>
           </div>
           <div class="card-body">
@@ -230,6 +231,20 @@ require('pages/footer.php');
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+  $username = $_SESSION["username"];
+  // Execute the SQL query
+  $query2 = "SELECT user.id from user WHERE user.username = '$username'";
+  $result2 = mysqli_query($con, $query2);
+  $row2 = mysqli_fetch_assoc($result2);
+  // Check if a row was returned
+  if ($row2) {
+    $user_id = $row2['id'];
+    $_SESSION['user_id'] = $user_id;
+    // echo $user_id ;
+  }
+  // else {
+  //   echo "Failed";
+  // }
 
   // Access the submitted values
   $sup_code = $_POST['cus_code'];
@@ -250,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $sql = "INSERT INTO customer ( code, nametitle_id, name,gender_id, nic, mobile1,
     address, user_id,description,customertype_id) VALUES ('$sup_code',$nametitle, 
-     '$fullname','$gender','$nic','$contact1','$contact2','$address','$fax',
+     '$fullname','$gender','$nic','$contact1','$address','$user_id','$description',
      $customerstatus_id)";
   $result = mysqli_query($con, $sql);
 
