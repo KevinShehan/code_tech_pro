@@ -8,11 +8,8 @@ include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
 require('pages/css/viewusers_css.php');
-
 ?>
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<!-- Include SweetAlert JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -39,9 +36,8 @@ require('pages/css/viewusers_css.php');
                 }
             });
 
-
             function deleteRecord(id) {
-                // Send AJAX request to delete.php with the ID parameter
+                // Send AJAX request to emp_delete.php with the ID parameter
                 $.ajax({
                     url: 'emp_delete.php?id=' + id,
                     type: 'GET',
@@ -79,8 +75,7 @@ require('pages/css/viewusers_css.php');
         });
     });
 </script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css"> -->
 
 <main class="mt-5 pt-3">
     <div class="container-fluid">
