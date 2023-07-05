@@ -16,7 +16,7 @@ include('Side_nav.php');
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">+Product Add</h5>
-                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" id="itemForm">
 
                             <script>
                                 function generateUniqueCode() {
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
-  document.getElementById("myForm").addEventListener("submit", function(event) {
+  document.getElementById("itemForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the form from submitting immediately
 
     Swal.fire({
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }).then((result) => {
       if (result.isConfirmed) {
         // If the user confirms submission, submit the form
-        document.getElementById("myForm").submit();
+        document.getElementById("itemForm").submit();
       }
     });
   });
