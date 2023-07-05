@@ -16,7 +16,7 @@ include('Side_nav.php');
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">+Product Add</h5>
-                        <form method="post" action="">
+                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
 
                             <script>
                                 function generateUniqueCode() {
@@ -44,7 +44,7 @@ include('Side_nav.php');
                             <input type="text" name="itemcode" id="codeInput" class="form-control" readonly>
 
                             <label>Item Name</label>
-                            <input type="text" name="" id="" class="form-control">
+                            <input type="text" name="itemname" id="" class="form-control">
 
 
                             <label>Category</label>
@@ -61,22 +61,22 @@ include('Side_nav.php');
                                 ?>
                             </select>
                             <label>Retail of Price</label>
-                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
+                            <input type="number" id="currency" class="form-control" name="rop" step="0.01" min="0" required>
 
                             <label>Wholesale Price</label>
-                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
+                            <input type="number" id="currency" class="form-control" name="wop" step="0.01" min="0" required>
 
-                            <label>Dealer of Price</label>
-                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required>
+                            <!-- <label>Dealer of Price</label>
+                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required> -->
 
                             <label>Description</label>
-                            <input type="text" name="" id="" class="form-control">
+                            <input type="text" name="description" id="" class="form-control">
 
                             <label>Quantity</label>
-                            <input type="number" name="" id="" class="form-control" min="0" required>
+                            <input type="number" name="qty" id="" class="form-control" min="0" required>
 
                             <label>Warrenty Period</label>
-                            <select class="form-control" name="nametitle">
+                            <select class="form-control" name="warrenty">
                                 <?php
                                 // Retrieve data from the SQL table
                                 $query_warrenty = "SELECT id,name FROM warrenty";
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $query = "INSERT INTO item(code,name,category_id, Warrenty_id,qty,rop,wop,reorder,description,user_id)
-     VALUES('$itemcode','$itemname',' $category ','$Warrenty ','$qty',' $rop',' $wop','$reorder','$description', '$user_id')";
+     VALUES('$itemcode','$itemname',' $category ','$Warrenty ','$qty',' $rop',' $wop','$qty','$description', '$user_id')";
     $result = mysqli_query($con, $query);
 
 
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '    title: "Success",';
         echo '    text: "Item saved successfully"';
         echo '  }).then(function() {';
-        echo '    location.href = "Category_save.php";';
+        echo '    location.href = "items_view.php";';
         echo '  });';
         echo '};';
         echo '</script>';
@@ -167,7 +167,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+<script>
+  document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from submitting immediately
 
+    Swal.fire({
+      title: "Confirm Submission",
+      text: "Are you sure you want to submit the form?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Submit",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirms submission, submit the form
+        document.getElementById("myForm").submit();
+      }
+    });
+  });
+</script>
 
 
 
