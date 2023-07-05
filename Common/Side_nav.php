@@ -130,7 +130,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_customer', $allowedUseCases)) : ?>
                     <li>
-                      <a href="supplier_view.php" class="nav-link px-3">
+                      <a href="customer_view.php" class="nav-link px-3">
                         <span class="me-2"><span class="fas fa-table"></span></span>
                         <span>View Customers</span>
                       </a>
