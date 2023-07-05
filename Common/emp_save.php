@@ -225,7 +225,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="mobile1" class="col-sm-2 col-form-label text-end"><b>Mobile:</b></label>
                 <div class="col-sm-5">
-                  <input type="tel" pattern="[0-9]{10}" placeholder="Enter Mobile 1" required class="form-control" id="mobile1" name="mobile1" />
+                  <input type="tel" pattern="[0-9]{10}" placeholder="Enter Mobile 1" required class="form-control" id="mobile1" name="mobile1" required/>
                   <div class="invalid-feedback">Please enter a 10-digit number.</div>
                   <div class="valid-feedback">Valid telephone number!</div>
                 </div>
@@ -262,7 +262,7 @@ require('pages/functions/emp_save_functions.php');
               <div class="form-group row" id="custom-input">
                 <label for="password" class="col-sm-2 col-form-label text-end"><b>Password:</b></label>
                 <div class="col-sm-5">
-                  <input type="password" placeholder="Enter Password" required class="form-control" name="password" />
+                  <input type="password" placeholder="Enter Password" required class="form-control" name="password"  required/>
                   <div class="invalid-feedback">Password must be at least 10 characters long.</div>
                   <div class="valid-feedback">Valid password!</div>
                 </div>
@@ -285,12 +285,34 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  const dateInput = document.querySelector('input[name="dorecruite"]');
+
+                  dateInput.addEventListener('input', function() {
+                    const selectedDate = dateInput.value;
+                    const isValid = selectedDate.trim() !== '';
+
+                    if (isValid) {
+                      dateInput.classList.remove('is-invalid');
+                      dateInput.classList.add('is-valid');
+                    } else {
+                      dateInput.classList.remove('is-valid');
+                      dateInput.classList.add('is-invalid');
+                    }
+                  });
+                });
+              </script>
+
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label  text-end"><b></b> Date of Recruite :</label>
+                <label for="dorecruite" class="col-sm-2 col-form-label text-end"><b>Date of Recruitment:</b></label>
                 <div class="col-sm-5">
-                  <input type="date" class="form-control datepicker" placeholder="Select a date" name="dorecruite">
+                  <input type="date" class="form-control datepicker" placeholder="Select a date" name="dorecruite" required>
+                  <div class="invalid-feedback">Please select a date.</div>
+                  <div class="valid-feedback">Valid date!</div>
                 </div>
               </div>
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label  text-end"><b></b> Employee Status :</label>
