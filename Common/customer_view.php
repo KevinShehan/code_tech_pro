@@ -96,13 +96,13 @@ include('Side_nav.php');
                 <div class="card">
                     <div class="card-header">
 
-                        <h1>
+                        <h3>
                             <span><i class="bi bi-table me-2"></i></span> Customers
-                        </h1>
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="">
-                            <div class="row">
+                          
 
 
 
@@ -113,7 +113,7 @@ include('Side_nav.php');
                                 </style>
                                 <div class="form-group row" id="custom-input">
                                     <div class="col-sm-5 ">
-                                        <a href="supplier_save.php" class="btn btn-success" value="Submit"> + Add Customer</a>
+                                        <a href="customer_save.php" class="btn btn-success" value="Submit"> + Add Customer</a>
                                     </div>
                                 </div>
 
@@ -160,7 +160,7 @@ include('Side_nav.php');
 
 
                                         // Fetch latest supplier records from the database
-                                        $query = 'SELECT * FROM customers';
+                                        $query = 'SELECT * FROM customer';
                                         $result = mysqli_query($con, $query);
 
                                         if (!$result) {
@@ -175,7 +175,7 @@ include('Side_nav.php');
                                             $html .= '<tr>';
                                             $html .= '<td>' . $number . '</td>';
                                             $html .= '<td>' . $row['name'] . '</td>';
-                                            $html .= '<td>' . $row['fax'] . '</td>';
+                                            $html .= '<td>' . $row['Mobile1'] . '</td>';
                                             $html .= '<td>' . $row['address'] . '</td>';
                                             $html .= '<td>
                                     <button class=" btn ">
@@ -241,8 +241,6 @@ include('Side_nav.php');
                                         });
                                     });
                                 </script>
-
-                            </div>
                         </div>
                     </div>
                 </div>

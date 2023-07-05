@@ -73,9 +73,6 @@ include('Side_nav.php');
 
 
 
-
-
-
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Name Title :</label>
                 <div class="col-sm-10">
@@ -256,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $gender = $_POST['gender'];
   $contact1 = $_POST['mobile1'];
   $address = $_POST['address'];
- 
+
 
 
   $customertype = $_POST['customertype'];
@@ -287,6 +284,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 ";
     //Close connection
+  } else {
+    // Display SweetAlert error message
+    echo "
+    <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+    <script>
+        $(document).ready(function() {
+            swal({
+                title: 'Error!',
+                text: 'Customer Not Saved.',
+                icon: 'error',
+            });
+        });
+    </script>
+    ";
   }
 }
 $con->close();
