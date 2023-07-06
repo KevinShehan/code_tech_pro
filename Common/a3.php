@@ -47,52 +47,51 @@ include('Side_nav.php');
         <div class="row">
             <div class="col-md-12 mb-3">
                 Create Invoice
-
-
-
-
-
-
                 <div class="panel">
-                        <div class="panel-content">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
-                                        <h6 class="mb-xlg text-center"><b> </b></h6>
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
+                                    <h6 class="mb-xlg text-center"><b> </b></h6>
 
-                                        <div class="form-group">
-                                          
+                                    <div class="form-group">
+
                                         <label for="name" class="col-sm-2 control-label">Item / Tool</label>
-                                            <div class="col-sm-3">
-											
-                                            <select    name="prod_name"    class="form-control" style="width: 100%"  required>
-                                            <option selected disabled value=""> Select</option> 
+                                        <div class="col-sm-3">
+
+                                            <select name="prod_name" class="form-control" style="width: 100%" required>
+                                                <option selected disabled value=""> Select</option>
                                                 <?php
-                                            
-                                            $queryc=mysqli_query($con,"select * from item");
-                                            //     while($rowc=mysqli_fetch_array($queryc)){
-                                            //     ?>
-                                                <option value="<?php //echo //$rowc['prod_id'];?>"> <?php //echo $rowc['serial'];?> - <?php //echo $rowc['prod_name'];?></option>
-                                                <?php //}?>
-                                            </select> 
-                                            </div>  
-                                            
-                                            <label for="name" class="col-sm-2 control-label">  Qty Sold</label>
-                                             <div class="col-sm-3">
-                                                <input type="number" class="form-control"   name="qty" min="1"  required>
-                                            </div>
+
+                                                $queryc = mysqli_query($con, "select * from item");
+                                                //     while($rowc=mysqli_fetch_array($queryc)){
+                                                //     
+                                                ?>
+                                                <option value="<?php //echo //$rowc['prod_id'];
+                                                                ?>"> <?php //echo $rowc['serial'];
+                                                                        ?> - <?php //echo $rowc['prod_name'];
+                                                                                                            ?></option>
+                                                <?php //}
+                                                ?>
+                                            </select>
                                         </div>
-                                         
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-primary" name="AddTolist" > +   Add to List </button>
-                                            </div>
+
+                                        <label for="name" class="col-sm-2 control-label"> Qty Sold</label>
+                                        <div class="col-sm-3">
+                                            <input type="number" class="form-control" name="qty" min="1" required>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary" name="AddTolist"> + Add to List </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
 
@@ -121,10 +120,7 @@ include('Side_nav.php');
                 <table class="table table-striped table-bordered table-primary" id="myTable">
                     <thead>
                         <tr>
-                            <th>
-                                <button class="btn btn-success btn-sm" onclick="addRow()"><span style="font-family: 'Arial', sans-serif">&#43;</span>
-                                </button>
-                                No
+                            <th>No
                             </th>
                             <th>Item</th>
                             <th>Description</th>
@@ -133,15 +129,19 @@ include('Side_nav.php');
                             <th>Quantity</th>
                             <th>Discount</th>
                             <th>Total Price</th>
+                            <th>
+                                <button class="btn btn-success btn-sm" onclick="addRow()"><span style="font-family: 'Arial', sans-serif">&#43;</span>
+                                </button>
+                            </th> <!-- New column for actions -->
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
-                <div id="subtotal">Subtotal: $0</div> <!-- Subtotal label -->
-                <br/>
-                <div id="discount">Discount: $0</div> <!-- Discount label -->
+                <div id="subtotal">Subtotal: Rs0</div> <!-- Subtotal label -->
+                <br />
+                <div id="discount" class="text-end">Discount: Rs 0</div> <!-- Discount label -->
                 <button class="btn btn-primary" onclick="createInvoice()">Create Invoice</button>
             </div>
         </div>
@@ -152,37 +152,31 @@ include('Side_nav.php');
     var rowCounter = 1;
 
     function addRow() {
-        var table = document.getElementById("myTable").getElementsByTagName("tbody")[0];
-        var row = table.insertRow();
-        row.id = "row" + rowCounter; // Add id to the row
+       // Get the table and tbody element
+       var table = document.getElementById("myTable");
+        var tbody = table.getElementsByTagName("tbody")[0];
 
-        var cell0 = row.insertCell(0);
-        var cell1 = row.insertCell(1);
-        var cell2 = row.insertCell(2);
-        var cell3 = row.insertCell(3);
-        var cell4 = row.insertCell(4);
-        var cell5 = row.insertCell(5);
-        var cell6 = row.insertCell(6);
-        var cell7 = row.insertCell(7);
+        // Create a new row
+        var row = document.createElement("tr");
+        row.id = "row" + rowCounter;
 
-        var deleteButton = document.createElement("button");
-        deleteButton.className = "btn btn-danger btn-sm";
-        deleteButton.innerHTML = "&#10060;";
-        deleteButton.addEventListener("click", function() {
-            deleteRow(this); // Pass the delete button element
-        });
+        // Add cells to the row
+        row.innerHTML = `
+            <td>${rowCounter}</td>
+            <td><a href="#" onclick="selectItem(this)">Item ${rowCounter}</a></td>
+            <td><input type="text" class="form-control" placeholder="Description"></td>
+            <td><input type="text" class="form-control" placeholder="Warranty"></td>
+            <td><input type="number" class="form-control" placeholder="Quantity" onchange="calculateTotal(this)"></td>
+            <td><input type="number" class="form-control" placeholder="Unit Price" onchange="calculateTotal(this)"></td>
+            <td><input type="number" class="form-control" placeholder="Discount" onchange="calculateTotal(this)"></td>
+            <td><span class="total-price text-end">0</span></td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">&#10060;</button></td>
+        `;
 
-        cell0.appendChild(deleteButton);
-        cell0.style.textAlign = "center"; // Center-align the delete button
+        // Append the row to the tbody
+        tbody.appendChild(row);
 
-        cell1.innerHTML = "Item " + rowCounter;
-        cell2.innerHTML = '<input type="text" class="form-control" placeholder="Description">';
-        cell3.innerHTML = '<input type="text" class="form-control" placeholder="Warranty">';
-        cell4.innerHTML = '<input type="number" class="form-control" placeholder="Quantity" onchange="calculateTotal(this)">';
-        cell5.innerHTML = '<input type="number" class="form-control" placeholder="Unit Price" onchange="calculateTotal(this)">';
-        cell6.innerHTML = '<input type="number" class="form-control" placeholder="Discount" onchange="calculateTotal(this)">';
-        cell7.innerHTML = "<span class='total-price text-end'>0</span>";
-
+        // Increment the row counter
         rowCounter++;
 
         // Calculate subtotal and update the display
@@ -238,7 +232,7 @@ include('Side_nav.php');
             subtotal += totalPrice;
         }
 
-        document.getElementById("subtotal").textContent = "Subtotal: $" + subtotal.toFixed(2);
+        document.getElementById("subtotal").textContent = "Subtotal: Rs" + subtotal.toFixed(2);
     }
 
     function calculateDiscountTotal() {
@@ -253,38 +247,96 @@ include('Side_nav.php');
             discountTotal += discount;
         }
 
-        document.getElementById("discount").textContent = "Discount: $" + discountTotal.toFixed(2);
+        document.getElementById("discount").textContent = "Discount: Rs" + discountTotal.toFixed(2);
     }
 
     function createInvoice() {
-        var table = document.getElementById("myTable");
-        var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-        var invoiceItems = [];
+  var table = document.getElementById("myTable");
+  var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+  var invoiceItems = [];
+  
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var itemNo = row.cells[0].textContent;
+    var description = row.cells[2].getElementsByTagName("input")[0].value;
+    var warranty = row.cells[3].getElementsByTagName("input")[0].value;
+    var quantity = parseInt(row.cells[4].getElementsByTagName("input")[0].value);
+    var unitPrice = parseFloat(row.cells[5].getElementsByTagName("input")[0].value);
+    var discount = parseFloat(row.cells[6].getElementsByTagName("input")[0].value);
+    var totalPrice = parseFloat(row.cells[7].textContent);
+    
+    var item = {
+      itemNo: itemNo,
+      description: description,
+      warranty: warranty,
+      quantity: quantity,
+      unitPrice: unitPrice,
+      discount: discount,
+      totalPrice: totalPrice
+    };
+    
+    invoiceItems.push(item);
+  }
+  
+  // Send invoiceItems to server or perform further actions
+  console.log(invoiceItems);
+  
+  // Print the table only
+  window.print();
+}
 
-        for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            var item = {
-                itemNo: row.cells[0].textContent,
-                description: row.cells[2].getElementsByTagName("input")[0].value,
-                warranty: row.cells[3].getElementsByTagName("input")[0].value,
-                quantity: parseInt(row.cells[4].getElementsByTagName("input")[0].value),
-                unitPrice: parseFloat(row.cells[5].getElementsByTagName("input")[0].value),
-                discount: parseFloat(row.cells[6].getElementsByTagName("input")[0].value),
-                totalPrice: parseFloat(row.cells[7].textContent)
-            };
 
-            invoiceItems.push(item);
-        }
-
-        // Send invoiceItems to server or perform further actions
-        console.log(invoiceItems);
-
-        // Print the table only
-        window.print();
-    }
+function selectItem(link) {
+  var row = link.parentNode.parentNode;
+  var itemId = row.cells[1].getElementsByTagName("a")[0].textContent;
+  var itemSelect = document.getElementById("itemSelect");
+  var quantityInput = document.getElementById("quantityInput");
+  
+  // Set the selected item and quantity in the modal
+  itemSelect.value = itemId;
+  quantityInput.value = 1;
+  
+  // Open the Bootstrap modal
+  $('#itemModal').modal('show');
+}
 </script>
 
 
+<!-- Add this code after the <div id="discount" class="text-end">Discount: Rs 0</div> line -->
+<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemModalLabel">Item Selection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Customize the content of the modal body as per your requirements -->
+                <label for="itemSelect">Select Item:</label>
+                <select id="itemSelect" class="form-control">
+                    <option value="">Select</option>
+                    <?php
+                    $queryc = mysqli_query($con, "select * from item");
+                    while ($rowc = mysqli_fetch_array($queryc)) {
+                    ?>
+                        <option value="<?php echo $rowc['id']; ?>">
+                            <?php echo $rowc['id']; ?> - <?php echo $rowc['name']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+
+                <label for="quantityInput">Quantity:</label>
+                <input type="number" id="quantityInput" class="form-control" min="1" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Select Item</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <?php
