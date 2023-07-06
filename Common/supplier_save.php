@@ -342,71 +342,63 @@ include('Side_nav.php');
 <?php
 require('pages/footer.php');
 ?>
-
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_SESSION["username"];
+    $query2 = "SELECT id FROM user WHERE username = '$username'";
+    $result2 = mysqli_query($con, $query2);
 
+    if (!$result2) {
+        die('Error: ' . mysqli_error($con));
+    }
 
-  // Access the submitted values
-  $sup_code = $_POST['sup_code'];
+    $row = mysqli_fetch_assoc($result2);
+    
+    if ($row) {
+        $user_id = $row['id'];
 
-  //should get values from foreign tables id's
-  $nametitle = $_POST['nametitle'];
-  $fullname = $_POST['fullname'];
+        // Access the submitted values
+        $sup_code = $_POST['sup_code'];
+        $nametitle = $_POST['nametitle'];
+        $fullname = $_POST['fullname'];
+        $description = $_POST['description'];
+        $image = $_FILES['logoimg']['name'];
+        $image_tmp = $_FILES['logoimg']['tmp_name'];
+        $gender = $_POST['gender'];
+        $contact1 = $_POST['mobile1'];
+        $contact2 = $_POST['mobile2'];
+        $address = $_POST['address'];
+        $email = $_POST['email'];
+        $fax = $_POST['fax'];
+        $supplierstatus_id = $_POST['supplier_status'];
+        $suppliertype_id = $_POST['supplier_type'];
 
+        $sql = "INSERT INTO supplier (code, nametitle_id, name, description, logo, gender_id, contact1, contact2,
+        address, email, fax, supplierstatus_id, suppliertype_id, user_id) VALUES ('$sup_code', $nametitle, 
+        '$fullname', '$description', '$image', '$gender', '$contact1', '$contact2', '$address', '$email',
+        '$fax', $supplierstatus_id, $suppliertype_id, $user_id)";
+        $result = mysqli_query($con, $sql);
 
-  $description = $_POST['description'];
-
-
-  // $proimg = $_POST['proimg'];
-  $image = $_FILES['logoimg']['name'];
-  $image_tmp = $_FILES['logoimg']['tmp_name'];
-
-
-  $gender = $_POST['gender'];
-  $contact1 = $_POST['mobile1'];
-  $contact2 = $_POST['mobile2'];
-  $address = $_POST['address'];
-  $email = $_POST['email'];
-  $fax = $_POST['fax'];
-  // Read the image content
-  // $imageData = file_get_contents($image);
-
-  $supplierstatus_id = $_POST['supplier_status'];
-  $suppliertype_id = $_POST['supplier_type'];
-
-
-  // $targetDir = "uploads/";
-  // $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-
-  $sql = "INSERT INTO supplier ( code, nametitle_id, name, description, logo,gender_id, contact1, contact2,
-    address, email, fax, supplierstatus_id,suppliertype_id) VALUES ('$sup_code',$nametitle, 
-     '$fullname','$description','$image','$gender','$contact1','$contact2','$address','$email','$fax',
-     $supplierstatus_id,$suppliertype_id)";
-  $result = mysqli_query($con, $sql);
-
-  // Print the query statement
-  // echo "Query: " . $sql . "<br>";
-  if ($result) {
-    // Display SweetAlert success message
-    echo "
-<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
-<script>
-    swal({
-        title: 'Success!',
-        text: 'Query executed successfully.',
-        icon: 'success',
-    }).then(function() {
-        // Redirect to view.php
-        window.location.href = 'supplier_view.php';
-    });
-</script>
-";
-    //Close connection
-  }
+        if ($result) {
+            // Display SweetAlert success message
+            echo "
+            <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
+            <script>
+                swal({
+                    title: 'Success!',
+                    text: 'Query executed successfully.',
+                    icon: 'success',
+                }).then(function() {
+                    // Redirect to view.php
+                    window.location.href = 'supplier_view.php';
+                });
+            </script>";
+        } else {
+            echo 'Error: ' . mysqli_error($con);
+        }
+    } else {
+        echo 'Error: User not found.';
+    }
 }
-$con->close();
-
-
 ?>

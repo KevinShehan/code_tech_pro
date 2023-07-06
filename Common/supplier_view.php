@@ -76,7 +76,7 @@ include('Side_nav.php');
                                                 $html .= '<td>' . $row['address'] . '</td>';
                                                 $html .= '<td>' . $row['contact1'] . '</td>';
                                                 $html .= '<td>
-                                                        <button class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></button>                                             
+                                                        <a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>                                             
                                                         <a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
                                                 </td>';
@@ -89,8 +89,57 @@ include('Side_nav.php');
                                         </tbody>
                                     </table>
 
+
+
+                                    <!-- Include SweetAlert JS -->
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#supplierTable').DataTable({
+                                                "paging": true,
+                                                "pageLength": 8
+                                            });
+
+                                            function loadSupplierDetails(id) {
+                                                $.ajax({
+                                                    url: 'supplier_single_view.php?id=' + id,
+                                                    type: 'GET',
+                                                    dataType: 'html',
+                                                    success: function(response) {
+                                                        // Open the supplier_view_single.php page in a new window
+                                                        window.open(response, '_self');
+                                                    },
+                                                    error: function() {
+                                                        Swal.fire({
+                                                            title: 'Error',
+                                                            text: 'Failed to load supplier details',
+                                                            icon: 'error'
+                                                        });
+                                                    }
+                                                });
+                                            }
+
+                                            $(document).on('click', '.viewBtn', function(event) {
+                                                event.preventDefault();
+
+                                                var id = $(this).data('id');
+
+                                                // Call the function to load and display the supplier details
+                                                loadSupplierDetails(id);
+                                            });
+
+                                            // Refresh supplier records periodically
+                                            setInterval(function() {
+                                                loadSupplierRecords();
+                                            }, 5000); // Refresh every 5 seconds
+                                        });
+                                    </script>
+
+
+
+
                                     <!-- Include jQuery -->
-                                    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+                                    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
                                     <!-- Include SweetAlert JS -->
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
                                     <script>
@@ -241,101 +290,7 @@ include('Side_nav.php');
     </div>
 </main>
 
-<!-- Include SweetAlert JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#supplierTable').DataTable({
-            "paging": true,
-            "pageLength": 8
-        });
-        // Function to load and update supplier records
-        function loadSupplierRecords() {
-            $.ajax({
-                url: '',
-                type: 'GET',
-                dataType: 'html',
-                success: function(response) {
-                    $('#supplierTable tbody').html(response);
-                },
-                error: function() {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Failed to load supplier records',
-                        icon: 'error'
-                    });
-                }
-            });
-        }
 
-        function loadSupplierDetails(id) {
-            $.ajax({
-                url: 'supplier_single_view.php?id=' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success) {
-                        // Display the supplier details in the sup_single card
-                        $('#sup_name').val(response.data.name);
-                        $('#sup_description').val(response.data.description);
-                        $('#sup_gender').val(response.data.gender);
-                        $('#sup_contact1').val(response.data.contact1);
-                        $('#sup_contact2').val(response.data.contact2);
-                        $('#sup_address').val(response.data.address);
-                        $('#sup_email').val(response.data.email);
-                        $('#sup_fax').val(response.data.fax);
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Failed to load supplier details',
-                            icon: 'error'
-                        });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An error occurred while loading the supplier details',
-                        icon: 'error'
-                    });
-                }
-            });
-        }
-
-
-
-
-
-
-        $(document).on('click', '.viewBtn', function(event) {
-            event.preventDefault();
-
-            var id = $(this).attr('href').split('?id=')[1];
-
-            // Call the function to load and display the supplier details
-            loadSupplierDetails(id);
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-        // Load initial supplier records
-        loadSupplierRecords();
-
-        // Refresh supplier records periodically
-        setInterval(function() {
-            loadSupplierRecords();
-        }, 5000); // Refresh every 5 seconds
-    });
-</script>
 <?php
 require('pages/footer.php');
 ?>

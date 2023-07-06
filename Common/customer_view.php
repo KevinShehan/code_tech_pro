@@ -1,91 +1,16 @@
 <?php
-//Customer View
+//Auth employee
+require('pages/Auth.php');
 
-session_start();
 include('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
+
+require('pages/js/customer_view_js.php');
+require('pages/css/customer_save_css.php');
+require('pages/functions/customer_view_functions.php');
 ?>
-
-
-<!-- <script>
-    // Add event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Display the confirmation dialog
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then(function(willDelete) {
-            if (willDelete) {
-                // User confirmed the delete operation
-                // Load delete.php on the same page
-                window.location.href = "delete.php";
-            } else {
-                // User canceled the delete operation
-                swal("Your record is safe.", {
-                    icon: "success",
-                });
-            }
-        });
-    });
-</script> -->
-<!-- Include SweetAlertJS library -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!-- Delete button -->
-<!-- <button id="deleteButton">Delete User</button> -->
-
-<!-- JavaScript code -->
-<!-- <script>
-    // Function to handle the delete operation
-    function deleteUser() {
-        // Send an AJAX request to delete.php
-        $.ajax({
-            url: 'employee_delete.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                userId: <?php //echo $Id; 
-                        ?>
-            }, // Pass the user ID to delete.php
-            success: function(response) {
-                // Display SweetAlertJS popup message
-                swal("Success", response.message, "success");
-
-                // Reload the current page after the successful deletion
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Display error message if the AJAX request fails
-                swal("Error", "An error occurred while deleting the user.", "error");
-                console.log(xhr.responseText);
-            }
-        });
-    }
-
-    // Attach event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Confirm deletion using SweetAlertJS
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // User confirmed deletion, call the deleteUser function
-                    deleteUser();
-                }
-            });
-    });
-</script> -->
-
 
 
 <!-- offcanvas -->
@@ -95,17 +20,12 @@ include('Side_nav.php');
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-
                         <h3>
-                            <span><i class="bi bi-table me-2"></i></span> Customers
+                            <span><i class="fas fa-user-friends"></i></span> Customers
                         </h3>
                     </div>
                     <div class="card-body">
                         <div class="">
-
-
-
-
                             <style>
                                 body {
                                     background-color: lightcyan;
@@ -117,150 +37,23 @@ include('Side_nav.php');
                                 </div>
                             </div>
 
-                            <table class="table" id="supplierTable">
+                            <table class="table table-striped table-bordered" id="supplierTable">
                                 <thead>
-                                    <tr>
+                                    <tr class="table-primary">
                                         <th scope="col">id</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Address</th>
                                         <th scope="col">Contact</th>
-                                        <th scope="col">Actions</th>
+                                        <th scope="col">Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php /*
-
-                                // Fetch data from table
-                                $sql = "SELECT * FROM v3.supplier";
-                                $result =  mysqli_query($con, $sql);
-
-                                // Check if there are any records
-                                if ($result->num_rows > 0) {
-
-                                    // Loop through each record
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        // Display table row for each record
-                                        $id = $row['id'];
-                                        $name = $row['name'];
-                                        $address = $row['address'];
-
-                                        echo '<tr>';
-                                        echo '<td>' . $id . '</td>';
-                                        echo '<td>' . $name . '</td>';
-                                        echo '<td>' . $address . '</td>';
-                                        echo '<td>
-                                            <a class="btn btn-info" onclick="return confirm("Are you sure to view?")" href="Supplier_view.php?id=<?php echo $id; ?>">View</a>
-                                            <a class="btn btn btn-warning" onclick="return confirm("Are you sure to Update?")" href="Supplier_update.php?id=<?php echo $id; ?>">Update</a>
-                                            <button  class="deleteBtn btn btn-danger" data-id="' . $row['id'] . '"> Delete</button>
-                                    </tr>';
-                                    }
-                                } else {
-                                    echo '<tr><td colspan="4">No records found.</td></tr>';
-                                } */
-
-
-                                    // Fetch latest supplier records from the database
-                                    $query = 'SELECT * FROM customer';
-                                    $result = mysqli_query($con, $query);
-
-                                    if (!$result) {
-                                        die('Error: ' . mysqli_error($con));
-                                    }
-
-                                    // Generate the HTML markup for supplier records
-                                    $html = '';
-                                    $number = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $id = $row['id'];
-                                        $html .= '<tr>';
-                                        $html .= '<td>' . $number . '</td>';
-                                        $html .= '<td>' . $row['name'] . '</td>';
-                                        $html .= '<td>' . $row['Mobile1'] . '</td>';
-                                        $html .= '<td>' . $row['address'] . '</td>';
-                                        $html .= '<td>
-                                 
-                                    <a class="viewBtn btn btn-info btn-sm" href="customer_view_single.php?id=' . $id . '"><i class="far fa-eye"></i></a>                                          
-                                   
-                                    <button class="updateBtn btn btn-warning" data-id="' . $row['id'] . '" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
-                                    <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
-                                    </td>';
-                                        $html .= '</tr>';
-                                        $number++;
-                                    }
-
-                                    echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
+                                    <?php
+                                    tbldata($con);
                                     ?>
                                 </tbody>
                             </table>
 
-                            <!-- Include jQuery -->
-                            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-                            <!-- Include SweetAlert JS -->
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
-                            <script>
-                                $(document).ready(function() {
-                                    // Button click event handler
-                                    $(document).on('click', '.deleteBtn', function() {
-                                        var button = $(this);
-                                        var id = button.data('id');
-
-                                        // Display the confirmation dialog
-                                        Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: 'Once deleted, you will not be able to recover this record!',
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#d33',
-                                            cancelButtonColor: '#3085d6',
-                                            confirmButtonText: 'Yes, delete it!',
-                                            cancelButtonText: 'Cancel'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // User confirmed the delete operation
-                                                // Call the delete function
-                                                deleteRecord(id);
-                                            }
-                                        });
-
-                                        function deleteRecord(id) {
-                                            // Send AJAX request to emp_delete.php with the ID parameter
-                                            $.ajax({
-                                                url: 'customer_delete.php?id=' + id,
-                                                type: 'GET',
-                                                dataType: 'json',
-                                                success: function(response) {
-                                                    if (response.success) {
-                                                        // Show SweetAlert popup
-                                                        Swal.fire({
-                                                            title: 'Success',
-                                                            text: 'Record deleted successfully',
-                                                            icon: 'success'
-                                                        }).then(function() {
-                                                            // Refresh the page
-                                                            location.reload();
-                                                        });
-                                                    } else {
-                                                        // Show error message if deletion fails
-                                                        Swal.fire({
-                                                            title: 'Error',
-                                                            text: 'An error occurred while deleting the record',
-                                                            icon: 'error'
-                                                        });
-                                                    }
-                                                },
-                                                error: function() {
-                                                    // Show error message if the request fails
-                                                    Swal.fire({
-                                                        title: 'Error',
-                                                        text: 'An error occurred while deleting the record',
-                                                        icon: 'error'
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-                                });
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -269,134 +62,6 @@ include('Side_nav.php');
 </main>
 
 
-
-
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Supplier Update Form</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name Title :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Mr </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Name :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin Shehan Perera </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Description :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kodal </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Logo :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">imge </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact1 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Contact2 :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">0123456789 </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Address :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kegalle </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Email :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Kevin.shehan30@gmail.com </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-                <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender :</label>
-                    <label for="gender" class="col-sm-2 col-form-label">Male </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- Include SweetAlert JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Function to load and update supplier records
-        function loadSupplierRecords() {
-            $.ajax({
-                url: '',
-                type: 'GET',
-                dataType: 'html',
-                success: function(response) {
-                    $('#supplierTable tbody').html(response);
-                },
-                error: function() {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Failed to load supplier records',
-                        icon: 'error'
-                    });
-                }
-            });
-        }
-
-        // Load initial supplier records
-        loadSupplierRecords();
-
-        // Refresh supplier records periodically
-        setInterval(function() {
-            loadSupplierRecords();
-        }, 5000); // Refresh every 5 seconds
-    });
-</script>
-<!-- 
-<script>
-    // Handle button clicks using event delegation
-    $(document).on('click', '.updateBtn', function() {
-        var supplierId = $(this).data('id');
-
-        // Fetch the content of update.php via AJAX
-        $.ajax({
-            url: 'supplier_update.php',
-            type: 'GET',
-            data: {
-                id: supplierId
-            },
-            success: function(response) {
-                // Create a Bootstrap modal and inject the response HTML
-                var modal = $('<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true"></div>');
-                modal.html(response);
-                $('body').append(modal);
-
-                // Show the modal
-                $('#updateModal').modal('show');
-            },
-            error: function() {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Failed to open update form',
-                    icon: 'error'
-                });
-            }
-        });
-    });
-</script> -->
 
 <?php
 require('pages/footer.php');

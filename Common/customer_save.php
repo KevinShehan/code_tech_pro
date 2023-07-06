@@ -1,4 +1,6 @@
 <?php
+//Auth employee
+require('pages/Auth.php');
 //register employee
 include('config/dbconnection.php');
 
@@ -14,6 +16,12 @@ $result_customerstatus = mysqli_query($con, $query_customerstatus);
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
+
+
+
+require('pages/js/customer_save_js.php');
+require('pages/css/customer_save_css.php');
+require('pages/functions/customer_save_functions.php');
 ?>
 
 
@@ -33,44 +41,19 @@ include('Side_nav.php');
             </h3>
           </div>
           <div class="card-body">
-            <style>
-              body {
-                background-color: lightcyan;
-              }
 
-              .align-right {
-                text-align: right;
-              }
-            </style>
-            <form class="form-horizontal" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <a href="customer_view.php" class="btn btn-purple" style="color: white;">
+              <i class="fas fa-arrow-left"></i>
+              Return Customer List
+            </a>
+
+            <form class="form-horizontal mt-2" id="myForm" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
               <div class="form-group row" id="custom-input">
                 <label for="email" class="control-label col-sm-2 text-end" style="font-weight: bold;">Code :</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Code " required class="form-control" name="cus_code" id="codeInput" readonly />
                 </div>
               </div>
-
-              <script>
-                function generateUniqueCode() {
-                  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                  var counter = 1;
-                  var code = 'CU';
-
-                  function incrementCounter() {
-                    var number = counter.toString().padStart(2, '0');
-                    counter++;
-                    return number;
-                  }
-                  code += incrementCounter();
-                  for (var i = 0; i < 3; i++) {
-                    code += characters.charAt(Math.floor(Math.random() * characters.length));
-                  }
-                  document.getElementById('codeInput').value = code;
-                }
-                // Automatically generate code when the page loads
-                window.addEventListener('load', generateUniqueCode);
-              </script>
-
 
 
               <div class="form-group row" id="custom-input">
@@ -87,18 +70,22 @@ include('Side_nav.php');
                 </div>
               </div>
 
+
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Name</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" id="fullname" name="fullname" />
+                  <div class="alert alert-danger mt-2" id="name-error" style="display: none;">Please enter a valid name (only letters and spaces).</div>
                 </div>
               </div>
+
 
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">NIC :</label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter NIC " required class="form-control" name="nic" id="nic" />
+                  <div class=" erro alert alert-danger mt-2" id="nic-error" style="display: none;">Please Enter Correct NIC</div>
                 </div>
               </div>
 
@@ -116,40 +103,25 @@ include('Side_nav.php');
                 </div>
               </div>
 
-              <!-- <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Email :</label>
-                <div class="col-sm-10">
-                  <input type="text" placeholder="Enter Email" required class="form-control" name="email" />
-                </div>
-              </div> -->
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Address :</label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="Enter Address" required class="form-control" name="address" />
+                  <input type="text" placeholder="Enter Address" required class="form-control" name="address" id="address" />
+                  <div class="alert alert-danger mt-2" id="address-error" style="display: none;">Address Field Cannot BE nulled.</div>
                 </div>
               </div>
 
-              <!-- <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Land :</label>
-                <div class="col-sm-10">
-                  <input type="text" placeholder="Enter LAND Phone Number" required class="form-control" name="land" />
-                </div>
-              </div> -->
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Mobile1 :</label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="Enter Mobile1" required class="form-control" name="mobile1" />
+                  <input type="text" placeholder="Enter Mobile1" required class="form-control" name="mobile1" id="mobile1" />
+                  <div class="alert alert-danger mt-2" id="mobile1-error" style="display: none;">Please enter a valid mobile number.</div>
                 </div>
               </div>
-              <!-- 
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Address :</label>
-                <div class="col-sm-10">
-                  <input type="text" placeholder="Enter Mobile2" required class="form-control" name="mobile2" />
-                </div>
-              </div> -->
+
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Description :</label>
@@ -174,20 +146,6 @@ include('Side_nav.php');
                 </div>
               </div>
 
-
-              <style>
-                .btn-purple {
-                  background-color: purple;
-                  border-color: purple;
-                }
-
-                .btn-purple:hover {
-                  background-color: #8a2be2;
-                  border-color: #8a2be2;
-                }
-              </style>
-
-
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
                   <button type="submit" class="btn btn-primary btn-purple" value="Register">Register</button>
@@ -200,107 +158,8 @@ include('Side_nav.php');
     </div>
   </div>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
-<script>
-  document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
 
-    Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to submit the form?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // If the user confirms submission, submit the form
-        document.getElementById("myForm").submit();
-      }
-    });
-  });
-</script>
+
 <?php
 require('pages/footer.php');
-?>
-
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-  $username = $_SESSION["username"];
-  // Execute the SQL query
-  $query2 = "SELECT user.id from user WHERE user.username = '$username'";
-  $result2 = mysqli_query($con, $query2);
-  $row2 = mysqli_fetch_assoc($result2);
-  // Check if a row was returned
-  if ($row2) {
-    $user_id = $row2['id'];
-    $_SESSION['user_id'] = $user_id;
-    // echo $user_id ;
-  }
-  // else {
-  //   echo "Failed";
-  // }
-
-  // Access the submitted values
-  $cus_code = $_POST['cus_code'];
-
-  //should get values from foreign tables id's
-  $nametitle = $_POST['nametitle'];
-  $fullname = $_POST['fullname'];
-  $nic = $_POST['nic'];
-  $gender = $_POST['gender'];
-  $contact1 = $_POST['mobile1'];
-  $address = $_POST['address'];
-
-
-
-  $customertype = $_POST['customertype'];
-  $description = $_POST['description'];
-
-  $sql = "INSERT INTO customer ( code, nametitle_id, name,gender_id, nic, mobile1,
-    address, user_id,description,customertype_id) VALUES ('$cus_code',$nametitle, 
-     '$fullname','$gender','$nic','$contact1','$address','$user_id','$description',
-     $customertype)";
-  $result = mysqli_query($con, $sql);
-
-  // Print the query statement
-  // echo "Query: " . $sql . "<br>";
-  if ($result) {
-    // Display SweetAlert success message
-    echo "
-<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' ></script>
-<script>
-    swal({
-        title: 'Success!',
-        text: 'Query executed successfully.',
-        icon: 'success',
-    }).then(function() {
-        // Redirect to view.php
-        window.location.href = 'customer_view.php';
-    });
-</script>
-";
-    //Close connection
-  } else {
-    // Display SweetAlert error message
-    echo "
-    <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
-    <script>
-        $(document).ready(function() {
-            swal({
-                title: 'Error!',
-                text: 'Customer Not Saved.',
-                icon: 'error',
-            });
-        });
-    </script>
-    ";
-  }
-}
-$con->close();
-
-
 ?>
