@@ -112,67 +112,13 @@ include('Side_nav.php');
                 }
                 ?>
               </tbody>
-            </table>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                      <i class="fas fa-folder"></i>&nbsp; Category Update
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-
-                    <?php
-                    if (isset($_GET['id'])) {
-                      $categoryId = $_GET['id'];
-                      // Retrieve the category details based on the categoryId
-                      $query = "SELECT * FROM category WHERE id = $categoryId";
-                      $result = mysqli_query($con, $query);
-                      $row = mysqli_fetch_assoc($result);
-                    ?>
-                      <form id="categoryForm">
-                        <div class="mb-3">
-                          <label for="code" class="form-label">CODE</label>
-                          <input type="text" class="form-control" id="code" name="code" value="<?php echo $row['code']; ?>">
-                        </div>
-                        <div class="mb-3">
-                          <label for="categoryName" class="form-label">Category Name</label>
-                          <input type="text" class="form-control" id="categoryName" name="categoryName" value="<?php echo $row['name']; ?>">
-                        </div>
-                        <div class="mb-3">
-                          <label for="brand" class="form-label">Brand</label>
-                          <input type="text" class="form-control" id="brand" name="brand" value="<?php echo $row['brand']; ?>">
-                        </div>
-                        <input type="hidden" id="categoryId" name="categoryId" value="<?php echo $categoryId; ?>">
-                      </form>
-                    <?php
-                    }
-                    ?>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            </table>>
           </div>
         </div>
       </div>
-
-      <!-- Include Bootstrap JS -->
-
-
-
     </div>
   </div>
-  </div>
-  </div>
-  </div>
+ 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
@@ -263,33 +209,30 @@ include('Side_nav.php');
   });
 
 
+  $(document).ready(function() {
+    $('.updateBtn').click(function() {
+      var categoryId = $(this).data('id');
 
+      $.ajax({
+        url: 'category_update.php?id=' + categoryId,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+          // Handle the response here
+          // For example, update the form fields with the retrieved category details
+          $('#cat_code').val(response.cat_code);
+          $('#cat_name').val(response.cat_name);
 
-
-  $(document).on('click', '.updateBtn', function() {
-    var button = $(this);
-    var id = button.data('id');
-
-    $.ajax({
-      url: 'category_get.php',
-      type: 'GET',
-      data: {
-        id: id
-      },
-      dataType: 'json',
-      success: function(response) {
-        $('#categoryIdUpdate').val(response.id);
-        $('#cat_code').val(response.cat_code);
-        $('#cat_name').val(response.cat_name);
-      },
-      error: function(xhr, status, error) {
-        console.log(xhr.responseText);
-      }
+          // Trigger the modal or any other actions you need
+          // ...
+        },
+        error: function(xhr, status, error) {
+          // Handle error if any
+          console.log(xhr.responseText);
+        }
+      });
     });
   });
-
-
-
 
   $(document).ready(function() {
     $('#categoryTable').DataTable();

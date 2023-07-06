@@ -94,9 +94,18 @@ include('Side_nav.php');
 
 
 
+
+
+
+
+
+
+
+
+
                     <!-- <input type="text" placeholder="Enter Category" required class="form-control col-sm-5" name="cat_name"> -->
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item</button>
+                      <button type="submit" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item/button>
                     </div>
                   </div>
                 </div>
@@ -156,7 +165,7 @@ include('Side_nav.php');
                 ?>
               </tbody>
             </table>
-            <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data' >
+            <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
               <div class="text-end">
                 Discount
                 <input type="number" min="1">
@@ -193,7 +202,7 @@ include('Side_nav.php');
                 $newidNew = "I00001";
               } else {
                 $rec = mysqli_fetch_assoc($query);
-                $lastid = $rec["code"];
+                $lastid = $rec["innumber"];
                 $num = substr($lastid, 3);
                 $num++;
                 $newidNew = "I" . str_pad($num, 5, "0", STR_PAD_LEFT);
@@ -219,10 +228,14 @@ include('Side_nav.php');
                   <?php } ?>
                 </select>
               </div>
+
               <br />
-              <button class="btn btn-primary" name="saleDone"  >Create Sale</button>
+              <button class="btn btn-primary" name="saleDone">Create Sale</button>
             </form>
+
           </div>
+
+
         </div>
       </div>
     </div>
@@ -355,9 +368,7 @@ include('Side_nav.php');
 
 
 <?php
-
-
-if(isset($_POST['myForm'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Access the submitted values
   $prod_id = $_POST['prod_name'];
   $qty = $_POST['qty'];
@@ -412,8 +423,8 @@ if(isset($_POST['myForm'])){
 ?>
 <?php   // start code to final save from list  
 if (isset($_POST['saleDone'])) {
- $username=$_SESSION["username"]  ;
-$user_idq="select user.id from user where username='$username'";
+  $username=$_SESSION["username"]  ;
+$user_idq="select user.id from username where username='$username'";
 $user_resultq=mysqli_query($con,$user_idq);
 $row_user=mysqli_fetch_assoc($user_resultq);
 $user_id=$row_user['id'];
@@ -421,22 +432,13 @@ $user_id=$row_user['id'];
   $innumber = $_POST['innumber']; // get main variables to save into first table
   $customer = $_POST['customer'];
   $description = $_POST['description'];
-
-
-
-
   $total = $_POST['total'];
-  $total = str_replace(',', '', $total);
-  // $total = str_replace(',', '', $row['total']); // Remove commas from the total value
+
   date_default_timezone_set("Asia/colombo");
   $date = date("Y-m-d H:i:s");
 
-
-
-
-  
-  mysqli_query($con, "INSERT INTO invoice(user_id,customers_id,date,total,description,code ) 
-  VALUES('$user_id','$customer','$date','$total','$description','$innumber')") or die(mysqli_error($con)); // save to first table
+  mysqli_query($con, "INSERT INTO invoice(user_id,customer_id,date_total,description,code ) 
+  VALUES('$user_id','$customer','$date','$total','$Description','$innumber')") or die(mysqli_error($con)); // save to first table
 
 
    
@@ -446,20 +448,20 @@ $user_id=$row_user['id'];
   $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
   while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
   {
-    $pid = $row['Item_id'];
+    $pid = $row['item_id'];
     $qty = $row['qty'];
 
 
     // save into second table
-    mysqli_query($con, "INSERT INTO invoiceitem(item_id,qty,invoice_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
+    mysqli_query($con, "INSERT INTO invioceitem(item_id,qty,Requested_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
 
     // update product qty (-)
-    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.id='$pid' ") or die(mysqli_error($con));
+    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.it='$pid' ") or die(mysqli_error($con));
   }
   //clear  Invoice
   $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
   // go for invoice print
-  // echo "<script>document.location='sales_Slip.php?id=$Request_id'</script>";
+  echo "<script>document.location='sales_Slip.php?id=$Request_id'</script>";
 }
 ?>
 

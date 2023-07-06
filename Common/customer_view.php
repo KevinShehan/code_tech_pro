@@ -102,33 +102,33 @@ include('Side_nav.php');
                     </div>
                     <div class="card-body">
                         <div class="">
-                          
 
 
 
-                                <style>
-                                    body {
-                                        background-color: lightcyan;
-                                    }
-                                </style>
-                                <div class="form-group row" id="custom-input">
-                                    <div class="col-sm-5 ">
-                                        <a href="customer_save.php" class="btn btn-success" value="Submit"> + Add Customer</a>
-                                    </div>
+
+                            <style>
+                                body {
+                                    background-color: lightcyan;
+                                }
+                            </style>
+                            <div class="form-group row" id="custom-input">
+                                <div class="col-sm-5 ">
+                                    <a href="customer_save.php" class="btn btn-success" value="Submit"> + Add Customer</a>
                                 </div>
+                            </div>
 
-                                <table class="table" id="supplierTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">id</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Contact</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php /*
+                            <table class="table" id="supplierTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Contact</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php /*
 
                                 // Fetch data from table
                                 $sql = "SELECT * FROM v3.supplier";
@@ -159,52 +159,71 @@ include('Side_nav.php');
                                 } */
 
 
-                                        // Fetch latest supplier records from the database
-                                        $query = 'SELECT * FROM customer';
-                                        $result = mysqli_query($con, $query);
+                                    // Fetch latest supplier records from the database
+                                    $query = 'SELECT * FROM customer';
+                                    $result = mysqli_query($con, $query);
 
-                                        if (!$result) {
-                                            die('Error: ' . mysqli_error($con));
-                                        }
+                                    if (!$result) {
+                                        die('Error: ' . mysqli_error($con));
+                                    }
 
-                                        // Generate the HTML markup for supplier records
-                                        $html = '';
-                                        $number = 1;
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $id = $row['id'];
-                                            $html .= '<tr>';
-                                            $html .= '<td>' . $number . '</td>';
-                                            $html .= '<td>' . $row['name'] . '</td>';
-                                            $html .= '<td>' . $row['Mobile1'] . '</td>';
-                                            $html .= '<td>' . $row['address'] . '</td>';
-                                            $html .= '<td>
-                                    <button class=" btn ">
-                                     <a class="viewBtn btn btn-info" href="supplier_single_view.php?id=' . $id . '">View</a></button>
+                                    // Generate the HTML markup for supplier records
+                                    $html = '';
+                                    $number = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['id'];
+                                        $html .= '<tr>';
+                                        $html .= '<td>' . $number . '</td>';
+                                        $html .= '<td>' . $row['name'] . '</td>';
+                                        $html .= '<td>' . $row['Mobile1'] . '</td>';
+                                        $html .= '<td>' . $row['address'] . '</td>';
+                                        $html .= '<td>
+                                 
+                                    <a class="viewBtn btn btn-info btn-sm" href="customer_view_single.php?id=' . $id . '"><i class="far fa-eye"></i></a>                                          
                                    
                                     <button class="updateBtn btn btn-warning" data-id="' . $row['id'] . '" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
-                                    <button class="deleteBtn btn btn-danger" data-id="' . $row['id'] . '">Delete</button>
+                                    <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
                                     </td>';
-                                            $html .= '</tr>';
-                                            $number++;
-                                        }
+                                        $html .= '</tr>';
+                                        $number++;
+                                    }
 
-                                        echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
-                                        ?>
-                                    </tbody>
-                                </table>
+                                    echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
+                                    ?>
+                                </tbody>
+                            </table>
 
-                                <!-- Include jQuery -->
-                                <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-                                <!-- Include SweetAlert JS -->
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
-                                <script>
-                                    $(document).ready(function() {
-                                        // Button click event handler
-                                        $(document).on('click', '.deleteBtn', function() {
-                                            var button = $(this);
-                                            var id = button.data('id');
+                            <!-- Include jQuery -->
+                            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+                            <!-- Include SweetAlert JS -->
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    // Button click event handler
+                                    $(document).on('click', '.deleteBtn', function() {
+                                        var button = $(this);
+                                        var id = button.data('id');
 
-                                            // Send AJAX request to delete.php with the ID parameter
+                                        // Display the confirmation dialog
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: 'Once deleted, you will not be able to recover this record!',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Yes, delete it!',
+                                            cancelButtonText: 'Cancel'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // User confirmed the delete operation
+                                                // Call the delete function
+                                                deleteRecord(id);
+                                            }
+                                        });
+
+                                        function deleteRecord(id) {
+                                            // Send AJAX request to emp_delete.php with the ID parameter
                                             $.ajax({
                                                 url: 'customer_delete.php?id=' + id,
                                                 type: 'GET',
@@ -238,9 +257,10 @@ include('Side_nav.php');
                                                     });
                                                 }
                                             });
-                                        });
+                                        }
                                     });
-                                </script>
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -253,7 +273,7 @@ include('Side_nav.php');
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -312,7 +332,7 @@ include('Side_nav.php');
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Include SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
 <script>
