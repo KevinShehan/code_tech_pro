@@ -81,55 +81,6 @@ $customertypenew = $row['name'];
 <!-- Include SweetAlertJS library -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!-- Delete button -->
-<!-- <button id="deleteButton">Delete User</button> -->
-
-<!-- JavaScript code -->
-<!-- <script>
-    // Function to handle the delete operation
-    function deleteUser() {
-        // Send an AJAX request to delete.php
-        $.ajax({
-            url: 'employee_delete.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                userId: <?php   // echo $Id; 
-                        ?>
-            }, // Pass the user ID to delete.php
-            success: function(response) {
-                // Display SweetAlertJS popup message
-                swal("Success", response.message, "success");
-
-                // Reload the current page after the successful deletion
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Display error message if the AJAX request fails
-                swal("Error", "An error occurred while deleting the user.", "error");
-                console.log(xhr.responseText);
-            }
-        });
-    }
-
-    // Attach event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Confirm deletion using SweetAlertJS
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // User confirmed deletion, call the deleteUser function
-                    deleteUser();
-                }
-            });
-    });
-</script> -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
     <div class="row">

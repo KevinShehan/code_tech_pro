@@ -1,6 +1,7 @@
 <?php
 //register supplier
 session_start();
+
 include('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
@@ -43,8 +44,11 @@ include('Side_nav.php');
                             <label>CODE</label>
                             <input type="text" name="itemcode" id="codeInput" class="form-control" readonly>
 
-                            <label>Item Name</label>
-                            <input type="text" name="itemname" id="" class="form-control">
+                            <div class="form-group">
+                                <label>Item Name</label>
+                                <input type="text" name="itemname" id="itemname" class="form-control">
+                                <div class="alert alert-danger mt-2" id="name-error" style="display: none;">Please enter a valid name (only letters and spaces).</div>
+                            </div>
 
 
                             <label>Category</label>
@@ -60,34 +64,166 @@ include('Side_nav.php');
                                 }
                                 ?>
                             </select>
-                            <label>Retail of Price</label>
-                            <input type="number" id="currency" class="form-control" name="rop" step="0.01" min="0" required>
 
-                            <label>Wholesale Price</label>
-                            <input type="number" id="currency" class="form-control" name="wop" step="0.01" min="0" required>
 
-                            <!-- <label>Dealer of Price</label>
-                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required> -->
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+                            <div class="form-group">
+                                <label>Retail of Price</label>
+                                <input type="number" id="currency" class="form-control" name="rop" step="0.01" min="0" required>
+                                <div id="retail-price-error" class="invalid-feedback">Retail price cannot be negative.</div>
+                            </div>
 
-                            <label>Description</label>
-                            <input type="text" name="description" id="" class="form-control">
 
-                            <label>Quantity</label>
-                            <input type="number" name="qty" id="" class="form-control" min="0" required>
+                            <div class="form-group">
+                                <label>Wholesale Price</label>
+                                <input type="number" id="wholesale-price" class="form-control" name="wop" step="0.01" min="0" required>
+                                <div id="whole-price-error" class="invalid-feedback">Whole price cannot be negative.</div>
+                            </div>
 
-                            <label>Warrenty Period</label>
-                            <select class="form-control" name="warrenty">
-                                <?php
-                                // Retrieve data from the SQL table
-                                $query_warrenty = "SELECT id,name FROM warrenty";
-                                $result_warrenty = mysqli_query($con, $query_warrenty);
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" name="description" id="" class="form-control">
+                            </div>
 
-                                // Loop through the query result and display data within <option> tags
-                                while ($row = mysqli_fetch_assoc($result_warrenty)) {
-                                    echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                }
-                                ?>
-                            </select>
+
+                            <script>
+                                $(document).ready(function() {
+                                    // Function to validate the name input
+                                    function validateName() {
+                                        var nameInput = $("#itemname");
+                                        var name = nameInput.val().trim();
+                                        var isValid = /^[A-Za-z\s]+$/.test(name); // Regular expression to check if name contains only letters and spaces
+
+                                        if (isValid) {
+                                            // Remove any existing error classes and hide the error message
+                                            nameInput.removeClass("is-invalid").addClass("is-valid");
+                                            $("#name-error").hide();
+                                            return true; // Name is valid
+                                        } else {
+                                            // Add error classes and show the error message
+                                            nameInput.removeClass("is-valid").addClass("is-invalid");
+                                            $("#name-error").show();
+                                            return false; // Name is invalid
+                                        }
+                                    }
+
+                                    function validateRetailPrice() {
+                                        var retailPriceInput = $("#currency");
+                                        var retailPrice = parseFloat(retailPriceInput.val().trim());
+
+                                        if (retailPrice >= 0) {
+                                            // Remove any existing error classes and hide the error message
+                                            retailPriceInput.removeClass("is-invalid").addClass("is-valid");
+                                            $("#retail-price-error").hide();
+                                            return true; // Retail price is valid
+                                        } else {
+                                            // Add error classes and show the error message
+                                            retailPriceInput.removeClass("is-valid").addClass("is-invalid");
+                                            $("#retail-price-error").show();
+                                            return false; // Retail price is invalid
+                                        }
+                                    }
+
+                                    function validateWholePrice() {
+                                        var wholePriceInput = $("#wholesale-price");
+                                        var wholePrice = parseFloat(wholePriceInput.val().trim());
+
+                                        if (wholePrice >= 0) {
+                                            // Remove any existing error classes and hide the error message
+                                            wholePriceInput.removeClass("is-invalid").addClass("is-valid");
+                                            $("#whole-price-error").hide();
+                                            return true; // Retail price is valid
+                                        } else {
+                                            // Add error classes and show the error message
+                                            wholePriceInput.removeClass("is-valid").addClass("is-invalid");
+                                            $("#whole-price-error").show();
+                                            return false; // Retail price is invalid
+                                        }
+                                    }
+
+                                    // Function to validate the quantity input
+
+                                    function validateQty() {
+                                        var qtyInput = $("#qty");
+                                        var qty = parseInt(qtyInput.val().trim());
+
+                                        if (qty >= 0) {
+                                            // Remove any existing error classes and hide the error message
+                                            qtyInput.removeClass("is-invalid").addClass("is-valid");
+                                            $("#qty-error").hide();
+                                            return true; // Quantity is valid
+                                        } else {
+                                            // Add error classes and show the error message
+                                            qtyInput.removeClass("is-valid").addClass("is-invalid");
+                                            $("#qty-error").show();
+                                            return false; // Quantity is invalid
+                                        }
+                                    }
+
+
+                                    // Event listener for form submission
+                                    $("itemForm").submit(function(event) {
+                                        // Perform validation checks
+                                        var isNameValid = validateName();
+                                        var isRetailPriceValid = validateRetailPrice();
+                                        var isWholePriceValid = validateWholePrice();
+                                        var isQtyValid = validateQty();
+                                        
+
+                                        // Prevent form submission if any validation fails
+                                        if (!isNameValid || isRetailPriceValid || isWholePriceValid|| isQtyValid) {
+                                            event.preventDefault();
+                                            // Optionally, you can display an error message indicating the reason for the form not being submitted.
+                                            // For example: $("#error-message").text("Please fix the errors before submitting theform.").show();
+                                        } else {
+
+                                            document.getElementById("itemForm").addEventListener("submit", function(event) {
+                                                event.preventDefault(); // Prevent the form from submitting immediately
+                                                Swal.fire({
+                                                    title: "Confirm Submission",
+                                                    text: "Are you sure you want to submit the form?",
+                                                    icon: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonText: "Submit",
+                                                    cancelButtonText: "Cancel"
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // If the user confirms submission, submit the form
+                                                        document.getElementById("itemForm").submit();
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+                                    // Call the validateName function whenever the name input changes
+                                    $("#itemname").on("input", validateName);
+                                    $("#currency").on("input", validateRetailPrice);
+                                    $("#wholesale-price").on("input", validateWholePrice);
+                                    $("#qty").on("input", validateQty);// Updated ID for the wholesale price input
+                                });
+                            </script>
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" name="qty" id="qty" class="form-control" min="0" required>
+                                <div id="qty-error" class="invalid-feedback">Quantity cannot be negative.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Warrenty Period</label>
+                                <select class="form-control" name="warrenty">
+                                    <?php
+                                    // Retrieve data from the SQL table
+                                    $query_warrenty = "SELECT id,name FROM warrenty";
+                                    $result_warrenty = mysqli_query($con, $query_warrenty);
+
+                                    // Loop through the query result and display data within <option> tags
+                                    while ($row = mysqli_fetch_assoc($result_warrenty)) {
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
                             <div class="input-group justify-content-end">
                                 <button class="btn btn-success float-end">+Add Product</button>
                             </div>
@@ -169,26 +305,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
-  document.getElementById("itemForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
+    document.getElementById("itemForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
 
-    Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to submit the form?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // If the user confirms submission, submit the form
-        document.getElementById("itemForm").submit();
-      }
+        Swal.fire({
+            title: "Confirm Submission",
+            text: "Are you sure you want to submit the form?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Submit",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms submission, submit the form
+                document.getElementById("itemForm").submit();
+            }
+        });
     });
-  });
 </script>
-
-
 
 
 <?php

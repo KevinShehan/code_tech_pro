@@ -67,10 +67,10 @@ include('Side_nav.php');
                                     echo '<td>' . $row['reorder'] . '</td>';
                                     echo '<td>' . $row['rop'] . '</td>';
                                     echo '<td>' .
-                                        '<button class="updateBtn btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
-                                        '&nbsp;' .
-                                        '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
-                                    echo "</tr>";
+                                    ' <a class="updateBtn btn btn-warning btn-sm" data-id="' . $row['id'] . '"  href="item_update.php?id=' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></a>' .
+                                    '&nbsp;' .
+                                    '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
+                                    echo '</tr>';
                                     $number++;
                                 }
                                 ?>
