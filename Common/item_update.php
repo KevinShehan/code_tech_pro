@@ -39,55 +39,70 @@ include('Side_nav.php');
                                 window.addEventListener('load', generateUniqueCode);
                             </script>
 
+                            <div class="form-group">
+                                <label>CODE</label>
+                                <input type="text" name="itemcode" id="codeInput" class="form-control" readonly>
+                            </div>
 
-                            <label>CODE</label>
-                            <input type="text" name="itemcode" id="codeInput" class="form-control" readonly>
+                            <div class="form-group">
+                                <label>Item Name</label>
+                                <input type="text" name="itemname" id="" class="form-control">
 
-                            <label>Item Name</label>
-                            <input type="text" name="itemname" id="" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-control" name="category">
+                                    <?php
+                                    // Retrieve data from the SQL table
+                                    $query_category = "SELECT id,name FROM category";
+                                    $result_category = mysqli_query($con, $query_category);
+
+                                    // Loop through the query result and display data within <option> tags
+                                    while ($row = mysqli_fetch_assoc($result_category)) {
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Retail of Price</label>
+                                <input type="number" id="currency" class="form-control" name="rop" step="0.01" min="0" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Wholesale Price</label>
+                                <input type="number" id="currency" class="form-control" name="wop" step="0.01" min="0" required>
+                            </div>
 
 
-                            <label>Category</label>
-                            <select class="form-control" name="category">
-                                <?php
-                                // Retrieve data from the SQL table
-                                $query_category = "SELECT id,name FROM category";
-                                $result_category = mysqli_query($con, $query_category);
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" name="description" id="" class="form-control">
+                            </div>
 
-                                // Loop through the query result and display data within <option> tags
-                                while ($row = mysqli_fetch_assoc($result_category)) {
-                                    echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                            <label>Retail of Price</label>
-                            <input type="number" id="currency" class="form-control" name="rop" step="0.01" min="0" required>
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" name="qty" id="" class="form-control" min="0" required>
+                            </div>
 
-                            <label>Wholesale Price</label>
-                            <input type="number" id="currency" class="form-control" name="wop" step="0.01" min="0" required>
+                            <div class="form-group">
+                                <label>Warrenty Period</label>
+                                <select class="form-control" name="warrenty">
+                                    <?php
+                                    // Retrieve data from the SQL table
+                                    $query_warrenty = "SELECT id,name FROM warrenty";
+                                    $result_warrenty = mysqli_query($con, $query_warrenty);
 
-                            <!-- <label>Dealer of Price</label>
-                            <input type="number" id="currency" class="form-control" name="currency" step="0.01" min="0" required> -->
+                                    // Loop through the query result and display data within <option> tags
+                                    while ($row = mysqli_fetch_assoc($result_warrenty)) {
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-                            <label>Description</label>
-                            <input type="text" name="description" id="" class="form-control">
-
-                            <label>Quantity</label>
-                            <input type="number" name="qty" id="" class="form-control" min="0" required>
-
-                            <label>Warrenty Period</label>
-                            <select class="form-control" name="warrenty">
-                                <?php
-                                // Retrieve data from the SQL table
-                                $query_warrenty = "SELECT id,name FROM warrenty";
-                                $result_warrenty = mysqli_query($con, $query_warrenty);
-
-                                // Loop through the query result and display data within <option> tags
-                                while ($row = mysqli_fetch_assoc($result_warrenty)) {
-                                    echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                }
-                                ?>
-                            </select>
                             <div class="input-group justify-content-end">
                                 <button class="btn btn-success float-end">+Add Product</button>
                             </div>
@@ -169,23 +184,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
 <script>
-  document.getElementById("itemForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
+    document.getElementById("itemForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
 
-    Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to submit the form?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // If the user confirms submission, submit the form
-        document.getElementById("itemForm").submit();
-      }
+        Swal.fire({
+            title: "Confirm Submission",
+            text: "Are you sure you want to submit the form?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Submit",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms submission, submit the form
+                document.getElementById("itemForm").submit();
+            }
+        });
     });
-  });
 </script>
 
 
