@@ -53,7 +53,6 @@ require('pages/functions/customer_view_functions.php');
                                     ?>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>

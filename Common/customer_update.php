@@ -1,22 +1,34 @@
 <?php
-//register supplier
-require('pages/Auth.php');
+//update customer
+// require('pages/Auth.php');
+
 require('config/dbconnection.php');
 include('pages/header.php');
 include('Top_nav.php');
 include('Side_nav.php');
+
+require('pages/js/customer_save_js.php');
+// require('pages/css/customer_save_css.php');
+// require('pages/functions/customer_save_functions.php');
 ?>
 
 
-
 <?php
+// Retrieve data from the SQL table
+$query_gender = "SELECT id,name FROM gender";
+$query_nametitle = "SELECT id,name FROM nametitle";
+$query_customerstatus = "SELECT id,name FROM customertype";
+
+$result_gender = mysqli_query($con, $query_gender);
+$result_nametitle = mysqli_query($con, $query_nametitle);
+$result_customerstatus = mysqli_query($con, $query_customerstatus);
 // Retrieve the supplier ID from the URL parameter
 $cusId = $_GET['id'];
 
 // Fetch the relevant data of the supplier based on the ID
 $query = "SELECT * from customer where id='$cusId'";
-$supplierData = mysqli_query($con, $query);
-while ($row = mysqli_fetch_assoc($supplierData)) {
+$CustomerData = mysqli_query($con, $query);
+while ($row = mysqli_fetch_assoc($CustomerData)) {
   $code = $row['code'];
   $nametitle = $row['nametitle_id'];
   $name = $row['name'];
@@ -27,8 +39,8 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
 
 
 
-  $nic=$row['nic'];
-  $customertype_id=$row['customertype_id'];
+  $nic = $row['nic'];
+  $customertype_id = $row['customertype_id'];
 }
 
 
@@ -36,8 +48,6 @@ $query2 = "SELECT nametitle.name from nametitle where id=' $nametitle'";
 $result2 = mysqli_query($con, $query2);
 $row = mysqli_fetch_assoc($result2);
 $nametitlenew = $row['name'];
-
-
 
 
 $query4 = "SELECT gender.name from gender where id='$gender_id'";
@@ -52,84 +62,9 @@ $row = mysqli_fetch_assoc($result5);
 $customertypenew = $row['name'];
 
 ?>
-
-
-<!-- <script>
-    // Add event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Display the confirmation dialog
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then(function(willDelete) {
-            if (willDelete) {
-                // User confirmed the delete operation
-                // Load delete.php on the same page
-                window.location.href = "delete.php";
-            } else {
-                // User canceled the delete operation
-                swal("Your record is safe.", {
-                    icon: "success",
-                });
-            }
-        });
-    });
-</script> -->
-<!-- Include SweetAlertJS library -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!-- Delete button -->
-<!-- <button id="deleteButton">Delete User</button> -->
 
-<!-- JavaScript code -->
-<!-- <script>
-    // Function to handle the delete operation
-    function deleteUser() {
-        // Send an AJAX request to delete.php
-        $.ajax({
-            url: 'employee_delete.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                userId: <?php   // echo $Id; 
-                        ?>
-            }, // Pass the user ID to delete.php
-            success: function(response) {
-                // Display SweetAlertJS popup message
-                swal("Success", response.message, "success");
-
-                // Reload the current page after the successful deletion
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Display error message if the AJAX request fails
-                swal("Error", "An error occurred while deleting the user.", "error");
-                console.log(xhr.responseText);
-            }
-        });
-    }
-
-    // Attach event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Confirm deletion using SweetAlertJS
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // User confirmed deletion, call the deleteUser function
-                    deleteUser();
-                }
-            });
-    });
-</script> -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
     <div class="row">
@@ -171,7 +106,18 @@ $customertypenew = $row['name'];
               </div>
 
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitlenew) ?>" >
+
+                <select class="form-control" name="nametitle">
+                  <?php
+                  // Loop through the query result and display data within <option> tags
+
+                  while ($row = mysqli_fetch_assoc($result_nametitle)) {
+                    $selected = ($row['name'] === $nametitlenew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                    echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                  }
+                  ?>
+                </select>
+
               </div>
             </div>
 
@@ -183,30 +129,9 @@ $customertypenew = $row['name'];
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($name) ?>">
+
               </div>
             </div>
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b>Civil Status: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="" readonly>
-              </div>
-            </div> -->
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b>Date of Birth: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="" readonly>
-              </div>
-            </div> -->
 
 
             <div class="row mb-3">
@@ -216,7 +141,15 @@ $customertypenew = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($gendernew) ?>">
+                <select class="form-control" name="gender">
+                  <?php
+                  // Loop through the query result and display data within <option> tags
+                  while ($row = mysqli_fetch_assoc($result_gender)) {
+                    $selected = ($row['name'] === $gendernew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                    echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                  }
+                  ?>
+                </select>
               </div>
             </div>
 
@@ -233,20 +166,6 @@ $customertypenew = $row['name'];
             </div>
 
 
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b>Land:</b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value=" readonly>
-              </div>
-            </div> -->
-
-
-
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
@@ -254,31 +173,19 @@ $customertypenew = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
               </div>
             </div>
 
 
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b> E-mail: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="" readonly>
-              </div>
-            </div> -->
-
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                 <b>NIC: </b> 
+                  <b>NIC: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>">
               </div>
             </div>
 
@@ -288,11 +195,11 @@ $customertypenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  <b> Description:  </b> 
+                  <b> Description: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>">
               </div>
             </div>
 
@@ -301,11 +208,18 @@ $customertypenew = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                <b>Customer Type:   </b> 
+                  <b>Customer Type: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($customertypenew) ?>" >
+                <select class="form-control" name="customertype">
+                  <?php
+                  while ($row = mysqli_fetch_assoc($result_customerstatus)) {
+                    $selected = ($row['name'] === $customertypenew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                    echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                  }
+                  ?>
+                </select>
               </div>
             </div>
 
@@ -317,12 +231,9 @@ $customertypenew = $row['name'];
                 <button type="submit" class="btn btn-success" name="submit"> Update Customer </button>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
-   
     </div>
   </div>
 </main>
@@ -349,70 +260,6 @@ $customertypenew = $row['name'];
 
 
 
-<!-- Include SweetAlert JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
-<script>
-  $(document).ready(function() {
-    // Function to load and update supplier records
-    function loadSupplierRecords() {
-      $.ajax({
-        url: '',
-        type: 'GET',
-        dataType: 'html',
-        success: function(response) {
-          $('#supplierTable tbody').html(response);
-        },
-        error: function() {
-          Swal.fire({
-            title: 'Error',
-            text: 'Failed to load supplier records',
-            icon: 'error'
-          });
-        }
-      });
-    }
-
-    // Load initial supplier records
-    loadSupplierRecords();
-
-    // Refresh supplier records periodically
-    setInterval(function() {
-      loadSupplierRecords();
-    }, 5000); // Refresh every 5 seconds
-  });
-</script>
-<!-- 
-<script>
-    // Handle button clicks using event delegation
-    $(document).on('click', '.updateBtn', function() {
-        var supplierId = $(this).data('id');
-
-        // Fetch the content of update.php via AJAX
-        $.ajax({
-            url: 'supplier_update.php',
-            type: 'GET',
-            data: {
-                id: supplierId
-            },
-            success: function(response) {
-                // Create a Bootstrap modal and inject the response HTML
-                var modal = $('<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true"></div>');
-                modal.html(response);
-                $('body').append(modal);
-
-                // Show the modal
-                $('#updateModal').modal('show');
-            },
-            error: function() {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Failed to open update form',
-                    icon: 'error'
-                });
-            }
-        });
-    });
-</script> -->
 
 
 <?php

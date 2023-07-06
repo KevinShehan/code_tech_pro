@@ -144,7 +144,7 @@ $customertypenew = $row['name'];
           </div>
           <div class="card-body">
 
-            <a href="viewusers.php" class="btn btn-purple">
+            <a href="customer_view.php" class="btn btn-purple">
               <i class="fas fa-arrow-left"></i>
               Return Employee List
             </a>
@@ -185,29 +185,6 @@ $customertypenew = $row['name'];
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($name) ?>" readonly>
               </div>
             </div>
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b>Civil Status: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatusnew) ?>" readonly>
-              </div>
-            </div> -->
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b>Date of Birth: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($dob) ?>" readonly>
-              </div>
-            </div> -->
-
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
@@ -314,15 +291,13 @@ $customertypenew = $row['name'];
 
             <div class="form-group row mb-3">
               <div class="offset-sm-4 col-sm-8">
-                <button type="submit" class="btn btn-success" name="submit"> Update Customer </button>
-              </div>
+                <!-- <a href="" class="btn btn-success" name="submit"> Update Customer </button>
+                <a class="updateBtn btn btn-warning btn-sm" data-id="' .$cusId. '"  href="customer_update.php?id=' . $cusId . '"> Update Customer</a>
+              </div> -->
             </div>
-
-
           </div>
         </div>
       </div>
-   
     </div>
   </div>
 </main>
