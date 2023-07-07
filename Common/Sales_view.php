@@ -17,7 +17,7 @@ include('Side_nav.php');
                 <div class="card shadow">
                     <div class="card-header">
                         <h4>
-                            <span><i class="fas fa-building"></i></span> Purchase Invoice
+                            <span><i class="fas fa-building"></i></span> Sales Invoice
                         </h4>
                     </div>
                     <div class="card-body">
@@ -41,7 +41,7 @@ include('Side_nav.php');
                                     </style>
                                     <div class="form-group row" id="custom-input">
                                         <div class="col-sm-5">
-                                            <a href="purchase_save.php" class="btn btn-success" value="Submit"> + Add Purchase</a>
+                                            <a href="invoice sale test.php" class="btn btn-success" value="Submit"> + Add Invoices</a>
                                         </div>
                                     </div>
 
@@ -49,47 +49,45 @@ include('Side_nav.php');
                                         <thead>
                                             <tr class="table-primary">
                                                 <th scope="col">Purchase Date</th>
-                                                <th scope="col">Supplier</th>
-                                                <th scope="col">Invoice</th>
+                                                <th scope="col">Invoice Code</th>
+                                                <th scope="col">Customer</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col" class="col-3">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            // Fetch latest supplier records from the database
-                                            $query = 'SELECT * FROM invoice';
-                                            $result = mysqli_query($con, $query);
+                                        <?php
+$query = 'SELECT invoice.*, customer.name AS customer_name FROM invoice LEFT JOIN customer ON invoice.customers_id = customer.id';
+$result = mysqli_query($con, $query);
 
-                                            if (!$result) {
-                                                die('Error: ' . mysqli_error($con));
-                                            }
+if (!$result) {
+    die('Error: ' . mysqli_error($con));
+}
 
-                                            // Generate the HTML markup for supplier records
-                                            $html = '';
-                                            $number = 1;
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $id = $row['id'];
-                                                $html .= '<tr>';
-                                                $html .= '<td>' . $row['date'] . '</td>';
-                                                $html .= '<td>' . $row['code'] . '</td>';
-                                                $html .= '<td>' . $row['customers_id'] . '</td>';
-                                                $html .= '<td>' . $row['total'] . '</td>';
-                                                $html .= '<td>';
-                                                $html .= '<a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>&nbsp;';
-                                                $html .= '<a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a> &nbsp;';
-                                                $html .= '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>';
-                                                $html .= '</td>';
-                                                $html .= '</tr>';
-                                                $number++;
-                                            }
+// Generate the HTML markup for invoice records
+$html = '';
+$number = 1;
+while ($row = mysqli_fetch_assoc($result)) {
+    $id = $row['id'];
+    $html .= '<tr>';
+    $html .= '<td>' . $row['date'] . '</td>';
+    $html .= '<td>' . $row['code'] . '</td>';
+    $html .= '<td>' . $row['customer_name'] . '</td>';
+    $html .= '<td class="text-end">' . $row['total'] . '</td>';
+    $html .= '<td>';
+    $html .= ' <a href="Sales_Slip.php?id='.$id.'"  class="btn btn-success btn-sm" name="btn_edit"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
+   
+    $html .= '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>';
+    $html .= '</td>';
+    $html .= '</tr>';
+    $number++;
+}
 
-                                            echo $html;
-                                            ?>
+echo $html;
+?>
+
                                         </tbody>
                                     </table>
-
-
 
 
                                     <!-- Include SweetAlert JS -->
@@ -101,34 +99,6 @@ include('Side_nav.php');
                                                 "pageLength": 8
                                             });
 
-                                            function loadSupplierDetails(id) {
-                                                $.ajax({
-                                                    url: 'supplier_single_view.php?id=' + id,
-                                                    type: 'GET',
-                                                    dataType: 'html',
-                                                    success: function(response) {
-                                                        // Open the supplier_view_single.php page in a new window
-                                                        window.open(response, '_self');
-                                                    },
-                                                    error: function() {
-                                                        Swal.fire({
-                                                            title: 'Error',
-                                                            text: 'Failed to load supplier details',
-                                                            icon: 'error'
-                                                        });
-                                                    }
-                                                });
-                                            }
-
-                                            // $(document).on('click', '.viewBtn', function(event) {
-                                            //     event.preventDefault();
-
-                                            //     var id = $(this).data('id');
-
-                                            //     // Call the function to load and display the supplier details
-                                            //     loadSupplierDetails(id);
-                                            // });
-
                                             // Refresh supplier records periodically
                                             setInterval(function() {
                                                 loadSupplierRecords();
@@ -139,8 +109,6 @@ include('Side_nav.php');
 
 
 
-                                    <!-- Include jQuery -->
-                                    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
                                     <!-- Include SweetAlert JS -->
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.js"></script>
                                     <script>
@@ -172,7 +140,7 @@ include('Side_nav.php');
                                                 function deleteRecord(id) {
                                                     // Send AJAX request to delete.php with the ID parameter
                                                     $.ajax({
-                                                        url: 'supplier_delete.php?id=' + id,
+                                                        url: 'sales_delete.php?id=' + id,
                                                         type: 'GET',
                                                         dataType: 'json',
                                                         success: function(response) {

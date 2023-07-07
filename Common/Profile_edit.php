@@ -3,23 +3,10 @@
 include('config/dbconnection.php');
 include('pages/Header.php');
 
-// Get the database Connection
-// $con = getDBConnection();
-
-// Retrieve data from the SQL table
-// $query_gender = "SELECT id,name FROM gender";
-// $query_civilstatus = "SELECT id,name FROM civilstatus";
-// $query_nametitle = "SELECT id,name FROM nametitle";
-// $query_role = "SELECT id,name FROM role";
-// $query_employeestatus = "SELECT id,name FROM employeestatus";
-// $result_gender = mysqli_query($con, $query_gender);
-// $result_civilstatus = mysqli_query($con, $query_civilstatus);
 
 
 
 
-
-include('config/dbconnection.php');
 $username = $_SESSION['username'];
 
 
@@ -41,7 +28,7 @@ if ($result && mysqli_num_rows($result) > 0) {
   $dob = $row['dob'];
 
 
-  $query_nametitle = "SELECT name FROM nametitle WHERE id='$nametitle'";
+  $query_nametitle = "SELECT * FROM nametitle WHERE id='$nametitle'";
   $result_nametitle = mysqli_query($con, $query_nametitle);
   $row_nametitle = mysqli_fetch_assoc($result_nametitle);
   $nametitle_new = $row_nametitle['name'];
@@ -110,6 +97,17 @@ include('Side_nav.php');
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <select class="form-control" name="nametitle">
+                    <?php
+                    // Loop through the query result and display data within <option> tags
+
+                    while ($row = mysqli_fetch_assoc($result_nametitle)) {
+                      $selected = ($row['name'] === $nametitlenew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                      echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
+
               </div>
             </div>
 
@@ -154,6 +152,7 @@ include('Side_nav.php');
               </div>
               <div class="col-sm-8">
                 <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatus_new) ?>">
+              
               </div>
             </div>
 

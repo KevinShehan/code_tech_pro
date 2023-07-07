@@ -135,33 +135,32 @@ if (isset($_POST['saleDone'])) {
           </div>
           <div class="card-body">
             <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
-                <div class="col-sm-7">
-                  <div class="input-group">
-                    <div class="col-sm-2">
-                      <!-- <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput"> -->
+            <div class="form-group" id="custom-input">
+  <div class="row">
+    <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
+    <div class="col-sm-4">
+      <select name="prod_name" class="form-control" required>
+        <option selected disabled>Select</option>
+        <?php
+        $queryc = mysqli_query($con, "select * from item");
+        while ($rowc = mysqli_fetch_array($queryc)) {
+        ?>
+          <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
+        <?php } ?>
+      </select>
+    </div>
+    <label for="name" class="col-sm-1 control-label">Qty</label>
+    <div class="col-sm-2">
+      <input type="number" class="form-control" name="qty" min="1" required>
+    </div>
+    <div class="col-sm-3">
+      <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff;">+ Add Item</button>
+    </div>
+  </div>
+</div>
 
-                    </div>
-                    <select name="prod_name" class="form-control" style="width: 100%" required>
-                      <option selected disabled>Select</option>
-                      <?php
-                      $queryc = mysqli_query($con, "select * from item");
-                      while ($rowc = mysqli_fetch_array($queryc)) {
-                      ?>
-                        <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
-                      <?php } ?>
-                    </select>
-                    <label for="name" class="col-sm-2 control-label">Qty</label>
-                    <div class="col-sm-3">
-                      <input type="number" class="form-control" name="qty" min="1" required>
-                    </div>
-                    <div class="input-group-append">
-                      <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+
             </form>
 
 
@@ -216,11 +215,11 @@ if (isset($_POST['saleDone'])) {
               </tbody>
             </table>
             <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
-  <div class="text-end">
+  <div class="text-end" style="display: none;">
     Discount (%)
     <input type="number" min="0" step="any" id="discountInput" oninput="calculateTotal()">
   </div>
-  <div class="text-end">
+  <div class="text-end" style="display: none;">
     <?php
     $query = mysqli_query($con, "SELECT st.qty AS sales_qty, st.Item_id, i.qty AS item_qty FROM sales_temporary AS st LEFT JOIN item AS i ON st.Item_id = i.id") or die(mysqli_error($con));
     $grand = 0;
