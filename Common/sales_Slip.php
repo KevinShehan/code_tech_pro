@@ -3,8 +3,9 @@ require('pages/Auth.php');
 //Profile
 include('config/dbconnection.php');
 include('pages/Header.php');
-include('Top_nav.php');
-include('Side_nav.php');?>
+// include('Top_nav.php');
+// include('Side_nav.php');
+?>
 
 <div class="content">
   <div class="content-header">
@@ -30,20 +31,20 @@ include('Side_nav.php');?>
           <div class="col-6">
 
             <?php $id = $_GET['id'];
-            $query = mysqli_query($con, "select * from invoice left join customer on  sales.Customer =  customer.customer_id  where sale_id = '$id'") or die(mysqli_error());
+            $query = mysqli_query($con, "select * from invoice left join customer on  invoice.customers_id =  customer.id  where invoice.id = '$id'") or die(mysqli_error($con));
 
             while ($row = mysqli_fetch_array($query)) {
 
 
             ?>
 
-              <h5 class="text-right">Date: <?php echo $row['date_added']; ?> </h5>
-              <h5 class="text-right">customer Invoice#: <?php echo $row['innumber']; ?> </h5>
+              <h5 class="text-right">Date: <?php echo $row['date']; ?> </h5>
+              <h5 class="text-right">customer Invoice#: <?php echo $row['code']; ?> </h5>
 
               <br />
 
-              <h5 class="text-right">customer Name: <?php echo $row['customer_name']; ?> </h5>
-              <h5 class="text-right">Address: <?php echo $row['customer_address']; ?> </h5>
+              <h5 class="text-right">customer Name: <?php echo $row['name']; ?> </h5>
+              <h5 class="text-right">Address: <?php echo $row['address']; ?> </h5>
             <?php } ?>
 
 
@@ -63,24 +64,22 @@ include('Side_nav.php');?>
                       <tbody>
 
                         <?php
-
                         $id = $_GET['id'];
-                        $query = mysqli_query($Hardwaresystem_Connection, "select * from salesdetails left join products on salesdetails.pro_id = products.prod_id  where Requested_id = '$id' ") or die(mysqli_error());
+                        $query = mysqli_query($con, "SELECT item.name AS item_name, invoiceitem.qty, item.rop
+                                         FROM invoiceitem
+                                         LEFT JOIN item ON invoiceitem.Item_id = item.id
+                                         WHERE invoiceitem.invoice_id = '$id'")
+                          or die(mysqli_error($con));
 
                         while ($row = mysqli_fetch_array($query)) {
-
-
                         ?>
-
                           <tr>
-
-                            <td class="product-name"> <?php echo $row['prod_name']; ?> </td>
-                            <td class="product-name"> <?php echo $row['qty']; ?> </td>
-                            <td class="product-name"> <?php $p =  $row['prod_price'];
-                                                      echo number_format($p, 2); ?> </td>
-                            <td class="product-name"> <?php $t =  $row['prod_price']  *  $row['qty'];
-                                                      echo number_format($t, 2); ?> </td>
-
+                            <td class="product-name"><?php echo $row['item_name']; ?></td>
+                            <td class="product-name"><?php echo $row['qty']; ?></td>
+                            <td class="product-name"><?php $p = $row['rop'];
+                                                      echo number_format($p, 2); ?></td>
+                            <td class="product-name"><?php $total = $row['qty'] * $row['rop'];
+                                                      echo number_format($total, 2); ?></td>
                           </tr>
                         <?php } ?>
                       </tbody>
@@ -101,20 +100,22 @@ include('Side_nav.php');?>
                           <tbody>
 
                             <?php
-
-                            $id = $_GET['id'];
-                            $query = mysqli_query($Hardwaresystem_Connection, "select * from salesdetails left join products on salesdetails.pro_id = products.prod_id  where Requested_id = '$id' ") or die(mysqli_error());
+                            $query = mysqli_query($con, "SELECT invoice.total FROM invoice WHERE invoice.id = '$id'")
+                             or die(mysqli_error($con));
                             $grand = 0;
                             while ($row = mysqli_fetch_array($query)) {
-                              $total = $row['qty'] * $row['prod_price'];
-                              $grand = $grand + $total;
+                              $qty = $row['total'];
+                              // $rop = $row['rop'];
+                              // $total = $qty * $rop;
+                              // $grand += $total;
 
 
                             ?> <?php } ?>
 
                             <tr>
 
-                              <td class="product-name"> <?php echo number_format($grand, 2); ?> </td>
+                              <td class="product-name"> <?php echo number_format( $qty, 2); ?> </td>
+
 
 
                             </tr>
@@ -122,19 +123,10 @@ include('Side_nav.php');?>
                           </tbody>
                         </table>
                       </div>
-
-
-
-
-
                     </div>
-
-
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -154,17 +146,24 @@ include('Side_nav.php');?>
   </div>
 
   <script language="javascript">
+    window.onload = function() {
+      printdiv('div_print');
+    };
+
     function printdiv(printpage) {
       var headstr = "<html><head><title></title></head><body>";
       var footstr = "</body>";
-      var newstr = document.all.item(printpage).innerHTML;
+      var newstr = document.getElementById(printpage).innerHTML;
       var oldstr = document.body.innerHTML;
       document.body.innerHTML = headstr + newstr + footstr;
       window.print();
       document.body.innerHTML = oldstr;
-      location.reload();
       return false;
     }
+
+    window.onafterprint = function() {
+      window.location.href = 'invoice sale test.php'; // Replace with the URL of your invoice test page
+    };
   </script>
 
-<?php include('pages/Footer.php'); ?>
+  <?php include('pages/Footer.php'); ?>

@@ -30,15 +30,15 @@ include('Side_nav.php');
           <div class="col-6">
 
             <?php $id = $_GET['id'];
-            $query = mysqli_query($con, "select * from purchase left join supplier on  purchase.supplier_id =  supplier.id  where purchase_id = '$id'") or die(mysqli_error());
+            $query = mysqli_query($con, "select * from purchase left join supplier on  purchase.supplier_id =  supplier.id  where purchase_id = '$id'") or die(mysqli_error($con));
 
             while ($row = mysqli_fetch_array($query)) {
 
 
             ?>
 
-              <h5 class="text-right">Date: <?php echo $row['date_added']; ?> </h5>
-              <h5 class="text-right">Supplier Invoice#: <?php echo $row['innumber']; ?> </h5>
+              <h5 class="text-right">Date: <?php echo $row['date']; ?> </h5>
+              <h5 class="text-right">Supplier Invoice#: <?php echo $row['code']; ?> </h5>
 
               <br />
 

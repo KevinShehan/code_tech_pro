@@ -83,7 +83,7 @@ if (isset($_POST['AddTolist'])) {
 <?php   // start code to final save from list  
 if (isset($_POST['saleDone'])) {
   $username = $_SESSION["username"];
-  $user_idq = "select user.id from username where username='$username'";
+  $user_idq = "select user.id from user where username='$username'";
   $user_resultq = mysqli_query($con, $user_idq);
   $row_user = mysqli_fetch_assoc($user_resultq);
   $user_id = $row_user['id'];
@@ -91,13 +91,13 @@ if (isset($_POST['saleDone'])) {
   $innumber = $_POST['innumber']; // get main variables to save into first table
   $customer = $_POST['customer'];
   $description = $_POST['description'];
-  $total = $_POST['total'];
+  $total = str_replace(',', '', $_POST['total']);
 
   date_default_timezone_set("Asia/colombo");
-  $date = date("Y-m-d H:i:s");
+  $date = date("Y-m-d");
 
-  mysqli_query($con, "INSERT INTO invoice(user_id,customer_id,date_total,description,code ) 
-  VALUES('$user_id','$customer','$date','$total','$Description','$innumber')") or die(mysqli_error($con)); // save to first table
+  mysqli_query($con, "INSERT INTO invoice(user_id,customers_id,date,total,description,code ) 
+  VALUES('$user_id','$customer','$date','$total','$description','$innumber')") or die(mysqli_error($con)); // save to first table
 
 
   $Request_id = mysqli_insert_id($con); // genarate forgin key to save into second table
@@ -105,14 +105,14 @@ if (isset($_POST['saleDone'])) {
   $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
   while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
   {
-    $pid = $row['item_id'];
+    $pid = $row['Item_id'];
     $qty = $row['qty'];
 
     // save into second table
-    mysqli_query($con, "INSERT INTO invioceitem(item_id,qty,Requested_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
+    mysqli_query($con, "INSERT INTO invoiceitem(item_id,qty,invoice_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
 
     // update product qty (-)
-    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.it='$pid' ") or die(mysqli_error($con));
+    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.id='$pid' ") or die(mysqli_error($con));
   }
   //clear  Invoice
   $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
@@ -141,7 +141,7 @@ if (isset($_POST['saleDone'])) {
                   <div class="input-group">
                     <div class="col-sm-2">
                       <!-- <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput"> -->
-                 
+
                     </div>
                     <select name="prod_name" class="form-control" style="width: 100%" required>
                       <option selected disabled>Select</option>
@@ -216,76 +216,90 @@ if (isset($_POST['saleDone'])) {
               </tbody>
             </table>
             <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
-              <div class="text-end">
-                Discount
-                <input type="number" min="1">
-              </div>
-              <div class="text-end">
-                <?php
-                $query = mysqli_query($con, "select * from sales_temporary left join item on sales_temporary.item_id = item.id") or die(mysqli_error($con));
-                $grand = 0;
+  <div class="text-end">
+    Discount (%)
+    <input type="number" min="0" step="any" id="discountInput" oninput="calculateTotal()">
+  </div>
+  <div class="text-end">
+    <?php
+    $query = mysqli_query($con, "SELECT st.qty AS sales_qty, st.Item_id, i.qty AS item_qty FROM sales_temporary AS st LEFT JOIN item AS i ON st.Item_id = i.id") or die(mysqli_error($con));
+    $grand = 0;
 
-                while ($row = mysqli_fetch_array($query)) {
-                  $item = $row['Item_id'];
-                  $quan=$row['qty'];
+    while ($row = mysqli_fetch_array($query)) {
+      $item = $row['Item_id'];
+      $quan = $row['sales_qty'];
 
-                  $query2 = "SELECT rop FROM item WHERE id='$item'";
-                  $result2 = mysqli_query($con, $query2);
-                  $row2 = mysqli_fetch_assoc($result2);
+      $query2 = "SELECT rop FROM item WHERE id='$item'";
+      $result2 = mysqli_query($con, $query2);
+      $row2 = mysqli_fetch_assoc($result2);
 
-                  $qty1 = $row2['rop'];
-                  $total =  $quan* $qty1;
-                  $grand += $total;
-                }
-                ?>
-                Total
-                <input type="text" readonly name="total" value="<?php echo number_format( $total, 2); ?>">
-              </div>
-              <?php ?>
+      $qty1 = $row2['rop'];
+      $total =  $quan * $qty1;
+      $grand += $total;
+    }
+    ?>
+    Total
+    <input type="text" readonly name="total" id="totalOutput" value="<?php echo number_format($grand, 2); ?>">
+  </div>
 
-              <div>
-                Description
-                <input type="text" name="description">
+  <div>
+    Description
+    <textarea class="form-control" name="description" rows="3"></textarea>
+  </div>
 
-              </div>
+  <?php
+  $query = mysqli_query($con, "select * from invoice  order by code DESC LIMIT 1") or die(mysqli_error($con));
+  $result = mysqli_num_rows($query);
+  if ($result == 0) {
+    $newidNew = "I00001";
+  } else {
+    $rec = mysqli_fetch_assoc($query);
+    $lastid = $rec["code"];
+    $num = substr($lastid, 3);
+    $num++;
+    $newidNew = "I" . str_pad($num, 5, "0", STR_PAD_LEFT);
+  }
+  ?>
 
+  <label for="name" class="col-sm-2 control-label"> Invoice</label>
+  <div class="col-sm-9">
+    <input type="text" class="form-control" name="innumber" value="<?php echo ($newidNew) ?>" readonly>
+  </div>
 
-              <?php
-              $query = mysqli_query($con, "select * from invoice  order by code DESC LIMIT 1") or die(mysqli_error($con));
-              $result = mysqli_num_rows($query);
-              if ($result == 0) {
-                $newidNew = "I00001";
-              } else {
-                $rec = mysqli_fetch_assoc($query);
-                $lastid = $rec["innumber"];
-                $num = substr($lastid, 3);
-                $num++;
-                $newidNew = "I" . str_pad($num, 5, "0", STR_PAD_LEFT);
-              }
-              ?>
+  <div>
+    Customer Select
+    <select name="customer" class="form-control" style="width: 100%" required>
+      <option selected disabled value=""> Select</option>
+      <?php
+      $queryc = mysqli_query($con, "select * from customer") or die(mysqli_error($con));
+      while ($rowc = mysqli_fetch_array($queryc)) {
+      ?>
+        <option value="<?php echo $rowc['id']; ?>"> <?php echo $rowc['name']; ?></option>
+      <?php } ?>
+    </select>
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary" name="saleDone">Create Sale</button>
+</form>
 
-              <label for="name" class="col-sm-2 control-label"> Invoice</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="innumber" value="<?php echo ($newidNew) ?>" readonly>
-              </div>
+<script>
+  function calculateTotal() {
+    var discountInput = document.getElementById('discountInput');
+    var totalOutput = document.getElementById('totalOutput');
 
+    var discountPercentage = parseFloat(discountInput.value);
+    var total = <?php echo $grand; ?>; // Retrieve the initial total from PHP variable
 
-              <div>
-                Customer Select
-                <select name="customer" class="form-control" style="width: 100%" required>
-                  <option selected disabled value=""> Select</option>
-                  <?php
+    if (!isNaN(discountPercentage)) {
+      var discountAmount = (discountPercentage / 100) * total;
+      var discountedTotal = total - discountAmount;
+      totalOutput.value = discountedTotal.toFixed(2);
+    } else {
+      totalOutput.value = total.toFixed(2);
+    }
+  }
+</script>
 
-                  $queryc = mysqli_query($con, "select * from customer") or die(mysqli_error($con));
-                  while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
-                    <option value="<?php echo $rowc['id']; ?>"> <?php echo $rowc['name']; ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <br />
-              <button class="btn btn-primary" name="saleDone">Create Sale</button>
-            </form>
           </div>
         </div>
       </div>

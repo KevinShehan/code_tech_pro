@@ -166,7 +166,7 @@ if ($status_result) {
                 <ul class="navbar-nav ps-3">
                   <?php if (in_array('create_sale', $allowedUseCases)) : ?>
                     <li>
-                      <a href="sales_save.php" class="nav-link px-3">
+                      <a href="invoice sale test.php" class="nav-link px-3">
                         <span class="me-2"> <span class="fas fa-file-invoice-dollar"></span> </span>
                         <span>New Invoices</span>
                       </a>

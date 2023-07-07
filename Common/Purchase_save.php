@@ -251,10 +251,6 @@ if (isset($_POST['purcahseDone'])) {
                             </div>
                     </div>
 
-
-
-
-
                 </div>
                 <div class="card-footer">
                     <div class="form-group" align="right">
