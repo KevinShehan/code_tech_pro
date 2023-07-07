@@ -76,8 +76,8 @@ include('Side_nav.php');
                                                 $html .= '<td>' . $row['id'] . '</td>';
                                                 $html .= '<td>' . $row['total'] . '</td>';
                                                 $html .= '<td>';
-                                                $html .= '<a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>&nbsp;';
-                                                $html .= '<a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a> &nbsp;';
+                                                $html .= ' <a href="Purchase_Slip.php?id='.$id.'"  class="btn btn-success btn-sm" name="btn_edit"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
+   
                                                 $html .= '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>';
                                                 $html .= '</td>';
                                                 $html .= '</tr>';

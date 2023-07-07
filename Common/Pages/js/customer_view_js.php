@@ -94,8 +94,8 @@
         // loadSupplierRecords();
 
         // Refresh supplier records periodically
-        setInterval(function() {
-            loadSupplierRecords();
-        }, 2000); // Refresh every 5 seconds
+        // setInterval(function() {
+        //     loadSupplierRecords();
+        // }, 2000); // Refresh every 5 seconds
     });
 </script>

@@ -20,49 +20,48 @@ require('Side_nav.php');
                         <table class="table" width="100%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Item</th>
+                                    <th scope="col">No</th>
                                     <th scope="col">Supplier Name</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col">id</td>
-                                    <td scope="col">2022-05-11</td>
-                                    <td scope="col">KODAK SSD</td>
-                                    <td scope="col">Amila Narangoda</td>
-                                    <td scope="col">Rs 20000.00</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col">id</td>
-                                    <td scope="col">2022-06-11</td>
-                                    <td scope="col">PC Case</td>
-                                    <td scope="col">Amila Narangoda</td>
-                                    <td scope="col">Rs 5000.00</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col">id</td>
-                                    <td scope="col">2022-05-11</td>
-                                    <td scope="col">KBD  MPUse</td>
-                                    <td scope="col">Amila Narangoda</td>
-                                    <td scope="col">Rs 10000.00</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col">id</td>
-                                    <td scope="col">2022-08-11</td>
-                                    <td scope="col">Motherboard</td>
-                                    <td scope="col">Amila Narangoda</td>
-                                    <td scope="col">Rs 6000.00</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col">id</td>
-                                    <td scope="col">2022-09-11</td>
-                                    <td scope="col">Ear Bud</td>
-                                    <td scope="col">Chethiya Kusal</td>
-                                    <td scope="col">Rs 25000.00</td>
-                                </tr>
+                                <?php
+
+                                // Fetch data from table
+                                $sql = "SELECT * FROM v3.purchase";
+                                $result =  mysqli_query($con, $sql);
+
+                                // Check if there are any records
+                                if ($result->num_rows > 0) {
+
+                                    $number = 1;
+                                    // Loop through each record
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // Display table row for each record
+                                        $id = $row['id'];
+                                        $date = $row['date'];
+                                        $total = $row['total'];
+                                        $supplier_id = $row['Supplier_id'];
+
+                                        $sup = "SELECT DISTINCT name FROM supplier WHERE id = $supplier_id";
+                                        $sup_result=mysqli_query($con,$sup);
+                                        $row1 = mysqli_fetch_assoc($sup_result)['name'];
+                                     
+                                        echo '<tr>';
+                                        echo '<td>' . $number . '</td>';
+                                        echo '<td>' . $date . '</td>';
+                                        echo '<td>' .  $row1 . '</td>';
+                                        echo '<td>' . $total  . '</td>';
+                                      
+                                        echo '</tr>';
+                                        $number++;
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="4">No records found.</td></tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                         <button class="no-print btn btn-primary  btn-lg float-right" onclick="printPage()">Print</button>

@@ -90,7 +90,7 @@ if (isset($_POST['purcahseDone'])) {
     $result = mysqli_query($con, "DELETE FROM purchase_temporary") or die(mysqli_error($con));
 
     // Redirect to the invoice print page or any other desired page
-    // echo "<script>document.location='Purchase_Slip.php?id=$request_id'</script>";
+    echo "<script>document.location='Purchase_Slip.php?id=$request_id'</script>";
 }
 ?>
 

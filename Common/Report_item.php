@@ -14,24 +14,25 @@ require('Side_nav.php');
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="bi bi-table me-2"></i></span> Supplier Report
+                        <span><i class="bi bi-table me-2"></i></span> Items Report
                     </div>
                     <div class="card-body">
                         <table class="table" width="100%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">id</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Code</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
 
                                 // Fetch data from table
-                                $sql = "SELECT * FROM v3.supplier";
+                                $sql = "SELECT * FROM v3.item";
                                 $result =  mysqli_query($con, $sql);
 
                                 // Check if there are any records
@@ -43,15 +44,17 @@ require('Side_nav.php');
                                         // Display table row for each record
                                         $id = $row['id'];
                                         $name = $row['name'];
-                                        $address = $row['address'];
-                                        $contact = $row['contact1'];
-                                        $email = $row['email'];
+                                        $code = $row['code'];
+                                        $reorder = $row['qty'];
+                                        $rop = $row['rop'];
+                                        $description = $row['description'];
                                         echo '<tr>';
                                         echo '<td>' . $number . '</td>';
+                                        echo '<td>' . $code . '</td>';
                                         echo '<td>' . $name . '</td>';
-                                        echo '<td>' . $address . '</td>';
-                                        echo '<td>' . $contact . '</td>';
-                                        echo '<td>' . $email . '</td>';
+                                        echo '<td>' . $rop . '</td>';
+                                        echo '<td>' . $description . '</td>';
+                                        echo '<td>' . $reorder . '</td>';
                                         echo '</tr>';
                                         $number++;
                                     }

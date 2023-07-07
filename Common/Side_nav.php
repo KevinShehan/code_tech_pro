@@ -528,7 +528,7 @@ if ($status_result) {
                   <?php endif; ?>
                   <?php if (in_array('view_report', $allowedUseCases)) : ?>
                     <li>
-                      <a href="Report_supplie.php" class="nav-link px-3">
+                      <a href="Report_supplier.php" class="nav-link px-3">
                         <span class="me-2"><i class="fas fa-chart-pie"></i>
                         </span>
                         <span>Supplier Reports</span>

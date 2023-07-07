@@ -3,8 +3,8 @@ require('pages/Auth.php');
 //Profile
 include('config/dbconnection.php');
 include('pages/Header.php');
-// include('Top_nav.php');
-// include('Side_nav.php');
+include('Top_nav.php');
+include('Side_nav.php');
 ?>
 
 <div class="content">

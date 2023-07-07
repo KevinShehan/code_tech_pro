@@ -75,7 +75,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $html .= '<td>' . $row['customer_name'] . '</td>';
     $html .= '<td class="text-end">' . $row['total'] . '</td>';
     $html .= '<td>';
-    $html .= ' <a href="Sales_Slip.php?id='.$id.'"  class="btn btn-success btn-sm" name="btn_edit"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
+    $html .= ' <a href="sales_Slip.php?id='.$id.'"  class="btn btn-success btn-sm" name="btn_edit"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
    
     $html .= '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>';
     $html .= '</td>';

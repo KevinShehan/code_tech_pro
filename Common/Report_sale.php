@@ -14,24 +14,25 @@ require('Side_nav.php');
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="bi bi-table me-2"></i></span> Supplier Report
+                        <span><i class="bi bi-table me-2"></i></span>Sales Report
                     </div>
                     <div class="card-body">
                         <table class="table" width="100%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Date</th>
+                                
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
 
-                                // Fetch data from table
-                                $sql = "SELECT * FROM v3.supplier";
+                                // Fetch data from table MONTH(date) = 2
+                                $sql = "SELECT * FROM v3.invoice ";
                                 $result =  mysqli_query($con, $sql);
 
                                 // Check if there are any records
@@ -42,16 +43,21 @@ require('Side_nav.php');
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         // Display table row for each record
                                         $id = $row['id'];
-                                        $name = $row['name'];
-                                        $address = $row['address'];
-                                        $contact = $row['contact1'];
-                                        $email = $row['email'];
+                                        $code = $row['code'];
+                                        $customers_id = $row['customers_id'];
+                                        $total = $row['total'];
+                                        $date = $row['date'];
+
+
+                                        $cus = "SELECT  name FROM customer WHERE id = $customers_id ";
+                                        $cus_result=mysqli_query($con,$cus);
+                                        $row1 = mysqli_fetch_assoc($cus_result)['name'];
                                         echo '<tr>';
                                         echo '<td>' . $number . '</td>';
-                                        echo '<td>' . $name . '</td>';
-                                        echo '<td>' . $address . '</td>';
-                                        echo '<td>' . $contact . '</td>';
-                                        echo '<td>' . $email . '</td>';
+                                        echo '<td>' . $code . '</td>';
+                                        echo '<td>' .  $row1 . '</td>';
+                                        echo '<td>' . $total . '</td>';
+                                        echo '<td>' . $date . '</td>';
                                         echo '</tr>';
                                         $number++;
                                     }

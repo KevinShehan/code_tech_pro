@@ -283,10 +283,11 @@
         <div class="card h-100">
           <div class="card-header">
             <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-            Monthly Sales Analyze
+          
+            Monthly Sales Details
           </div>
           <div class="card-body">
-            <canvas class="chart" width="400" height="200"></canvas>
+          <div id="bar_chart_div" style="width: 100%; height: 100%;"></div>
           </div>
         </div>
       </div>
@@ -294,12 +295,18 @@
         <div class="card h-100">
           <div class="card-header">
             <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-            Daily Purchase Details
+            Purchased Item Analyze
           </div>
 
           <div class="card-body">
             <!-- <canvas class="chart" width="400" height="200"></canvas> -->
-            <div id="piechart" style="width: 100%; height: 100%;"></div>
+  
+   
+ 
+            <div id="pie_chart_div" style="width: 100%; height: 100%;"></div>
+
+
+            <!-- <div id="piechart" style="width: 100%; height: 100%;"></div> -->
           </div>
         </div>
       </div>

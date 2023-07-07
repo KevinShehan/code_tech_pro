@@ -14,7 +14,7 @@ require('Side_nav.php');
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="bi bi-table me-2"></i></span> Supplier Report
+                        <span><i class="bi bi-table me-2"></i></span> Customer Report
                     </div>
                     <div class="card-body">
                         <table class="table" width="100%">
@@ -24,14 +24,14 @@ require('Side_nav.php');
                                     <th scope="col">Name</th>
                                     <th scope="col">Address</th>
                                     <th scope="col">Contact</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">CustomerType</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
 
                                 // Fetch data from table
-                                $sql = "SELECT * FROM v3.supplier";
+                                $sql = "SELECT * FROM v3.customer";
                                 $result =  mysqli_query($con, $sql);
 
                                 // Check if there are any records
@@ -44,14 +44,19 @@ require('Side_nav.php');
                                         $id = $row['id'];
                                         $name = $row['name'];
                                         $address = $row['address'];
-                                        $contact = $row['contact1'];
-                                        $email = $row['email'];
+                                        $contact = $row['Mobile1'];
+                                        $customertype = $row['customertype_id'];
+
+
+                                        $cus="select name from customertype where id=' $customertype'";
+                                        $cus_result=mysqli_query($con,$cus);
+                                        $row1 = mysqli_fetch_assoc($cus_result)['name'];
                                         echo '<tr>';
                                         echo '<td>' . $number . '</td>';
                                         echo '<td>' . $name . '</td>';
                                         echo '<td>' . $address . '</td>';
                                         echo '<td>' . $contact . '</td>';
-                                        echo '<td>' . $email . '</td>';
+                                        echo '<td>' .  $row1 . '</td>';
                                         echo '</tr>';
                                         $number++;
                                     }

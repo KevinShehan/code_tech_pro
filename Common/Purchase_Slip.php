@@ -29,23 +29,22 @@ include('Side_nav.php');
 
           <div class="col-6">
 
-            <?php $id = $_GET['id'];
-            $query = mysqli_query($con, "select * from purchase left join supplier on  purchase.supplier_id =  supplier.id  where purchase_id = '$id'") or die(mysqli_error($con));
+            <?php
+            $id = $_GET['id'];
+            $query = mysqli_query($con, "SELECT * FROM purchase LEFT JOIN supplier ON purchase.supplier_id = supplier.id WHERE purchase.id = '$id'");
 
-            while ($row = mysqli_fetch_array($query)) {
-
-
+            if (mysqli_num_rows($query) > 0) {
+              while ($row = mysqli_fetch_array($query)) {
+                echo '<h5 class="text-right">Date: ' . $row['date'] . '</h5>';
+                echo '<h5 class="text-right">Supplier Invoice#: ' . $row['code'] . '</h5>';
+                echo '<br />';
+                echo '<h5 class="text-right">Supplier Name: ' . $row['name'] . '</h5>';
+                echo '<h5 class="text-right">Address: ' . $row['address'] . '</h5>';
+              }
+            } else {
+              echo '<h5 class="text-right">No records found.</h5>';
+            }
             ?>
-
-              <h5 class="text-right">Date: <?php echo $row['date']; ?> </h5>
-              <h5 class="text-right">Supplier Invoice#: <?php echo $row['code']; ?> </h5>
-
-              <br />
-
-              <h5 class="text-right">Supplier Name: <?php echo $row['supplier_name']; ?> </h5>
-              <h5 class="text-right">Address: <?php echo $row['supplier_address']; ?> </h5>
-            <?php } ?>
-
 
             <div class="panel">
               <div class="panel-content">
@@ -65,18 +64,30 @@ include('Side_nav.php');
                         <?php
 
                         $id = $_GET['id'];
-                        $query = mysqli_query($con, "select * from purchaseitem left join item on purchaseetails.item_id = item.id  where purchase_id = '$id' ") or die(mysqli_error());
+                        $query = mysqli_query($con, "SELECT item.name AS item_name, purchaseitem.qty, item.wop
+                         FROM purchaseitem LEFT JOIN item ON purchaseitem.Item_id = item.id
+                          WHERE purchaseitem.purchase_id = '$id'") or die(mysqli_error($con));
 
+
+
+                        // $query = mysqli_query($con, "SELECT item.name AS item_name, invoiceitem.qty, item.rop
+                        //                  FROM invoiceitem
+                        //                  LEFT JOIN item ON invoiceitem.Item_id = item.id
+                        //                  WHERE invoiceitem.invoice_id = '$id'")
+                        //   or die(mysqli_error($con));
                         while ($row = mysqli_fetch_array($query)) {
 
+                          $cus = "SELECT  total FROM purchase WHERE id = $id ";
+                          $cus_result = mysqli_query($con, $cus);
+                          $row1 = mysqli_fetch_assoc($cus_result)['total'];
                         ?>
 
                           <tr>
-                            <td class="product-name"> <?php echo $row['name']; ?> </td>
+                            <td class="product-name"> <?php echo $row['item_name']; ?> </td>
                             <td class="product-name"> <?php echo $row['qty']; ?> </td>
-                            <td class="product-name"> <?php $p =  $row['total'];
+                            <td class="product-name"> <?php $p =  $row['wop'];
                                                       echo number_format($p, 2); ?> </td>
-                            <td class="product-name"> <?php $t =  $row['Cost']  *  $row['qty'];
+                            <td class="product-name"> <?php $t =  $row['wop']  *  $row['qty'];
                                                       echo number_format($t, 2); ?> </td>
                           </tr>
                         <?php } ?>
@@ -94,25 +105,24 @@ include('Side_nav.php');
                             </tr>
                           </thead>
                           <tbody>
-
                             <?php
-
-                            $id = $_GET['id'];
-                            $query = mysqli_query($con, "select * from purchaseetails left join products on purchaseetails.pro_id = products.prod_id  where Requested_id = '$id' ") or die(mysqli_error());
+                            $query = mysqli_query($con, "SELECT purchase.total FROM purchase WHERE purchase.id = '$id'")
+                              or die(mysqli_error($con));
                             $grand = 0;
                             while ($row = mysqli_fetch_array($query)) {
-                              $total = $row['qty'] * $row['Cost'];
-                              $grand = $grand + $total;
+                              $qty = $row['total'];
+                              // $rop = $row['rop'];
+                              // $total = $qty * $rop;
+                              // $grand += $total;
 
 
                             ?> <?php } ?>
 
                             <tr>
 
-                              <td class="product-name"> <?php echo number_format($grand, 2); ?> </td>
+                              <td class="product-name"> <?php echo number_format($qty, 2); ?>
+                              </td>
 
-
-                            </tr>
 
                           </tbody>
                         </table>
@@ -137,32 +147,32 @@ include('Side_nav.php');
       <center>
 
         <input name="b_print" type="button" class="btn btn-success btn-print" onClick="printdiv('div_print');" value=" Print ">
-
-
-
-
       </center>
-
-
-
-
-
 
     </div>
   </div>
 
+
   <script language="javascript">
+    window.onload = function() {
+      printdiv('div_print');
+    };
+
     function printdiv(printpage) {
       var headstr = "<html><head><title></title></head><body>";
       var footstr = "</body>";
-      var newstr = document.all.item(printpage).innerHTML;
+      var newstr = document.getElementById(printpage).innerHTML;
       var oldstr = document.body.innerHTML;
       document.body.innerHTML = headstr + newstr + footstr;
       window.print();
       document.body.innerHTML = oldstr;
-      location.reload();
       return false;
     }
+
+    window.onafterprint = function() {
+      window.location.href = 'Purchase_view.php'; // Replace with the URL of your invoice test page
+    };
   </script>
 
-  <?php include('Include/footer.php');    ?>
+
+  <?php include('pages/footer.php');    ?>
