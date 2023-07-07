@@ -17,7 +17,7 @@ if (mysqli_affected_rows($con) > 0) {
 
 echo '<script>
      setTimeout(function(){
-         window.location.href = "a3 copy 2.php";
+         window.location.href = "invoice sale test.php";
      }, 1000);
 </script>';
 ?>

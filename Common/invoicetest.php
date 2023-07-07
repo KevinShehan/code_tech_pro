@@ -8,79 +8,107 @@ include('Top_nav.php');
 include('Side_nav.php');
 ?>
 
-<style>
-  body {
-    background-color: lightcyan;
-  }
 
 
-  .dataTables_wrapper {
-    margin-top: 20px;
-    /* Adjust the margin value as per your needs */
-  }
+<!-- offcanvas -->
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="card shadow">
+          <div class="card-header">
+            <h3>
+              <span><i class="fas fa-folder"></i>
+              </span> Invoices
+            </h3>
+          </div>
+          <div class="card-body">
+            <?php
+            if (isset($_POST['AddTolist'])) {
+              // Access the submitted values
+              $prod_id = $_POST['prod_name'];
+              $qty = $_POST['qty'];
 
-  .dataTables_filter {
-    margin-bottom: 10px;
-    /* Adjust the margin value as per your needs */
-  }
-</style>
+              // Check for current stock
+              $query_stock = "SELECT reorder FROM item WHERE id='$prod_id'";
+              $result_stock = mysqli_query($con, $query_stock);
+              $row_stock = mysqli_fetch_array($result_stock);
+              $avblQty = $row_stock['reorder'];
+
+              if ($qty <= $avblQty) {
+                // Check if product already exists in the temporary sales table
+                $query_existing = "SELECT * FROM sales_temporary WHERE Item_id='$prod_id'";
+                $result_existing = mysqli_query($con, $query_existing);
+                $count_existing = mysqli_num_rows($result_existing);
+
+                if ($count_existing > 0) {
+                  // Update the quantity if the product already exists
+                  $row_existing = mysqli_fetch_array($result_existing);
+                  $newQty = $row_existing['qty'] + $qty;
+                  mysqli_query($con, "UPDATE sales_temporary SET qty = '$newQty' WHERE Item_id = '$prod_id'");
+                } else {
+                  // Insert a new entry for the product if it doesn't exist
+                  mysqli_query($con, "INSERT INTO sales_temporary (Item_id, qty) VALUES ('$prod_id', '$qty')");
+                }
+
+                // Success message and redirect
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+                echo '<script type="text/javascript">';
+                echo '  Swal.fire({';
+                echo '    icon: "success",';
+                echo '    title: "Success",';
+                echo '    text: "Category saved successfully"';
+                echo '  }).then(function() {';
+                echo '    window.location.href = "Invoice sale test.php";';
+                echo '  });';
+                echo '</script>';
+              } else {
+                // Out of stock error message
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+                echo '<script>';
+                echo '  window.onload = function() {';
+                echo '    Swal.fire({';
+                echo '      icon: "info",';
+                echo '      title: "NO STOCK!",';
+                echo '      text: "Out of stock item"';
+                echo '    });';
+                echo '  };';
+                echo '</script>';
+              }
+            }
+            ?>
+            <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+              <div class="form-group row" id="custom-input">
+                <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
+                <div class="col-sm-7">
+                  <div class="input-group">
+                    <div class="col-sm-2">
+                      <!-- <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput"> -->
+
+                    </div>
+                    <select name="prod_name" class="form-control" style="width: 100%" required>
+                      <option selected disabled>Select</option>
+                      <?php
+                      $queryc = mysqli_query($con, "select * from item");
+                      while ($rowc = mysqli_fetch_array($queryc)) {
+                      ?>
+                        <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
+                      <?php } ?>
+                    </select>
+                    <label for="name" class="col-sm-2 control-label">Qty</label>
+                    <div class="col-sm-3">
+                      <input type="number" class="form-control" name="qty" min="1" required>
+                    </div>
+                    <div class="input-group-append">
+                      <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
 
 
-<?php
-if (isset($_POST['AddTolist'])) {
-  // Access the submitted values
-  $prod_id = $_POST['prod_name'];
-  $qty = $_POST['qty'];
-
-  // Check for current stock
-  $query_stock = "SELECT reorder FROM item WHERE id='$prod_id'";
-  $result_stock = mysqli_query($con, $query_stock);
-  $row_stock = mysqli_fetch_array($result_stock);
-  $avblQty = $row_stock['reorder'];
-
-  if ($qty <= $avblQty) {
-    // Check if product already exists in the temporary sales table
-    $query_existing = "SELECT * FROM sales_temporary WHERE Item_id='$prod_id'";
-    $result_existing = mysqli_query($con, $query_existing);
-    $count_existing = mysqli_num_rows($result_existing);
-
-    if ($count_existing > 0) {
-      // Update the quantity if the product already exists
-      $row_existing = mysqli_fetch_array($result_existing);
-      $newQty = $row_existing['qty'] + $qty;
-      mysqli_query($con, "UPDATE sales_temporary SET qty = '$newQty' WHERE Item_id = '$prod_id'");
-    } else {
-      // Insert a new entry for the product if it doesn't exist
-      mysqli_query($con, "INSERT INTO sales_temporary (Item_id, qty) VALUES ('$prod_id', '$qty')");
-    }
-
-    // Success message and redirect
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script type="text/javascript">';
-    echo '  Swal.fire({';
-    echo '    icon: "success",';
-    echo '    title: "Success",';
-    echo '    text: "Category saved successfully"';
-    echo '  }).then(function() {';
-    echo '    window.location.href = "Invoice sale test.php";';
-    echo '  });';
-    echo '</script>';
-  } else {
-    // Out of stock error message
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script>';
-    echo '  window.onload = function() {';
-    echo '    Swal.fire({';
-    echo '      icon: "info",';
-    echo '      title: "NO STOCK!",';
-    echo '      text: "Out of stock item"';
-    echo '    });';
-    echo '  };';
-    echo '</script>';
-  }
-}
-?>
-<?php   // start code to final save from list  
+            <?php   // start code to final save from list  
 if (isset($_POST['saleDone'])) {
   $username = $_SESSION["username"];
   $user_idq = "select user.id from username where username='$username'";
@@ -121,51 +149,7 @@ if (isset($_POST['saleDone'])) {
 }
 ?>
 
-<!-- offcanvas -->
-<main class="mt-5 pt-3">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 mb-3">
-        <div class="card shadow">
-          <div class="card-header">
-            <h3>
-              <span><i class="fas fa-folder"></i>
-              </span> Invoices
-            </h3>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-              <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
-                <div class="col-sm-7">
-                  <div class="input-group">
-                    <div class="col-sm-2">
-                      <!-- <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput"> -->
-                 
-                    </div>
-                    <select name="prod_name" class="form-control" style="width: 100%" required>
-                      <option selected disabled>Select</option>
-                      <?php
-                      $queryc = mysqli_query($con, "select * from item");
-                      while ($rowc = mysqli_fetch_array($queryc)) {
-                      ?>
-                        <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
-                      <?php } ?>
-                    </select>
-                    <label for="name" class="col-sm-2 control-label">Qty</label>
-                    <div class="col-sm-3">
-                      <input type="number" class="form-control" name="qty" min="1" required>
-                    </div>
-                    <div class="input-group-append">
-                      <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-
-            <table class="table table-striped table-bordered" id="categoryTable">
+<table class="table table-striped table-bordered" id="categoryTable">
               <thead>
                 <tr class="table-primary">
                   <th scope="col" class="col-1">No</th>
@@ -177,44 +161,52 @@ if (isset($_POST['saleDone'])) {
                 </tr>
               </thead>
               <tbody>
-                <?php
-                // Fetch latest category records from the database
-                $query = 'SELECT * FROM sales_temporary';
-                $result = mysqli_query($con, $query);
+              <?php
+$total = 0; // Initialize the $total variable outside the loop
 
-                if (!$result) {
-                  die('Error: ' . mysqli_error($con));
-                }
+// Fetch latest category records from the database
+$query = 'SELECT * FROM sales_temporary';
+$result = mysqli_query($con, $query);
 
-                // Generate the HTML markup for category records
-                $number = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-                  $item = $row['Item_id'];
-                  $query2 = "SELECT name,rop FROM item WHERE id='$item'";
-                  $result2 = mysqli_query($con, $query2); // Corrected variable name here
-                  $row2 = mysqli_fetch_assoc($result2);
+if (!$result) {
+  die('Error: ' . mysqli_error($con));
+}
 
-                  $qty1 = $row['qty'];
-                  $total = $row['qty'] * $row2['rop'];
-                ?>
+// Generate the HTML markup for category records
+$number = 1;
+$x;
+while ($row = mysqli_fetch_assoc($result)) {
+  $item = $row['Item_id'];
+  $query2 = "SELECT name, rop FROM item WHERE id='$item'";
+  $result2 = mysqli_query($con, $query2);
+  $row2 = mysqli_fetch_assoc($result2);
 
-                  <tr>
-                    <td> <?php echo $number; ?> </td>
-                    <td> <?php echo $row2['name']; ?> </td>
-                    <td> <?php echo $row2['rop']; ?></td>
-                    <td> <?php echo $row['qty']; ?></td>
-                    <td><?php $total =  $row['qty'] * $row2['rop'];
-                        echo number_format($total, 2); ?></td>
-                    <td>
-                      <a href="sales_list_delete.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure to Delete?')" class="btn btn-danger btn-sm"><i class="fa fa-lg fa-trash"></i> </a>
+  $qty1 = $row['qty'];
+  $total = $qty1 * $row2['rop']; // Calculate $total inside the loop
 
+  ?>
 
-                    </td>
+  <tr>
+    <td><?php echo $number; ?></td>
+    <td><?php echo $row2['name']; ?></td>
+    <td><?php echo $row2['rop']; ?></td>
+    <td><?php echo $row['qty']; ?></td>
+    <td><?php echo number_format($total, 2); ?></td>
+    <? $x=$x+$total; 
+    $_SESSION['x']=$x?>
+    <td>
+      <a href="sales_list_delete.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure to Delete?')" class="btn btn-danger btn-sm"><i class="fa fa-lg fa-trash"></i> </a>
+    </td>
+  </tr>
 
-                  <?php $number++;
-                } ?>
+  <?php
+  $number++;
+}
+?>
+
               </tbody>
             </table>
+
             <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
               <div class="text-end">
                 Discount
@@ -286,6 +278,40 @@ if (isset($_POST['saleDone'])) {
               <br />
               <button class="btn btn-primary" name="saleDone">Create Sale</button>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
       </div>

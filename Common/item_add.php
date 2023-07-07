@@ -225,7 +225,7 @@ include('Side_nav.php');
                             </div>
 
                             <div class="input-group justify-content-end">
-                                <button class="btn btn-success float-end">+Add Product</button>
+                                <button class="btn btn-success float-end mt-2">+Add Item</button>
                             </div>
                         </form>
                     </div>

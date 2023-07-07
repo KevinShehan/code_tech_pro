@@ -1,6 +1,6 @@
 <?php
            
-// require('pages/Auth.php');
+require('pages/Auth.php');
 require('Pages/Header.php');
 
 require('Top_nav.php');
