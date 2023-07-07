@@ -97,7 +97,7 @@ $customertypenew = $row['name'];
 
             <a href="customer_view.php" class="btn btn-purple">
               <i class="fas fa-arrow-left"></i>
-              Return Employee List
+              Return Customer List
             </a>
 
 
@@ -186,19 +186,6 @@ $customertypenew = $row['name'];
               </div>
             </div>
 
-
-
-            <!-- <div class="row mb-3">
-              <div class="col-sm-4 text-end">
-                <label for="gender" class="col-form-label font-weight-bold">
-                  <b> E-mail: </b>
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" readonly>
-              </div>
-            </div> -->
-
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
@@ -220,7 +207,7 @@ $customertypenew = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($description) ?>" readonly>
+                <textarea class="form-control" id="message" name="description" rows="4" cols="50" value="<?php echo ($description) ?>" readonly></textarea>
               </div>
             </div>
 

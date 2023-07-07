@@ -124,7 +124,8 @@ $customertypenew = $row['name'];
               <div class="row mb-3">
                 <div class="col-sm-4 text-end">
                   <label for="gender" class="col-form-label font-weight-bold">
-                    <b>Full Name:</b>
+                    <b>Full Name:<span style="color: red;">*</span>
+</b>
                   </label>
                 </div>
                 <div class="col-sm-8">
@@ -157,7 +158,8 @@ $customertypenew = $row['name'];
               <div class="row mb-3">
                 <div class="col-sm-4 text-end">
                   <label for="gender" class="col-form-label font-weight-bold">
-                    <b> Mobile: </b>
+                    <b> Mobile: <span style="color: red;">*</span>
+</b>
                   </label>
                 </div>
                 <div class="col-sm-8">
@@ -170,7 +172,8 @@ $customertypenew = $row['name'];
               <div class="row mb-3">
                 <div class="col-sm-4 text-end">
                   <label for="gender" class="col-form-label font-weight-bold">
-                    <b> Address: </b>
+                    <b> Address: <span style="color: red;">*</span>
+</b>
                   </label>
                 </div>
                 <div class="col-sm-8">
@@ -183,7 +186,8 @@ $customertypenew = $row['name'];
               <div class="row mb-3">
                 <div class="col-sm-4 text-end">
                   <label for="gender" class="col-form-label font-weight-bold">
-                    <b>NIC: </b>
+                    <b>NIC: <span style="color: red;">*</span>
+</b>
                   </label>
                 </div>
                 <div class="col-sm-8">

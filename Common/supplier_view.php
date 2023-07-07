@@ -46,48 +46,49 @@ include('Side_nav.php');
                                     </div>
 
                                     <table class="table table-striped table-bordered" id="supplierTable">
-                                        <thead>
-                                            <tr class="table-primary">
-                                                <th scope="col">id</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Telephone</th>
-                                                <th scope="col" class="col-3">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Fetch latest supplier records from the database
-                                            $query = 'SELECT * FROM supplier';
-                                            $result = mysqli_query($con, $query);
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Telephone</th>
+            <th scope="col" class="col-3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Fetch latest supplier records from the database
+        $query = 'SELECT * FROM supplier';
+        $result = mysqli_query($con, $query);
 
-                                            if (!$result) {
-                                                die('Error: ' . mysqli_error($con));
-                                            }
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
 
-                                            // Generate the HTML markup for supplier records
-                                            $html = '';
-                                            $number = 1;
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $id = $row['id'];
-                                                $html .= '<tr>';
-                                                $html .= '<td>' . $number . '</td>';
-                                                $html .= '<td>' . $row['name'] . '</td>';
-                                                $html .= '<td>' . $row['address'] . '</td>';
-                                                $html .= '<td>' . $row['contact1'] . '</td>';
-                                                $html .= '<td>
-                                                        <a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>                                             
-                                                        <a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a>
-                                                        <a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>
-                                                </td>';
-                                                $html .= '</tr>';
-                                                $number++;
-                                            }
+        // Generate the HTML markup for supplier records
+        $html = '';
+        $number = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $id = $row['id'];
+            $html .= '<tr>';
+            $html .= '<td>' . $number . '</td>';
+            $html .= '<td>' . $row['name'] . '</td>';
+            $html .= '<td>' . $row['address'] . '</td>';
+            $html .= '<td>' . $row['contact1'] . '</td>';
+            $html .= '<td>';
+            $html .= '<a class="viewBtn btn btn-info btn-sm" href="supplier_single_view.php?id=' . $id . '"><i class="far fa-eye"></i></a>&nbsp;';
+            $html .= '<a class="updateBtn btn btn-warning btn-sm" href="supplier_update.php?id=' . $id . '"><i class="fas fa-pencil-alt"></i></a> &nbsp;';
+            $html .= '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a>';
+            $html .= '</td>';
+            $html .= '</tr>';
+            $number++;
+        }
 
-                                            echo '<script>$("#supplierTable tbody").html(`' . $html . '`);</script>';
-                                            ?>
-                                        </tbody>
-                                    </table>
+        echo $html;
+        ?>
+    </tbody>
+</table>
+
 
 
 
@@ -119,14 +120,14 @@ include('Side_nav.php');
                                                 });
                                             }
 
-                                            $(document).on('click', '.viewBtn', function(event) {
-                                                event.preventDefault();
+                                            // $(document).on('click', '.viewBtn', function(event) {
+                                            //     event.preventDefault();
 
-                                                var id = $(this).data('id');
+                                            //     var id = $(this).data('id');
 
-                                                // Call the function to load and display the supplier details
-                                                loadSupplierDetails(id);
-                                            });
+                                            //     // Call the function to load and display the supplier details
+                                            //     loadSupplierDetails(id);
+                                            // });
 
                                             // Refresh supplier records periodically
                                             setInterval(function() {

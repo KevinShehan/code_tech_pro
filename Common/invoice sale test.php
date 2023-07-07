@@ -28,6 +28,104 @@ include('Side_nav.php');
 
 ?>
 
+<?php
+if(isset($_POST['AddTolist'])) {
+  // Access the submitted values
+  $prod_id = $_POST['prod_name'];
+  $qty = $_POST['qty'];
+
+  // Check for current stock
+  $query_stock = "SELECT reorder FROM item WHERE id='$prod_id'";
+  $result_stock = mysqli_query($con, $query_stock);
+  $row_stock = mysqli_fetch_array($result_stock);
+  $avblQty = $row_stock['reorder'];
+
+  if ($qty <= $avblQty) {
+    // Check if product already exists in the temporary sales table
+    $query_existing = "SELECT * FROM sales_temporary WHERE Item_id='$prod_id'";
+    $result_existing = mysqli_query($con, $query_existing);
+    $count_existing = mysqli_num_rows($result_existing);
+
+    if ($count_existing > 0) {
+      // Update the quantity if the product already exists
+      $row_existing = mysqli_fetch_array($result_existing);
+      $newQty = $row_existing['qty'] + $qty;
+      mysqli_query($con, "UPDATE sales_temporary SET qty = '$newQty' WHERE Item_id = '$prod_id'");
+    } else {
+      // Insert a new entry for the product if it doesn't exist
+      mysqli_query($con, "INSERT INTO sales_temporary (Item_id, qty) VALUES ('$prod_id', '$qty')");
+    }
+
+    // Success message and redirect
+    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+    echo '<script type="text/javascript">';
+    echo '  Swal.fire({';
+    echo '    icon: "success",';
+    echo '    title: "Success",';
+    echo '    text: "Category saved successfully"';
+    echo '  }).then(function() {';
+    echo '    window.location.href = "Invoice sale test.php";';
+    echo '  });';
+    echo '</script>';
+  } else {
+    // Out of stock error message
+    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+    echo '<script>';
+    echo '  window.onload = function() {';
+    echo '    Swal.fire({';
+    echo '      icon: "info",';
+    echo '      title: "NO STOCK!",';
+    echo '      text: "Out of stock item"';
+    echo '    });';
+    echo '  };';
+    echo '</script>';
+  }
+}
+?>
+<?php   // start code to final save from list  
+if (isset($_POST['saleDone'])) {
+  $username = $_SESSION["username"];
+  $user_idq = "select user.id from username where username='$username'";
+  $user_resultq = mysqli_query($con, $user_idq);
+  $row_user = mysqli_fetch_assoc($user_resultq);
+  $user_id = $row_user['id'];
+
+  $innumber = $_POST['innumber']; // get main variables to save into first table
+  $customer = $_POST['customer'];
+  $description = $_POST['description'];
+  $total = $_POST['total'];
+
+  date_default_timezone_set("Asia/colombo");
+  $date = date("Y-m-d H:i:s");
+
+  mysqli_query($con, "INSERT INTO invoice(user_id,customer_id,date_total,description,code ) 
+  VALUES('$user_id','$customer','$date','$total','$Description','$innumber')") or die(mysqli_error($con)); // save to first table
+
+
+
+
+  $Request_id = mysqli_insert_id($con); // genarate forgin key to save into second table
+
+  $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
+  while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
+  {
+    $pid = $row['item_id'];
+    $qty = $row['qty'];
+
+
+    // save into second table
+    mysqli_query($con, "INSERT INTO invioceitem(item_id,qty,Requested_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
+
+    // update product qty (-)
+    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.it='$pid' ") or die(mysqli_error($con));
+  }
+  //clear  Invoice
+  $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
+  // go for invoice print
+  echo "<script>document.location='sales_Slip.php?id=$Request_id'</script>";
+}
+?>
+
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
@@ -43,13 +141,11 @@ include('Side_nav.php');
           <div class="card-body">
             <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
               <div class="form-group row" id="custom-input">
-
-                <label for="gender" class="col-sm-2 col-form-label">Category Name:</label>
+                <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
                 <div class="col-sm-7">
                   <div class="input-group">
                     <div class="col-sm-2">
                       <!-- <input type="text" placeholder="Code" required class="form-control col-sm-2" name="cat_code" readonly id="codeInput"> -->
-
                       <script>
                         function generateUniqueCode() {
                           var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -71,56 +167,35 @@ include('Side_nav.php');
                         window.addEventListener('load', generateUniqueCode);
                       </script>
                     </div>
-
-
-
-                    Item
                     <select name="prod_name" class="form-control" style="width: 100%" required>
-                      <option selected disabled> Select</option>
+                      <option selected disabled>Select</option>
                       <?php
-
                       $queryc = mysqli_query($con, "select * from item");
                       while ($rowc = mysqli_fetch_array($queryc)) {
                       ?>
-                        <option value="<?php echo $rowc['id']; ?>"> <?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
+                        <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
                       <?php } ?>
                     </select>
-                    <br />
-                    <label for="name" class="col-sm-2 control-label"> Qty </label>
+                    <label for="name" class="col-sm-2 control-label">Qty</label>
                     <div class="col-sm-3">
                       <input type="number" class="form-control" name="qty" min="1" required>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <!-- <input type="text" placeholder="Enter Category" required class="form-control col-sm-5" name="cat_name"> -->
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item/button>
+                      <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff; margin-left: 10px;" onmouseover="this.style.backgroundColor='#245269';" onmouseout="this.style.backgroundColor='#428bca';">+ Add Item</button>
                     </div>
                   </div>
                 </div>
               </div>
-
-
-
             </form>
+
 
             <table class="table table-striped table-bordered" id="categoryTable">
               <thead>
                 <tr class="table-primary">
                   <th scope="col" class="col-1">No</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Unit Price</th>
+                  <th scope="col"> Price</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Total (UxQ)</th>
                   <th scope="col" class="col-3">Manage</th>
@@ -364,106 +439,6 @@ include('Side_nav.php');
     });
   });
 </script>
-
-
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Access the submitted values
-  $prod_id = $_POST['prod_name'];
-  $qty = $_POST['qty'];
-
-  // Check for current stock
-  $query_stock = "SELECT reorder FROM item WHERE id='$prod_id'";
-  $result_stock = mysqli_query($con, $query_stock);
-  $row_stock = mysqli_fetch_array($result_stock);
-  $avblQty = $row_stock['reorder'];
-
-  if ($qty <= $avblQty) {
-    // Check if product already exists in the temporary sales table
-    $query_existing = "SELECT * FROM sales_temporary WHERE Item_id='$prod_id'";
-    $result_existing = mysqli_query($con, $query_existing);
-    $count_existing = mysqli_num_rows($result_existing);
-
-    if ($count_existing > 0) {
-      // Update the quantity if the product already exists
-      $row_existing = mysqli_fetch_array($result_existing);
-      $newQty = $row_existing['qty'] + $qty;
-      mysqli_query($con, "UPDATE sales_temporary SET qty = '$newQty' WHERE Item_id = '$prod_id'");
-    } else {
-      // Insert a new entry for the product if it doesn't exist
-      mysqli_query($con, "INSERT INTO sales_temporary (Item_id, qty) VALUES ('$prod_id', '$qty')");
-    }
-
-    // Success message and redirect
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script type="text/javascript">';
-    echo '  Swal.fire({';
-    echo '    icon: "success",';
-    echo '    title: "Success",';
-    echo '    text: "Category saved successfully"';
-    echo '  }).then(function() {';
-    echo '    window.location.href = "Category_save copy.php";';
-    echo '  });';
-    echo '</script>';
-  } else {
-    // Out of stock error message
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script>';
-    echo '  window.onload = function() {';
-    echo '    Swal.fire({';
-    echo '      icon: "info",';
-    echo '      title: "NO STOCK!",';
-    echo '      text: "Out of stock item"';
-    echo '    });';
-    echo '  };';
-    echo '</script>';
-  }
-}
-?>
-<?php   // start code to final save from list  
-if (isset($_POST['saleDone'])) {
-  $username=$_SESSION["username"]  ;
-$user_idq="select user.id from username where username='$username'";
-$user_resultq=mysqli_query($con,$user_idq);
-$row_user=mysqli_fetch_assoc($user_resultq);
-$user_id=$row_user['id'];
-
-  $innumber = $_POST['innumber']; // get main variables to save into first table
-  $customer = $_POST['customer'];
-  $description = $_POST['description'];
-  $total = $_POST['total'];
-
-  date_default_timezone_set("Asia/colombo");
-  $date = date("Y-m-d H:i:s");
-
-  mysqli_query($con, "INSERT INTO invoice(user_id,customer_id,date_total,description,code ) 
-  VALUES('$user_id','$customer','$date','$total','$Description','$innumber')") or die(mysqli_error($con)); // save to first table
-
-
-   
-	
-  $Request_id = mysqli_insert_id($con); // genarate forgin key to save into second table
-
-  $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
-  while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
-  {
-    $pid = $row['item_id'];
-    $qty = $row['qty'];
-
-
-    // save into second table
-    mysqli_query($con, "INSERT INTO invioceitem(item_id,qty,Requested_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
-
-    // update product qty (-)
-    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.it='$pid' ") or die(mysqli_error($con));
-  }
-  //clear  Invoice
-  $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
-  // go for invoice print
-  echo "<script>document.location='sales_Slip.php?id=$Request_id'</script>";
-}
-?>
 
 
 <?php include('pages/Footer.php'); ?>

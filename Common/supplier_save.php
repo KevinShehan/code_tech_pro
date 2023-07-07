@@ -145,20 +145,21 @@ include('Side_nav.php');
                 // Image Preview Script
                 function previewImage(event) {
                   var input = event.target;
-                  var reader = new FileReader();
+  var reader = new FileReader();
 
-                  reader.onload = function() {
-                    var img = document.createElement("img");
-                    img.src = reader.result;
-                    img.classList.add("thumbnail");
+  reader.onload = function() {
+    var img = document.createElement("img");
+    img.src = reader.result;
+    img.classList.add("thumbnail");
+    img.style.width = "150px";
+    img.style.height = "150px";
 
-                    var container = document.getElementById("thumbnailContainer");
-                    container.innerHTML = "";
-                    container.appendChild(img);
-                  };
+    var container = document.getElementById("thumbnailContainer");
+    container.innerHTML = "";
+    container.appendChild(img);
+  };
 
-                  reader.readAsDataURL(input.files[0]);
-                }
+  reader.readAsDataURL(input.files[0]);}
               </script>
 
               <div class="form-group row" id="custom-input">
@@ -178,7 +179,7 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Mobile1 :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Mobile1 :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile1" />
                   <div class="alert alert-danger" id="errorMessage" style="display: none;"></div>
@@ -186,21 +187,21 @@ include('Side_nav.php');
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Mobile2 :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Mobile2 :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="mobile2" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>FAX :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>FAX :</b></label>
                 <div class="col-sm-5">
                   <input type="text" placeholder="Enter Full Name " required class="form-control" name="fax" />
                 </div>
               </div>
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Supplier Status :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Supplier Status :</b></label>
                 <div class="col-sm-5">
                   <select class="form-control" name="supplier_status">
                     <?php
@@ -215,7 +216,7 @@ include('Side_nav.php');
 
 
               <div class="form-group row" id="custom-input">
-                <label for="gender" class="col-sm-2 col-form-label text-end"><b></b>Supplier Type :</label>
+                <label for="gender" class="col-sm-2 col-form-label text-end"><b>Supplier Type :</b></label>
                 <div class="col-sm-5">
                   <select class="form-control" name="supplier_type">
                     <?php
@@ -344,61 +345,114 @@ require('pages/footer.php');
 ?>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_SESSION["username"];
-    $query2 = "SELECT id FROM user WHERE username = '$username'";
-    $result2 = mysqli_query($con, $query2);
+  $username = $_SESSION["username"];
+  $query2 = "SELECT id FROM user WHERE username = '$username'";
+  $result2 = mysqli_query($con, $query2);
 
-    if (!$result2) {
-        die('Error: ' . mysqli_error($con));
-    }
+  if (!$result2) {
+    die('Error: ' . mysqli_error($con));
+  }
 
-    $row = mysqli_fetch_assoc($result2);
-    
-    if ($row) {
-        $user_id = $row['id'];
+  $row = mysqli_fetch_assoc($result2);
 
-        // Access the submitted values
-        $sup_code = $_POST['sup_code'];
-        $nametitle = $_POST['nametitle'];
-        $fullname = $_POST['fullname'];
-        $description = $_POST['description'];
-        $image = $_FILES['logoimg']['name'];
-        $image_tmp = $_FILES['logoimg']['tmp_name'];
-        $gender = $_POST['gender'];
-        $contact1 = $_POST['mobile1'];
-        $contact2 = $_POST['mobile2'];
-        $address = $_POST['address'];
-        $email = $_POST['email'];
-        $fax = $_POST['fax'];
-        $supplierstatus_id = $_POST['supplier_status'];
-        $suppliertype_id = $_POST['supplier_type'];
+  if ($row) {
+    $user_id = $row['id'];
+
+    // Access the submitted values
+    $sup_code = $_POST['sup_code'];
+    $nametitle = $_POST['nametitle'];
+    $fullname = $_POST['fullname'];
+    $description = $_POST['description'];
+    $image = $_FILES['logoimg']['name'];
+    $image_tmp = $_FILES['logoimg']['tmp_name'];
+    $gender = $_POST['gender'];
+    $contact1 = $_POST['mobile1'];
+    $contact2 = $_POST['mobile2'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+    $fax = $_POST['fax'];
+    $supplierstatus_id = $_POST['supplier_status'];
+    $suppliertype_id = $_POST['supplier_type'];
+
+
+
+
+
+
+
+
+    // Process and save the image
+    $targetDir = "db_data/supplier/"; // Path to the folder where you want to save the images
+    $fileName = basename($_FILES["logoimg"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    // Check if the file is an actual image
+    $check = getimagesize($_FILES["logoimg"]["tmp_name"]);
+
+    if ($check !== false) {
+      if (move_uploaded_file($_FILES["logoimg"]["tmp_name"], $targetFilePath)) {
+
 
         $sql = "INSERT INTO supplier (code, nametitle_id, name, description, logo, gender_id, contact1, contact2,
-        address, email, fax, supplierstatus_id, suppliertype_id, user_id) VALUES ('$sup_code', $nametitle, 
-        '$fullname', '$description', '$image', '$gender', '$contact1', '$contact2', '$address', '$email',
-        '$fax', $supplierstatus_id, $suppliertype_id, $user_id)";
+      address, email, fax, supplierstatus_id, suppliertype_id, user_id) VALUES ('$sup_code', $nametitle, 
+      '$fullname', '$description', '$targetFilePath', '$gender', '$contact1', '$contact2', '$address', '$email',
+      '$fax', $supplierstatus_id, $suppliertype_id, $user_id)";
         $result = mysqli_query($con, $sql);
 
+
         if ($result) {
-            // Display SweetAlert success message
-            echo "
-            <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
-            <script>
-                swal({
-                    title: 'Success!',
-                    text: 'Query executed successfully.',
-                    icon: 'success',
-                }).then(function() {
-                    // Redirect to view.php
-                    window.location.href = 'supplier_view.php';
-                });
-            </script>";
+          // Display SweetAlert success message
+          echo "
+      <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
+      <script>
+          swal({
+              title: 'Success!',
+              text: 'Supplier Saved successfully.',
+              icon: 'success',
+          }).then(function() {
+              // Redirect to view.php
+              window.location.href = 'supplier_view.php';
+          });
+      </script>";
         } else {
-            echo 'Error: ' . mysqli_error($con);
+          echo "
+      	<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+      <script>
+      swal({
+        title: 'Error!',
+        text: 'Supplier not saved.',
+        icon: 'error',
+      });
+      </script>
+      ";
         }
-    } else {
-        echo 'Error: User not found.';
+      } else {
+        echo "
+      <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+      <script>
+        swal({
+      title: 'Error!',
+      text: 'Query execution failed.',
+      icon: 'error',
+        });
+      </script>
+      ";
+      }
     }
+  } else {
+    echo "
+    <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
+    <script>
+      swal({
+        title: 'Error!',
+        text: 'Invalid image file.',
+        icon: 'error',
+      });
+    </script>
+    ";
+  }
 }
 ?>

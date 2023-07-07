@@ -76,6 +76,62 @@ include('Side_nav.php');
                 </div>
               </div>
             </form>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+            <script>
+              document.getElementById("myForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the form from submitting immediately
+                Swal.fire({
+                  title: "Confirm Submission",
+                  text: "Are you sure you want to save the category?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "Submit",
+                  cancelButtonText: "Cancel"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // If the user confirms submission, submit the form
+                    document.getElementById("myForm").submit();
+                  }
+                });
+              });
+            </script>
+
+
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  isset($_POST['cat_name'])) {
+              // Access the submitted values
+              $cat_code = $_POST['cat_code'];
+              $cat_name = $_POST['cat_name'];
+              $query_cat = "INSERT into category(code,name) values('$cat_code', '$cat_name' );";
+
+              if ($result_cat = mysqli_query($con, $query_cat)) {
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+                echo '<script>';
+                echo 'window.onload = function() {';
+                echo '  Swal.fire({';
+                echo '    icon: "success",';
+                echo '    title: "Success",';
+                echo '    text: "Category saved successfully"';
+                echo '  }).then(function() {';
+                echo '    location.href = "Category_save.php";';
+                echo '  });';
+                echo '};';
+                echo '</script>';
+              } else {
+                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
+                echo '<script>';
+                echo 'window.onload = function() {';
+                echo '  Swal.fire({';
+                echo '    icon: "error",';
+                echo '    title: "Error",';
+                echo '    text: "An error occurred while saving the category"';
+                echo '  });';
+                echo '};';
+                echo '</script>';
+              }
+            }
+            ?>
+
 
             <table class="table table-striped table-bordered" id="categoryTable">
               <thead>
@@ -87,58 +143,118 @@ include('Side_nav.php');
                 </tr>
               </thead>
               <tbody>
-                <?php
-                // Fetch latest category records from the database
-                $query = 'SELECT * FROM category';
-                $result = mysqli_query($con, $query);
+  <?php
+  // Fetch latest category records from the database
+  $query = 'SELECT * FROM category';
+  $result = mysqli_query($con, $query);
 
-                if (!$result) {
-                  die('Error: ' . mysqli_error($con));
-                }
+  if (!$result) {
+    die('Error: ' . mysqli_error($con));
+  }
 
-                // Generate the HTML markup for category records
-                $number = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-                  echo "<tr>";
-                  echo '<td>' . $number . '</td>';
-                  echo '<td>' . $row['code'] . '</td>';
-                  echo '<td>' . $row['name'] . '</td>';
-                  echo '<td>' .
-                    '<button class="updateBtn btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
-                    '&nbsp;' .
-                    '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
-                  echo "</tr>";
-                  $number++;
-                }
-                ?>
-              </tbody>
-            </table>>
+  // Generate the HTML markup for category records
+  $number = 1;
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo "<tr>";
+    echo '<td>' . $number . '</td>';
+    echo '<td>' . $row['code'] . '</td>';
+    echo '<td>' . $row['name'] . '</td>';
+    echo '<td>' .
+      '<button class="updateBtn btn btn-sm" style="background-color: purple;color:#ffffff;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' . $row['id'] . '"><i class="fas fa-pencil-alt"></i></button>' .
+      '&nbsp;' .
+      '<a class="deleteBtn btn btn-danger btn-sm" data-id="' . $row['id'] . '"><i class="fas fa-trash-alt"></i></a></td>';
+    echo "</tr>";
+    $number++;
+  }
+  ?>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="" name="updateCategoryForm">
+          <div class="mb-3">
+            <label for="modalCode" class="form-label">Code</label>
+            <input type="text" class="form-control" id="modalCode" name="updatedCode" readonly>
           </div>
-        </div>
+          <div class="mb-3">
+            <label for="modalCategory" class="form-label">Category</label>
+            <input type="text" class="form-control" id="modalCategory" name="updatedName">
+          </div>
+
+          <!-- Add a hidden input field to store the category ID -->
+          <input type="hidden" id="categoryId" name="categoryId">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="updateCategoryForm">Save changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
- 
-</main>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
-    Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to save the category?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // If the user confirms submission, submit the form
-        document.getElementById("myForm").submit();
-      }
-    });
+  $(document).on('click', '.updateBtn', function() {
+    // Get the category code and name
+    var code = $(this).closest('tr').find('td:eq(1)').text();
+    var category = $(this).closest('tr').find('td:eq(2)').text();
+
+    // Get the category ID
+    var categoryId = $(this).data('id');
+
+    // Populate the modal with the category code, name, and ID
+    $('#modalCode').val(code);
+    $('#modalCategory').val(category);
+    $('#categoryId').val(categoryId);
+
+    // Open the modal
+    $('#exampleModal').modal('show');
   });
 </script>
+
+<?php
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryForm'])) {
+  // Get the updated category code and name from the form
+  $updatedCode = $_POST['updatedCode'];
+  $updatedName = $_POST['updatedName'];
+
+  // Get the category ID from the form
+  $categoryId = $_POST['categoryId'];
+
+  // Perform the update query
+  $updateQuery = "UPDATE category SET name = '$updatedName' WHERE id = '$categoryId'";
+
+  // Execute the update query
+  $updateResult = mysqli_query($con, $updateQuery);
+
+  if ($updateResult) {
+    // Update successful
+    echo "Category updated successfully!";
+  } else {
+    // Update failed
+    echo "Error updating category: " . mysqli_error($con);
+  }
+}
+?>
+
+        </div>
+      </div>
+    </div>
+
+</main>
+
 
 
 <!-- Include SweetAlert JS -->
@@ -209,30 +325,7 @@ include('Side_nav.php');
   });
 
 
-  $(document).ready(function() {
-    $('.updateBtn').click(function() {
-      var categoryId = $(this).data('id');
 
-      $.ajax({
-        url: 'category_update.php?id=' + categoryId,
-        type: 'GET',
-        dataType: 'json',
-        success: function(response) {
-          // Handle the response here
-          // For example, update the form fields with the retrieved category details
-          $('#cat_code').val(response.cat_code);
-          $('#cat_name').val(response.cat_name);
-
-          // Trigger the modal or any other actions you need
-          // ...
-        },
-        error: function(xhr, status, error) {
-          // Handle error if any
-          console.log(xhr.responseText);
-        }
-      });
-    });
-  });
 
   $(document).ready(function() {
     $('#categoryTable').DataTable();
@@ -241,40 +334,5 @@ include('Side_nav.php');
 
 
 
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Access the submitted values
-  $cat_code = $_POST['cat_code'];
-  $cat_name = $_POST['cat_name'];
-  $query_cat = "INSERT into category(code,name) values('$cat_code', '$cat_name' );";
-
-  if ($result_cat = mysqli_query($con, $query_cat)) {
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script>';
-    echo 'window.onload = function() {';
-    echo '  Swal.fire({';
-    echo '    icon: "success",';
-    echo '    title: "Success",';
-    echo '    text: "Category saved successfully"';
-    echo '  }).then(function() {';
-    echo '    location.href = "Category_save.php";';
-    echo '  });';
-    echo '};';
-    echo '</script>';
-  } else {
-    echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>';
-    echo '<script>';
-    echo 'window.onload = function() {';
-    echo '  Swal.fire({';
-    echo '    icon: "error",';
-    echo '    title: "Error",';
-    echo '    text: "An error occurred while saving the category"';
-    echo '  });';
-    echo '};';
-    echo '</script>';
-  }
-}
-?>
 
 <?php include('pages/Footer.php'); ?>
