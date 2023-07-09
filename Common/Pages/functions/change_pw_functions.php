@@ -27,29 +27,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>';
   } else {
 
-    if ($user_new_pw === $user_reenter_pw) { // Check if new password and re-entered password match
+    if ($user_new_pw === $user_reenter_pw) {
+      // Check if new password and re-entered password match
       // Assuming you have retrieved the current user's password from the database
-      $query = "SELECT password FROM user WHERE username = '$username'";
+      $query = "SELECT old_Pw,password FROM user WHERE username = '$username'";
       $result = mysqli_query($con, $query);
 
       if ($result) {
         $row = mysqli_fetch_assoc($result);
         $currentPasswordFromDatabase = $row['password'];
+        $oldpw = $row['old_Pw'];
+        $hashedcurrentPassword2 = password_hash($user_reenter_pw, PASSWORD_DEFAULT);
+        echo " $oldpw";
+        echo "<br/>";
+        echo "  $hashedcurrentPassword2";
 
-        if (password_verify($user_current_pw, $currentPasswordFromDatabase)) {
-          $hashedPassword = password_hash($user_new_pw, PASSWORD_DEFAULT);
-          $updateQuery = "UPDATE user SET password = '$hashedPassword' WHERE username = '$username'";
-          $updateResult = mysqli_query($con, $updateQuery);
 
-          if ($updateResult) {
-            echo '
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-            <script>
-            window.onload = function() {
+   if(password_verify($user_reenter_pw, $oldpw )||password_verify(  $currentPasswordFromDatabase, $oldpw )) {
+          echo '
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+          <script>
+          Swal.fire({
+            icon: "error",
+            title: "Enter old Pasword as New",
+            text: "You entered an Old password as New.",
+            showConfirmButton: false,
+            timer: 2000,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showCancelButton: true,
+            cancelButtonText: "Close"
+          });
+          </script>';
+        } else {
+          if (password_verify($user_current_pw, $currentPasswordFromDatabase)) {
+            $hashedPassword = password_hash($user_new_pw, PASSWORD_DEFAULT);
+            $updateQuery = "UPDATE user SET password = '$hashedPassword', old_pw='$currentPasswordFromDatabase' WHERE username = '$username'";
+            $updateResult = mysqli_query($con, $updateQuery);
+
+            if ($updateResult) {
+              echo '
+              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+              <script>
+              window.onload = function() {
+                Swal.fire({
+                  icon: "success",
+                  title: "Success",
+                  text: "Password changed successfully.",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  allowEnterKey: false,
+                  showCancelButton: true,
+                  cancelButtonText: "Close"
+                }).then(function(result) {
+                  if (result.dismiss === Swal.DismissReason.cancel) {
+                    window.location.href = "profile.php";
+                  }
+                });
+              };
+              </script>';
+            } else {
+              echo '
+              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+              <script>
               Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Password changed successfully.",
+                icon: "error",
+                title: "Error",
+                text: "Error updating the password. Please try again.",
                 showConfirmButton: false,
                 timer: 2000,
                 allowOutsideClick: false,
@@ -57,21 +104,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 allowEnterKey: false,
                 showCancelButton: true,
                 cancelButtonText: "Close"
-              }).then(function(result) {
-                if (result.dismiss === Swal.DismissReason.cancel) {
-                  window.location.href = "profile.php";
-                }
               });
-            };
-            </script>';
+              </script>';
+            }
           } else {
             echo '
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
             <script>
             Swal.fire({
               icon: "error",
-              title: "Error",
-              text: "Error updating the password. Please try again.",
+              title: "Incorrect Password",
+              text: "Please enter the correct current password.",
               showConfirmButton: false,
               timer: 2000,
               allowOutsideClick: false,
@@ -82,23 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
             </script>';
           }
-        } else {
-          echo '
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-          <script>
-          Swal.fire({
-            icon: "error",
-            title: "Incorrect Password",
-            text: "Please enter the correct current password.",
-            showConfirmButton: false,
-            timer: 2000,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-            showCancelButton: true,
-            cancelButtonText: "Close"
-          });
-          </script>';
         }
       } else {
         echo '

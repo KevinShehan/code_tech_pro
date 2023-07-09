@@ -15,40 +15,7 @@ require('pages/functions/emp_save_functions.php');
 
 ?>
 <script>
-  function autoFillBirthday() {
-    var nicNumber = document.getElementById("nicNumber").value;
 
-    if (nicNumber.length === 10) {
-      var year = parseInt(nicNumber.substr(0, 2));
-      var days = parseInt(nicNumber.substr(2, 3));
-      var isMale = parseInt(nicNumber.substr(9, 1)) < 5;
-
-      var birthYear = year < 20 ? 2000 + year : 1900 + year;
-      var birthMonth = "";
-
-      if (days > 500) {
-        birthYear += 1;
-        days -= 500;
-      }
-
-      if (days <= 31) {
-        birthMonth = "01";
-      } else if (days <= 59) {
-        birthMonth = "02";
-        days -= 31;
-      } else if (days <= 90) {
-        birthMonth = "03";
-        days -= 59;
-      }
-
-      // ... Repeat the above for the remaining months (04 to 12)
-
-      var birthDate = birthYear + "-" + birthMonth.padStart(2, '0') + "-" + days.toString().padStart(2, '0');
-      document.getElementById("birthday").value = birthDate;
-    } else {
-      document.getElementById("birthday").value = ""; // Clear the birthday field if NIC number is invalid
-    }
-  }
 </script>
 <!-- offcanvas -->
 <main class="mt-5 pt-3">
@@ -134,23 +101,7 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const nicInput = document.getElementById('nicNumber');
-
-                  nicInput.addEventListener('input', function() {
-                    const isValid = /^[0-9]{9}[VvXx]$/.test(nicInput.value);
-
-                    if (isValid) {
-                      nicInput.classList.remove('is-invalid');
-                      nicInput.classList.add('is-valid');
-                    } else {
-                      nicInput.classList.remove('is-valid');
-                      nicInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
+              
 
               <div class="form-group row" id="custom-input">
                 <label for="nicNumber" class="col-sm-2 col-form-label text-end"><b>NIC:</b></label>
@@ -178,47 +129,7 @@ require('pages/functions/emp_save_functions.php');
                   </select>
                 </div>
               </div>
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const imageInput = document.getElementById('exampleFormControlFile1');
-
-                  imageInput.addEventListener('change', function() {
-                    const file = imageInput.files[0];
-                    const isValid = file != null;
-
-                    if (isValid) {
-                      // Show image preview
-                      const previewImage = document.getElementById('preview');
-                      previewImage.src = URL.createObjectURL(file);
-                      previewImage.style.display = 'block';
-
-                      imageInput.classList.remove('is-invalid');
-                      imageInput.classList.add('is-valid');
-                    } else {
-                      // Hide image preview
-                      const previewImage = document.getElementById('preview');
-                      previewImage.src = '#';
-                      previewImage.style.display = 'none';
-
-                      imageInput.classList.remove('is-valid');
-                      imageInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-
-                function previewImage(event) {
-                  const input = event.target;
-                  const previewImage = document.getElementById('preview');
-
-                  if (input.files && input.files[0]) {
-                    previewImage.src = URL.createObjectURL(input.files[0]);
-                    previewImage.style.display = 'block';
-                  } else {
-                    previewImage.src = '#';
-                    previewImage.style.display = 'none';
-                  }
-                }
-              </script>
+              
 
               <div class="form-group row" id="custom-input">
                 <label for="exampleFormControlFile1" class="col-sm-2 col-form-label text-end"><b>Image:</b></label>
@@ -256,25 +167,6 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const addressInput = document.querySelector('input[name="address"]');
-
-                  addressInput.addEventListener('input', function() {
-                    const addressValue = addressInput.value;
-                    const isValid = addressValue.trim() !== '';
-
-                    if (isValid) {
-                      addressInput.classList.remove('is-invalid');
-                      addressInput.classList.add('is-valid');
-                    } else {
-                      addressInput.classList.remove('is-valid');
-                      addressInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
-
               <div class="form-group row" id="custom-input">
                 <label for="address" class="col-sm-2 col-form-label text-end"><b>Postal Address:</b></label>
                 <div class="col-sm-5">
@@ -285,23 +177,7 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const telephoneInput = document.getElementById('land');
-
-                  telephoneInput.addEventListener('input', function() {
-                    const isValid = /^\d{10}$/.test(telephoneInput.value);
-
-                    if (isValid) {
-                      telephoneInput.classList.remove('is-invalid');
-                      telephoneInput.classList.add('is-valid');
-                    } else {
-                      telephoneInput.classList.remove('is-valid');
-                      telephoneInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
+           
 
 
               <div class="form-group row" id="custom-input">
@@ -313,23 +189,7 @@ require('pages/functions/emp_save_functions.php');
                 </div>
               </div>
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const telephoneInput = document.getElementById('mobile1');
-
-                  telephoneInput.addEventListener('input', function() {
-                    const isValid = /^\d{10}$/.test(telephoneInput.value);
-
-                    if (isValid) {
-                      telephoneInput.classList.remove('is-invalid');
-                      telephoneInput.classList.add('is-valid');
-                    } else {
-                      telephoneInput.classList.remove('is-valid');
-                      telephoneInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
+             
 
               <div class="form-group row" id="custom-input">
                 <label for="mobile1" class="col-sm-2 col-form-label text-end"><b>Mobile:</b></label>
@@ -349,24 +209,7 @@ require('pages/functions/emp_save_functions.php');
               </div> -->
 
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const passwordInput = document.querySelector('input[name="password"]');
-
-                  passwordInput.addEventListener('input', function() {
-                    const password = passwordInput.value;
-                    const isValid = password.length >= 10;
-
-                    if (isValid) {
-                      passwordInput.classList.remove('is-invalid');
-                      passwordInput.classList.add('is-valid');
-                    } else {
-                      passwordInput.classList.remove('is-valid');
-                      passwordInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
+            
 
               <div class="form-group row" id="custom-input">
                 <label for="password" class="col-sm-2 col-form-label text-end"><b>Password:</b></label>
@@ -395,24 +238,7 @@ require('pages/functions/emp_save_functions.php');
               </div>
 
 
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const dateInput = document.querySelector('input[name="dorecruite"]');
-
-                  dateInput.addEventListener('input', function() {
-                    const selectedDate = dateInput.value;
-                    const isValid = selectedDate.trim() !== '';
-
-                    if (isValid) {
-                      dateInput.classList.remove('is-invalid');
-                      dateInput.classList.add('is-valid');
-                    } else {
-                      dateInput.classList.remove('is-valid');
-                      dateInput.classList.add('is-invalid');
-                    }
-                  });
-                });
-              </script>
+             
 
               <div class="form-group row" id="custom-input">
                 <label for="dorecruite" class="col-sm-2 col-form-label text-end"><b>Date of Recruitment:</b></label>
@@ -439,7 +265,7 @@ require('pages/functions/emp_save_functions.php');
                 </div>
               </div>
 
-              <script>
+              <!-- <script>
                 function validateForm() {
                   var isValid = true;
 
@@ -462,22 +288,8 @@ require('pages/functions/emp_save_functions.php');
                   // Return false to prevent the form submission if validation fails
                   return isValid;
                 }
-              </script>
-              <script>
-                const formInputs = {
-                  name: false,
-                  email: false,
-                }
-
-                //formInputs.name = true;
-
-                function validateForm(event) {
-                  event.preventDefault(); // Prevents the default form submission behavior
-
-                  const isError = Object.values(formInputs).filter(value => value === false)
-
-                }
-              </script>
+              </script> -->
+           
               <div class="form-group row" id="custom-input">
                 <div class="col-sm-5 offset-sm-2">
                   <button type="submit" class="btn btn-primary shadow" value="Submit">Register</button>
@@ -489,6 +301,206 @@ require('pages/functions/emp_save_functions.php');
       </div>
     </div>
 </main>
+
+<script>
+  $(document).ready(function() {
+    // Function to validate the name input
+    function validateName() {
+      var nameInput = $("#fullname");
+      var name = nameInput.val().trim();
+      var isValid = /^[A-Za-z\s]+$/.test(name); // Regular expression to check if name contains only letters and spaces
+
+      if (isValid) {
+        // Remove any existing error classes and hide the error message
+        nameInput.removeClass("is-invalid").addClass("is-valid");
+        $("#name-error").hide();
+        return true; // Name is valid
+      } else {
+        // Add error classes and show the error message
+        nameInput.removeClass("is-valid").addClass("is-invalid");
+        $("#name-error").show();
+        return false; // Name is invalid
+      }
+    }
+    function validatecallName() {
+      var nameInput = $("#callname");
+      var name = nameInput.val().trim();
+      var isValid = /^[A-Za-z\s]+$/.test(name); // Regular expression to check if name contains only letters and spaces
+
+      if (isValid) {
+        // Remove any existing error classes and hide the error message
+        nameInput.removeClass("is-invalid").addClass("is-valid");
+        $("#name-error").hide();
+        return true; // Name is valid
+      } else {
+        // Add error classes and show the error message
+        nameInput.removeClass("is-valid").addClass("is-invalid");
+        $("#name-error").show();
+        return false; // Name is invalid
+      }
+    }
+
+    // Function to validate NIC
+    function validateNIC(nic) {
+      var pattern = /^\d{9}[vVxX]$/; // Regular expression for NIC validation
+      return pattern.test(nic);
+    }
+
+    // Function to handle NIC validation
+    function handleNICValidation() {
+      var nicInput = $("#nicNumber");
+      var nicValue = nicInput.val();
+
+      if (validateNIC(nicValue)) {
+        nicInput.removeClass("is-invalid").addClass("is-valid");
+        $("#nic-error").text("").hide();
+        return true; // NIC is valid
+      } else {
+        nicInput.removeClass("is-valid").addClass("is-invalid");
+        $("#nic-error").text("Invalid NIC format!").show();
+        return false; // NIC is invalid
+      }
+    }
+
+    // Function to handle address validation
+    function handleAddressValidation() {
+      var addressInput = $("input[name='address']");
+      var addressValue = addressInput.val();
+
+      if (addressValue.trim() === "") {
+        addressInput.removeClass("is-valid").addClass("is-invalid");
+        $("#address-error").show();
+        $("#address-check").hide();
+        return false; // Address is invalid
+      } else {
+        addressInput.removeClass("is-invalid").addClass("is-valid");
+        $("#address-error").hide();
+        $("#address-check").show();
+        return true; // Address is valid
+      }
+    }
+
+    // Function to handle telephone number validation
+    function handleTelephoneValidation() {
+      var telephoneInput = $("#mobile1");
+      var telephoneValue = telephoneInput.val();
+
+      // Remove any non-digit characters
+      var sanitizedValue = telephoneValue.replace(/\D/g, "");
+
+      if (sanitizedValue.length === 10) {
+        telephoneInput.removeClass("is-invalid").addClass("is-valid");
+        $("#mobile1-error").hide();
+        return true; // Telephone number is valid
+      } else {
+        telephoneInput.removeClass("is-valid").addClass("is-invalid");
+        $("#mobile1-error").show();
+        return false; // Telephone number is invalid
+      }
+    }
+
+    // Event listener for form submission
+    $("form").submit(function(event) {
+      // Perform validation checks
+      var isNameValid = validateName();
+      var isNICValid = handleNICValidation();
+      var isAddressValid = handleAddressValidation();
+      var isTelephoneValid = handleTelephoneValidation();
+
+      // Prevent form submission if any validation fails
+      if (!isNameValid || !isNICValid || !isAddressValid || !isTelephoneValid) {
+        event.preventDefault();
+        // Optionally, you can display an error message indicating the reason for the form not being submitted.
+        // For example: $("#error-message").text("Please fix the errors before submitting the form.").show();
+      } else {
+        // If all validations pass, show a confirmation dialog
+        Swal.fire({
+          title: "Confirm Submission",
+          text: "Are you sure you want to submit the form?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Submit",
+          cancelButtonText: "Cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms submission, submit the form
+            document.getElementById("myForm").submit();
+          }
+        });
+      }
+    });
+
+    // Call the validateName function whenever the name input changes
+    $("#fullname").on("input", validateName);
+
+    // Call the handleNICValidation function whenever the NIC input changes
+    $("#nicNumber").on("input", handleNICValidation);
+
+    // Call the handleAddressValidation function whenever the address input changes
+    $("input[name='address']").on("input", handleAddressValidation);
+
+    // Call the handleTelephoneValidation function whenever the telephone number input changes
+    $("#mobile1").on("input", handleTelephoneValidation);
+    
+    validatecallName
+
+    // Function to automatically fill the birthday field based on the NIC number
+    function autoFillBirthday() {
+      var nicNumber = $("#nicNumber").val();
+
+      if (nicNumber.length === 10) {
+        var year = parseInt(nicNumber.substr(0, 2));
+        var days = parseInt(nicNumber.substr(2, 3));
+        var isMale = parseInt(nicNumber.substr(9, 1)) < 5;
+
+        var birthYear = year < 20 ? 2000 + year : 1900 + year;
+        var birthMonth = "";
+
+        if (days > 500) {
+          birthYear += 1;
+          days -= 500;
+        }
+
+        if (days <= 31) {
+          birthMonth = "01";
+        } else if (days <= 59) {
+          birthMonth = "02";
+          days -= 31;
+        } else if (days <= 90) {
+          birthMonth = "03";
+          days -= 59;
+        }
+
+        // ... Repeat the above for the remaining months (04 to 12)
+
+        var birthDate = birthYear + "-" + birthMonth.padStart(2, '0') + "-" + days.toString().padStart(2, '0');
+        $("#birthday").val(birthDate);
+      } else {
+        $("#birthday").val(""); // Clear the birthday field if NIC number is invalid
+      }
+    }
+
+    // Call the autoFillBirthday function whenever the NIC input changes
+    $("#nicNumber").on("input", autoFillBirthday);
+
+    // Function to preview selected image
+    function previewImage(event) {
+      const input = event.target;
+      const previewImage = $("#preview");
+
+      if (input.files && input.files[0]) {
+        previewImage.attr("src", URL.createObjectURL(input.files[0]));
+        previewImage.css("display", "block");
+      } else {
+        previewImage.attr("src", "#");
+        previewImage.css("display", "none");
+      }
+    }
+
+    // Call the previewImage function whenever the image input changes
+    $("#exampleFormControlFile1").on("change", previewImage);
+  });
+</script>
 
 <?php
 require('pages/footer.php');

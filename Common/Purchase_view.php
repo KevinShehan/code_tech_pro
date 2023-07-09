@@ -48,9 +48,10 @@ include('Side_nav.php');
                                     <table class="table table-striped table-bordered" id="supplierTable">
                                         <thead>
                                             <tr class="table-primary">
+                                            <th scope="col">Invoice No</th>
                                                 <th scope="col">Purchase Date</th>
                                                 <th scope="col">Supplier</th>
-                                                <th scope="col">Invoice</th>
+                                               
                                                 <th scope="col">Total</th>
                                                 <th scope="col" class="col-3">Actions</th>
                                             </tr>
@@ -59,6 +60,8 @@ include('Side_nav.php');
                                             <?php
                                             // Fetch latest supplier records from the database
                                             $query = 'SELECT * FROM purchase';
+                                            $query = 'SELECT purchase.*, supplier.name AS supplier_name FROM purchase LEFT JOIN supplier ON purchase.supplier_id = supplier.id';
+
                                             $result = mysqli_query($con, $query);
 
                                             if (!$result) {
@@ -71,10 +74,11 @@ include('Side_nav.php');
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 $id = $row['id'];
                                                 $html .= '<tr>';
-                                                $html .= '<td>' . $row['date'] . '</td>';
-                                                $html .= '<td>' . $row['Supplier_id'] . '</td>';
                                                 $html .= '<td>' . $row['id'] . '</td>';
-                                                $html .= '<td>' . $row['total'] . '</td>';
+                                                $html .= '<td>' . $row['date'] . '</td>';
+                                                $html .= '<td>' . $row['supplier_name'] . '</td>';
+                                            
+                                                $html .= '<td class="text-end">' . $row['total'] . '</td>';
                                                 $html .= '<td>';
                                                 $html .= ' <a href="Purchase_Slip.php?id='.$id.'"  class="btn btn-success btn-sm" name="btn_edit"><i class="fa fa-lg fa-print"></i></a>&nbsp;';
    
@@ -101,38 +105,7 @@ include('Side_nav.php');
                                                 "pageLength": 8
                                             });
 
-                                            function loadSupplierDetails(id) {
-                                                $.ajax({
-                                                    url: 'supplier_single_view.php?id=' + id,
-                                                    type: 'GET',
-                                                    dataType: 'html',
-                                                    success: function(response) {
-                                                        // Open the supplier_view_single.php page in a new window
-                                                        window.open(response, '_self');
-                                                    },
-                                                    error: function() {
-                                                        Swal.fire({
-                                                            title: 'Error',
-                                                            text: 'Failed to load supplier details',
-                                                            icon: 'error'
-                                                        });
-                                                    }
-                                                });
-                                            }
-
-                                            // $(document).on('click', '.viewBtn', function(event) {
-                                            //     event.preventDefault();
-
-                                            //     var id = $(this).data('id');
-
-                                            //     // Call the function to load and display the supplier details
-                                            //     loadSupplierDetails(id);
-                                            // });
-
-                                            // Refresh supplier records periodically
-                                            setInterval(function() {
-                                                loadSupplierRecords();
-                                            }, 5000); // Refresh every 5 seconds
+        
                                         });
                                     </script>
 
@@ -172,7 +145,7 @@ include('Side_nav.php');
                                                 function deleteRecord(id) {
                                                     // Send AJAX request to delete.php with the ID parameter
                                                     $.ajax({
-                                                        url: 'supplier_delete.php?id=' + id,
+                                                        url: 'purchase_delete.php?id=' + id,
                                                         type: 'GET',
                                                         dataType: 'json',
                                                         success: function(response) {

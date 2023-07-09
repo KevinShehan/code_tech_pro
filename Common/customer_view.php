@@ -42,8 +42,8 @@ require('pages/functions/customer_view_functions.php');
                                     <tr class="table-primary">
                                         <th scope="col">id</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Address</th>
                                         <th scope="col">Contact</th>
+                                        <th scope="col">Address</th>
                                         <th scope="col">Manage</th>
                                     </tr>
                                 </thead>

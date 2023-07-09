@@ -332,11 +332,11 @@ $employeerole = $row['name'];
 
             <!-- Remaining label and input field pairs -->
 
-            <div class="form-group row mb-3">
+            <!-- <div class="form-group row mb-3">
               <div class="offset-sm-4 col-sm-8">
                 <button type="submit" class="btn btn-success" name="submit"> Edit Employee </button>
               </div>
-            </div>
+            </div> -->
 
 
           </div>

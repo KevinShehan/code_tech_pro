@@ -73,83 +73,6 @@ $row = mysqli_fetch_assoc($result6);
 $employeerole = $row['name'];
 ?>
 
-
-<!-- <script>
-    // Add event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Display the confirmation dialog
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then(function(willDelete) {
-            if (willDelete) {
-                // User confirmed the delete operation
-                // Load delete.php on the same page
-                window.location.href = "delete.php";
-            } else {
-                // User canceled the delete operation
-                swal("Your record is safe.", {
-                    icon: "success",
-                });
-            }
-        });
-    });
-</script> -->
-<!-- Include SweetAlertJS library -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!-- Delete button -->
-<!-- <button id="deleteButton">Delete User</button> -->
-
-<!-- JavaScript code -->
-<!-- <script>
-    // Function to handle the delete operation
-    function deleteUser() {
-        // Send an AJAX request to delete.php
-        $.ajax({
-            url: 'employee_delete.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                userId: <?php   // echo $Id; 
-                        ?>
-            }, // Pass the user ID to delete.php
-            success: function(response) {
-                // Display SweetAlertJS popup message
-                swal("Success", response.message, "success");
-
-                // Reload the current page after the successful deletion
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Display error message if the AJAX request fails
-                swal("Error", "An error occurred while deleting the user.", "error");
-                console.log(xhr.responseText);
-            }
-        });
-    }
-
-    // Attach event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Confirm deletion using SweetAlertJS
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // User confirmed deletion, call the deleteUser function
-                    deleteUser();
-                }
-            });
-    });
-</script> -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
     <div class="row">
@@ -177,7 +100,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($code) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($code) ?>" readonly>
               </div>
             </div>
 
@@ -191,7 +114,17 @@ $employeerole = $row['name'];
               </div>
 
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitlenew) ?>" >
+                <select class="form-control" name="nametitle">
+                    <?php
+                    // Loop through the query result and display data within <option> tags
+                    $query9 = "SELECT * from nametitle where id=' $nametitle'";
+                    $result9 = mysqli_query($con, $query9);
+                    while ($row = mysqli_fetch_assoc($result9)) {
+                      $selected = ($row['name'] === $nametitlenew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                      echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
               </div>
             </div>
 

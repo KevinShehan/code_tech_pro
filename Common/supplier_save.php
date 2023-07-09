@@ -145,21 +145,22 @@ include('Side_nav.php');
                 // Image Preview Script
                 function previewImage(event) {
                   var input = event.target;
-  var reader = new FileReader();
+                  var reader = new FileReader();
 
-  reader.onload = function() {
-    var img = document.createElement("img");
-    img.src = reader.result;
-    img.classList.add("thumbnail");
-    img.style.width = "150px";
-    img.style.height = "150px";
+                  reader.onload = function() {
+                    var img = document.createElement("img");
+                    img.src = reader.result;
+                    img.classList.add("thumbnail");
+                    img.style.width = "150px";
+                    img.style.height = "150px";
 
-    var container = document.getElementById("thumbnailContainer");
-    container.innerHTML = "";
-    container.appendChild(img);
-  };
+                    var container = document.getElementById("thumbnailContainer");
+                    container.innerHTML = "";
+                    container.appendChild(img);
+                  };
 
-  reader.readAsDataURL(input.files[0]);}
+                  reader.readAsDataURL(input.files[0]);
+                }
               </script>
 
               <div class="form-group row" id="custom-input">
@@ -245,6 +246,8 @@ include('Side_nav.php');
 <!-- Bootstrap JavaScript and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+
 <script>
   // Regex patterns
   var nameRegex = /^[A-Za-z\s]+$/;
@@ -260,6 +263,8 @@ include('Side_nav.php');
       event.preventDefault();
       event.stopPropagation();
       errorMessage.style.display = 'block';
+    } else {
+      showConfirmation();
     }
     form.classList.add('was-validated');
   });
@@ -311,34 +316,23 @@ include('Side_nav.php');
       confirmPasswordError.style.display = 'block';
     }
   }
-</script>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
-<script>
-  document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
-
+  function showConfirmation() {
     Swal.fire({
-      title: "Confirm Submission",
-      text: "Are you sure you want to submit the form?",
-      icon: "warning",
+      title: 'Confirm Submission',
+      text: 'Are you sure you want to submit the form?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel"
+      confirmButtonText: 'Submit',
+      cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.isConfirmed) {
         // If the user confirms submission, submit the form
-        document.getElementById("myForm").submit();
+        document.getElementById('myForm').submit();
       }
     });
-  });
+  }
 </script>
-
-
-
 
 <?php
 require('pages/footer.php');

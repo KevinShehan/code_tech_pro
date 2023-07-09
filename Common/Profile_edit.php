@@ -2,6 +2,8 @@
 //register employee
 include('config/dbconnection.php');
 include('pages/Header.php');
+include('Top_nav.php');
+include('Side_nav.php');
 
 
 
@@ -50,10 +52,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 ?>
 
-<?php
-include('Top_nav.php');
-include('Side_nav.php');
-?>
 
 
 

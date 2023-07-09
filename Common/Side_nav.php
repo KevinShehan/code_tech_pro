@@ -272,7 +272,7 @@ if ($status_result) {
           <?php endif; ?>
 
 
-          <?php if (in_array('view_quotation', $allowedUseCases)) : ?>
+          <?php if (in_array('view_quotation2', $allowedUseCases)) : ?>
             <li class="my-6">
               <hr class="dropdown-divider bg-light" />
             </li>
@@ -406,7 +406,7 @@ if ($status_result) {
 
 
 
-          <?php if (in_array('view_return', $allowedUseCases)) : ?>
+          <?php if (in_array('view_return2', $allowedUseCases)) : ?>
             <li class="my-7">
               <hr class="dropdown-divider bg-light" />
             </li>

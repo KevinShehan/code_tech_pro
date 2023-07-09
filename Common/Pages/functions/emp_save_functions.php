@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nic = $_POST['nic'];
   $land = $_POST['land'];
   $mobile1 = $_POST['mobile1'];
-  $mobile2 = $_POST['mobile2'];
+ 
   $role = $_POST['role'];
   $dorecruite = $_POST['dorecruite'];
   $employeestatus_id = $_POST['employeestatus'];

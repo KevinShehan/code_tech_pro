@@ -10,6 +10,15 @@ include('Side_nav.php');
 
 
 <?php
+// Retrieve data from the SQL table
+$query_gender = "SELECT id,name FROM gender";
+$query_nametitle = "SELECT id,name FROM nametitle";
+$query_customerstatus = "SELECT id,name FROM suppliertype";
+
+$result_gender = mysqli_query($con, $query_gender);
+$result_nametitle = mysqli_query($con, $query_nametitle);
+$result_customerstatus = mysqli_query($con, $query_customerstatus);
+// Retrieve the supplier ID from the URL parameter
 // Retrieve the supplier ID from the URL parameter
 $supplierId = $_GET['id'];
 
@@ -18,7 +27,7 @@ $query = "SELECT * from supplier where id='$supplierId'";
 $supplierData = mysqli_query($con, $query);
 while ($row = mysqli_fetch_assoc($supplierData)) {
   $code = $row['code'];
-  $nametitle = $row['nametitle'];
+  $nametitle = $row['nametitle_id'];
   $name = $row['name'];
   $description = $row['description'];
   $contact1 = $row['contact1'];
@@ -26,7 +35,12 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
   $address = $row['address'];
   $email = $row['email'];
   $fax = $row['fax'];
+
+  $supplierstatus_id = $row['supplierstatus_id'];
+  $Suppliertype_id = $row['Suppliertype_id'];
+
 }
+
 
 
 $query2 = "SELECT gender.name from supplier where id='$supplierId'";
@@ -38,83 +52,10 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
 // Add more fields as needed
 ?>
 
-
-<!-- <script>
-    // Add event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Display the confirmation dialog
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then(function(willDelete) {
-            if (willDelete) {
-                // User confirmed the delete operation
-                // Load delete.php on the same page
-                window.location.href = "delete.php";
-            } else {
-                // User canceled the delete operation
-                swal("Your record is safe.", {
-                    icon: "success",
-                });
-            }
-        });
-    });
-</script> -->
-<!-- Include SweetAlertJS library -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!-- Delete button -->
-<!-- <button id="deleteButton">Delete User</button> -->
 
-<!-- JavaScript code -->
-<!-- <script>
-    // Function to handle the delete operation
-    function deleteUser() {
-        // Send an AJAX request to delete.php
-        $.ajax({
-            url: 'employee_delete.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                userId: <?php   // echo $Id; 
-                        ?>
-            }, // Pass the user ID to delete.php
-            success: function(response) {
-                // Display SweetAlertJS popup message
-                swal("Success", response.message, "success");
-
-                // Reload the current page after the successful deletion
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Display error message if the AJAX request fails
-                swal("Error", "An error occurred while deleting the user.", "error");
-                console.log(xhr.responseText);
-            }
-        });
-    }
-
-    // Attach event listener to the delete button
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        // Confirm deletion using SweetAlertJS
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // User confirmed deletion, call the deleteUser function
-                    deleteUser();
-                }
-            });
-    });
-</script> -->
+</script> 
 <main class="mt-5 pt-3">
   <div class="container-fluid">
     <div class="row">
@@ -141,16 +82,17 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
                 </label>
               </div>
 
-              <select class="form-select" aria-label="Select Option">
+             
+
+
+              <div class="col-sm-8">
+               
+                <select class="form-select" aria-label="Select Option">
                 <option selected>Select Option</option>
                 <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
                 <option value="option3">Option 3</option>
               </select>
-
-
-              <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
               </div>
             </div>
 
@@ -174,15 +116,15 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
               </div>
             </div>
 
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label">
                   Logo:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php //echo ($nametitle) ?>">
               </div>
-            </div>
+            </div> -->
 
 
             <div class="row mb-3">
@@ -261,7 +203,7 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
                   Supplier Status:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $supplierstatus_id) ?>">
               </div>
             </div>
 
@@ -273,7 +215,7 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
                   Supplier Type:</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nametitle) ?>">
+                <input type="text" name="" id="" class="form-control" value="<?php echo ( $Suppliertype_id) ?>">
               </div>
             </div>
 
@@ -298,6 +240,96 @@ $query2 = "SELECT gender.name from supplier where id='$supplierId'";
     </div>
   </div>
 </main>
+!-- Bootstrap JavaScript and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
+
+<script>
+  // Regex patterns
+  var nameRegex = /^[A-Za-z\s]+$/;
+  var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var passwordRegex = /^.{8,}$/;
+
+  // Form validation
+  var form = document.getElementById('myForm');
+  var errorMessage = document.getElementById('errorMessage');
+
+  form.addEventListener('submit', function(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+      errorMessage.style.display = 'block';
+    } else {
+      showConfirmation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  // Real-time validation
+  var nameInput = document.getElementById('fullname');
+  var emailInput = document.getElementById('emailInput');
+  var passwordInput = document.getElementById('passwordInput');
+  var confirmPasswordInput = document.getElementById('confirmPasswordInput');
+
+  nameInput.addEventListener('input', function() {
+    validateInput(nameInput, nameRegex, 'nameError');
+  });
+
+  emailInput.addEventListener('input', function() {
+    validateInput(emailInput, emailRegex, 'emailError');
+  });
+
+  passwordInput.addEventListener('input', function() {
+    validateInput(passwordInput, passwordRegex, 'passwordError');
+  });
+
+  confirmPasswordInput.addEventListener('input', function() {
+    validatePasswordConfirmation();
+  });
+
+  function validateInput(input, regex, errorId) {
+    var errorElement = document.getElementById(errorId);
+    if (regex.test(input.value)) {
+      input.classList.add('is-valid');
+      input.classList.remove('is-invalid');
+      errorElement.style.display = 'none';
+    } else {
+      input.classList.add('is-invalid');
+      input.classList.remove('is-valid');
+      errorElement.style.display = 'block';
+    }
+  }
+
+  function validatePasswordConfirmation() {
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
+    if (passwordInput.value === confirmPasswordInput.value) {
+      confirmPasswordInput.classList.add('is-valid');
+      confirmPasswordInput.classList.remove('is-invalid');
+      confirmPasswordError.style.display = 'none';
+    } else {
+      confirmPasswordInput.classList.add('is-invalid');
+      confirmPasswordInput.classList.remove('is-valid');
+      confirmPasswordError.style.display = 'block';
+    }
+  }
+
+  function showConfirmation() {
+    Swal.fire({
+      title: 'Confirm Submission',
+      text: 'Are you sure you want to submit the form?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirms submission, submit the form
+        document.getElementById('myForm').submit();
+      }
+    });
+  }
+</script>
 
 
 
