@@ -28,8 +28,8 @@ while ($row = mysqli_fetch_assoc($supplierData)) {
   $civilstatus_id = $row['civilstatus_id'];
   $dob = $row['dob'];
   $gender_id = $row['gender_id'];
-  $nic=$row['nic'];
-  $employeestatus_id=$row['employeestatus_id'];
+  $nic = $row['nic'];
+  $employeestatus_id = $row['employeestatus_id'];
 }
 
 
@@ -82,7 +82,7 @@ $employeerole = $row['name'];
             <h4>
               <span>
                 <i class="fas fa-user"></i>
-              </span> Employee Update 
+              </span> Employee Update
             </h4>
           </div>
           <div class="card-body">
@@ -115,16 +115,16 @@ $employeerole = $row['name'];
 
               <div class="col-sm-8">
                 <select class="form-control" name="nametitle">
-                    <?php
-                    // Loop through the query result and display data within <option> tags
-                    $query9 = "SELECT * from nametitle where id=' $nametitle'";
-                    $result9 = mysqli_query($con, $query9);
-                    while ($row = mysqli_fetch_assoc($result9)) {
-                      $selected = ($row['name'] === $nametitlenew) ? 'selected' : ''; // Check if the current option matches the $name variable
-                      echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
-                    }
-                    ?>
-                  </select>
+                  <?php
+                  // Loop through the query result and display data within <option> tags
+                  $query9 = "SELECT * from nametitle where id=' $nametitle'";
+                  $result9 = mysqli_query($con, $query9);
+                  while ($row = mysqli_fetch_assoc($result9)) {
+                    $selected = ($row['name'] === $nametitlenew) ? 'selected' : ''; // Check if the current option matches the $name variable
+                    echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['name'] . '</option>';
+                  }
+                  ?>
+                </select>
               </div>
             </div>
 
@@ -135,7 +135,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($fullname) ?>">
               </div>
             </div>
 
@@ -146,7 +146,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatusnew) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($civilstatusnew) ?>">
               </div>
             </div>
 
@@ -181,7 +181,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact1) ?>">
               </div>
             </div>
 
@@ -194,7 +194,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($contact2) ?>">
               </div>
             </div>
 
@@ -207,7 +207,7 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($address) ?>">
               </div>
             </div>
 
@@ -220,18 +220,18 @@ $employeerole = $row['name'];
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($email) ?>">
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                 <b>NIC: </b> 
+                  <b>NIC: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($nic) ?>">
               </div>
             </div>
 
@@ -241,11 +241,11 @@ $employeerole = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                  <b> Employee Status:  </b> 
+                  <b> Employee Status: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeestatusnew) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeestatusnew) ?>">
               </div>
             </div>
 
@@ -254,11 +254,11 @@ $employeerole = $row['name'];
             <div class="row mb-3">
               <div class="col-sm-4 text-end">
                 <label for="gender" class="col-form-label font-weight-bold">
-                <b>Employee Role:   </b> 
+                  <b>Employee Role: </b>
                 </label>
               </div>
               <div class="col-sm-8">
-                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeerole) ?>" >
+                <input type="text" name="" id="" class="form-control" value="<?php echo ($employeerole) ?>">
               </div>
             </div>
 
@@ -270,6 +270,94 @@ $employeerole = $row['name'];
                 <button type="submit" class="btn btn-success" name="submit"> Edit Employee </button>
               </div>
             </div>
+            <hr />
+            <form action="" method="POST" name="chgepw" onsubmit="return validateForm()">
+              <div class="row mb-3">
+                <div class="col-sm-4 text-end">
+                  <label for="pw" class="col-form-label font-weight-bold">
+                    <b> Enter Password: </b>
+                  </label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="Password" name="chnge_pw" id="" class="form-control">
+                  <div id="passwordError" class="invalid-feedback"></div>
+                </div>
+              </div>
+
+
+
+              <div class="form-group row mb-3">
+                <div class="offset-sm-4 col-sm-8">
+                  <button type="submit" class="btn btn-success" name="chgepw"> Change Password </button>
+                </div>
+              </div>
+
+              <script>
+                function validateForm() {
+                  const password = document.getElementById('chnge_pw').value;
+                  const passwordError = document.getElementById('passwordError');
+
+                  if (password.length < 10) {
+                    passwordError.textContent = 'Password must be at least 10 characters long.';
+                    passwordError.style.display = 'block';
+                    passwordError.style.color = 'red';
+                    document.getElementById('chnge_pw').classList.add('is-invalid');
+                    return false;
+                  } else {
+                    passwordError.textContent = '';
+                    passwordError.style.display = 'none';
+                    document.getElementById('chnge_pw').classList.remove('is-invalid');
+                    document.getElementById('chnge_pw').classList.add('is-valid');
+                    return true;
+                  }
+                }
+              </script>
+            </form>
+
+            <?php
+
+            if (isset($_POST['chgepw'])) {
+              // Access the submitted values
+              $ID = $_GET['id'];
+              $password = $_POST['chnge_pw'];
+              $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+              $userUpdateQuery = "UPDATE user SET password = '$hashedPassword' WHERE id = $ID";
+
+              if (mysqli_query($con, $userUpdateQuery)) {
+                echo "
+          <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
+          <script>
+            swal({
+              title: 'Success!',
+              text: 'Password Chnage successfully.',
+              icon: 'success',
+            }).then(function() {
+              // Redirect to view.php
+              window.location.href = 'viewusers.php';
+            });
+          </script>
+          ";
+              } else {
+                echo "
+          <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js'></script>
+          <script>
+            swal({
+              title: 'Error!',
+              text: 'Password Not Changed.',
+              icon: 'error',
+            });
+          </script>
+          ";
+              }
+            }
+
+            // Close connection
+            ?>
+
+
 
 
           </div>

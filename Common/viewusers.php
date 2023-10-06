@@ -116,6 +116,7 @@ require('pages/css/viewusers_css.php');
                                             <?php tbldata($con); ?>
                                         </tbody>
                                     </table>
+                            
                                 </div>
                             </div>
                         </div>

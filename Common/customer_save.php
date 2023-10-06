@@ -107,7 +107,7 @@ require('pages/functions/customer_save_functions.php');
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Address :<span style="color: red;">*</span>
-</label>
+                </label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Address" required class="form-control" name="address" id="address" />
                   <div class="alert alert-danger mt-2" id="address-error" style="display: none;">Address Field Cannot BE nulled.</div>
@@ -117,7 +117,7 @@ require('pages/functions/customer_save_functions.php');
 
               <div class="form-group row" id="custom-input">
                 <label for="gender" class="col-sm-2 col-form-label text-end" style="font-weight: bold;">Mobile :<span style="color: red;">*</span>
-</label>
+                </label>
                 <div class="col-sm-10">
                   <input type="text" placeholder="Enter Mobile1" required class="form-control" name="mobile1" id="mobile1" />
                   <div class="alert alert-danger mt-2" id="mobile1-error" style="display: none;">Please enter a valid mobile number.</div>
@@ -164,4 +164,6 @@ require('pages/functions/customer_save_functions.php');
 
 <?php
 require('pages/footer.php');
+
+
 ?>

@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="https://unpkg.com/simplebar@5.3.5/dist/simplebar.min.css" />
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     google.charts.load('current', {
       'packages': ['corechart']
     });
@@ -57,87 +57,89 @@
 
       chart.draw(data, options);
     }
-  </script>
+  </script> -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawCharts);
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawCharts);
 
-      function drawCharts() {
-        <?php
-          // Database configuration
-          $host = 'localhost';
-          $dbName = 'v3';
-          $user = 'root';
-          $password = '1234';
+    function drawCharts() {
+      <?php
+      // Database configuration
+      $host = 'localhost';
+      $dbName = 'v3';
+      $user = 'root';
+      $password = '1234';
 
-          // Create a new MySQLi instance
-          $con = new mysqli($host, $user, $password, $dbName);
+      // Create a new MySQLi instance
+      $con = new mysqli($host, $user, $password, $dbName);
 
-          // Check connection
-          if ($con->connect_error) {
-            die("Connection failed: " . $con->connect_error);
-          }
-
-          // Fetch the data for the bar chart
-          $barChartQuery = "SELECT MONTH(date) AS month, SUM(total) AS total FROM invoice GROUP BY MONTH(date)";
-          $barChartResult = $con->query($barChartQuery);
-
-          // Create the bar chart data array
-          $barChartData = array(['Month', 'Total']);
-          while ($row = $barChartResult->fetch_assoc()) {
-            $barChartData[] = [$row['month'], (int)$row['total']];
-          }
-
-          // Fetch the data for the pie chart
-          $pieChartQuery = "SELECT name, qty FROM item";
-          $pieChartResult = $con->query($pieChartQuery);
-
-          // Create the pie chart data array
-          $pieChartData = array(['Item', 'Quantity']);
-          while ($row = $pieChartResult->fetch_assoc()) {
-            $pieChartData[] = [$row['name'], (int)$row['qty']];
-          }
-
-          // Close the database connection
-          $con->close();
-
-          // Convert PHP arrays to JavaScript arrays
-          $jsBarChartData = json_encode($barChartData);
-          $jsPieChartData = json_encode($pieChartData);
-        ?>
-
-        // Draw the bar chart
-        var barChartData = google.visualization.arrayToDataTable(<?php echo $jsBarChartData; ?>);
-
-        var barChartOptions = {
-          title: 'Total Invoice by Month',
-          chartArea: {
-            width: '50%'
-          },
-          hAxis: {
-            title: 'Total',
-            minValue: 0
-          },
-          vAxis: {
-            title: 'Month'
-          }
-        };
-
-        var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
-        barChart.draw(barChartData, barChartOptions);
-
-        // Draw the pie chart
-        var pieChartData = google.visualization.arrayToDataTable(<?php echo $jsPieChartData; ?>);
-
-        var pieChartOptions = {
-          title: 'Item Quantities',
-        };
-
-        var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
-        pieChart.draw(pieChartData, pieChartOptions);
+      // Check connection
+      if ($con->connect_error) {
+        die("Connection failed: " . $con->connect_error);
       }
-    </script>
+
+      // Fetch the data for the bar chart
+      $barChartQuery = "SELECT MONTH(date) AS month, SUM(total) AS total FROM invoice GROUP BY MONTH(date)";
+      $barChartResult = $con->query($barChartQuery);
+
+      // Create the bar chart data array
+      $barChartData = array(['Month', 'Total']);
+      while ($row = $barChartResult->fetch_assoc()) {
+        $barChartData[] = [$row['month'], (int)$row['total']];
+      }
+
+      // Fetch the data for the pie chart
+      $pieChartQuery = "SELECT name, qty FROM item";
+      $pieChartResult = $con->query($pieChartQuery);
+
+      // Create the pie chart data array
+      $pieChartData = array(['Item', 'Quantity']);
+      while ($row = $pieChartResult->fetch_assoc()) {
+        $pieChartData[] = [$row['name'], (int)$row['qty']];
+      }
+
+      // Close the database connection
+      $con->close();
+
+      // Convert PHP arrays to JavaScript arrays
+      $jsBarChartData = json_encode($barChartData);
+      $jsPieChartData = json_encode($pieChartData);
+      ?>
+
+      // Draw the bar chart
+      var barChartData = google.visualization.arrayToDataTable(<?php echo $jsBarChartData; ?>);
+
+      var barChartOptions = {
+        title: 'Total Invoice by Month',
+        chartArea: {
+          width: '50%'
+        },
+        hAxis: {
+          title: 'Total',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Month'
+        }
+      };
+
+      var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
+      barChart.draw(barChartData, barChartOptions);
+
+      // Draw the pie chart
+      var pieChartData = google.visualization.arrayToDataTable(<?php echo $jsPieChartData; ?>);
+
+      var pieChartOptions = {
+        title: 'Item Quantities',
+      };
+
+      var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+      pieChart.draw(pieChartData, pieChartOptions);
+    }
+  </script>
 </head>
 
 <body>

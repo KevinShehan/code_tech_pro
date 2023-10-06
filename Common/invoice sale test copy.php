@@ -29,29 +29,25 @@ include('Side_nav.php');
 <?php
 if (isset($_POST['AddTolist'])) {
   // Access the submitted values
-  $prod_id = $_POST['prod_name'];
-  $qty = $_POST['qty'];
+  $property_id = $_POST['property'];
+  $property_owner_id = $_POST['property_owner'];
 
   // Check for current stock
-  $query_stock = "SELECT reorder FROM item WHERE id='$prod_id'";
+  $query_stock = "SELECT reorder FROM property WHERE id='  $property_id'";
   $result_stock = mysqli_query($con, $query_stock);
   $row_stock = mysqli_fetch_array($result_stock);
   $avblQty = $row_stock['reorder'];
+  $qty = $row_stock['value'];
 
   if ($qty <= $avblQty) {
     // Check if product already exists in the temporary sales table
-    $query_existing = "SELECT * FROM sales_temporary WHERE Item_id='$prod_id'";
+    $query_existing = "SELECT * FROM Assessment_temporary WHERE Item_id=' $property_id'";
     $result_existing = mysqli_query($con, $query_existing);
     $count_existing = mysqli_num_rows($result_existing);
 
     if ($count_existing > 0) {
       // Update the quantity if the product already exists
-      $row_existing = mysqli_fetch_array($result_existing);
-      $newQty = $row_existing['qty'] + $qty;
-      mysqli_query($con, "UPDATE sales_temporary SET qty = '$newQty' WHERE Item_id = '$prod_id'");
-    } else {
-      // Insert a new entry for the product if it doesn't exist
-      mysqli_query($con, "INSERT INTO sales_temporary (Item_id, qty) VALUES ('$prod_id', '$qty')");
+      mysqli_query($con, "INSERT INTO Assessment_temporary (Property_id, value) VALUES ('$prod_id', '$qty')");
     }
 
     // Success message and redirect
@@ -60,7 +56,7 @@ if (isset($_POST['AddTolist'])) {
     echo '  Swal.fire({';
     echo '    icon: "success",';
     echo '    title: "Success",';
-    echo '    text: "Category saved successfully"';
+    echo '    text: "Property Added successfully"';
     echo '  }).then(function() {';
     echo '    window.location.href = "Invoice sale test.php";';
     echo '  });';
@@ -72,8 +68,8 @@ if (isset($_POST['AddTolist'])) {
     echo '  window.onload = function() {';
     echo '    Swal.fire({';
     echo '      icon: "info",';
-    echo '      title: "NO STOCK!",';
-    echo '      text: "Out of stock item"';
+    echo '      title: "Already Paid!",';
+    echo '      text: "Nothing to pay this Property"';
     echo '    });';
     echo '  };';
     echo '</script>';
@@ -89,34 +85,34 @@ if (isset($_POST['saleDone'])) {
   $user_id = $row_user['id'];
 
   $innumber = $_POST['innumber']; // get main variables to save into first table
-  $customer = $_POST['customer'];
+//   $customer = $_POST['customer'];
   $description = $_POST['description'];
-  $total = str_replace(',', '', $_POST['total']);
+//   $total = str_replace(',', '', $_POST['total']);
 
   date_default_timezone_set("Asia/colombo");
   $date = date("Y-m-d");
 
-  mysqli_query($con, "INSERT INTO invoice(user_id,customers_id,date,total,description,code ) 
-  VALUES('$user_id','$customer','$date','$total','$description','$innumber')") or die(mysqli_error($con)); // save to first table
+//   mysqli_query($con, "INSERT INTO Assessment(user_id,customers_id,date,total,description,code ) 
+//   VALUES('$user_id','$customer','$date','$total','$description','$innumber')") or die(mysqli_error($con)); // save to first table
 
 
-  $Request_id = mysqli_insert_id($con); // genarate forgin key to save into second table
+//   $Request_id = mysqli_insert_id($con); // genarate forgin key to save into second table
 
-  $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
-  while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
-  {
-    $pid = $row['Item_id'];
-    $qty = $row['qty'];
+//   $query = mysqli_query($con, "select * from sales_temporary ") or die(mysqli_error($con));
+//   while ($row = mysqli_fetch_array($query)) // select all products from Invoice to save into second table with foreign key
+//   {
+//     $pid = $row['Item_id'];
+//     $qty = $row['qty'];
 
-    // save into second table
-    mysqli_query($con, "INSERT INTO invoiceitem(item_id,qty,invoice_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
+//     // save into second table
+//     mysqli_query($con, "INSERT INTO invoiceitem(item_id,qty,invoice_id) VALUES('$pid','$qty','$Request_id')") or die(mysqli_error($con));
 
-    // update product qty (-)
-    mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.id='$pid' ") or die(mysqli_error($con));
-  }
-  //clear  Invoice
-  $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
-  // go for invoice print
+//     // update product qty (-)
+//     mysqli_query($con, "UPDATE item SET reorder=reorder-'$qty' where item.id='$pid' ") or die(mysqli_error($con));
+//   }
+//   //clear  Invoice
+//   $result = mysqli_query($con, "DELETE FROM sales_temporary")  or die(mysqli_error($con));
+//   // go for invoice print
   echo "<script>document.location='sales_Slip.php?id=$Request_id'</script>";
 }
 ?>
@@ -130,55 +126,68 @@ if (isset($_POST['saleDone'])) {
           <div class="card-header">
             <h3>
               <span><i class="fas fa-folder"></i>
-              </span> Invoices
+              </span> Assessment Invoices
             </h3>
           </div>
           <div class="card-body">
             <form class="form-horizontal" id="myForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
               <div class="form-group" id="custom-input">
                 <div class="row">
-                  <label for="gender" class="col-sm-2 col-form-label">Item Name:</label>
-                  <div class="col-sm-4">
-                    <select name="prod_name" class="form-control" required>
-                      <option selected disabled>Select</option>
-                      <?php
-                      $queryc = mysqli_query($con, "select * from item");
-                      while ($rowc = mysqli_fetch_array($queryc)) {
-                      ?>
-                        <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
-                      <?php } ?>
-                    </select>
+                  <div class="form-group">
+                    <div>
+                      Property Owner
+                      <div class="col-sm-4">
+                        <select name="property_owner" class="form-control" required>
+                          <option selected disabled value=""> Select</option>
+                          <?php
+                          $queryc = mysqli_query($con, "select * from property_owner") or die(mysqli_error($con));
+                          while ($rowc = mysqli_fetch_array($queryc)) {
+                          ?>
+                            <option value="<?php echo $rowc['id']; ?>"> <?php echo $rowc['name']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+
+                    </div>
                   </div>
-                  <label for="name" class="col-sm-1 control-label">Qty</label>
-                  <div class="col-sm-2">
-                    <input type="number" class="form-control" name="qty" min="1" required>
-                  </div>
-                  <div class="col-sm-3">
-                    <button type="submit" name="AddTolist" class="btn btn-success shadow" value="Submit" style="background-color: #428bca; color: #ffffff;">+ Add Item</button>
+
+                  <div class="form-group">
+                    <label for="gender" class="col-sm-2 col-form-label">Property Select:</label>
+                    <div class="col-sm-4">
+                      <select name="property" class="form-control" required>
+                        <option selected disabled>Select</option>
+                        <?php
+                        $queryc = mysqli_query($con, "select * from property");
+                        while ($rowc = mysqli_fetch_array($queryc)) {
+                        ?>
+                          <option value="<?php echo $rowc['id']; ?>"><?php echo $rowc['code']; ?> - <?php echo $rowc['name']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+
+                    <div class="col-sm-3">
+                      <button type="submit" name="AddTolist" class="btn btn-success shadow mt-2" value="Submit" style="background-color: #428bca; color: #ffffff;">+ Add</button>
+                    </div>
                   </div>
                 </div>
               </div>
-
-
-
             </form>
-
 
             <table class="table table-striped table-bordered" id="categoryTable">
               <thead>
                 <tr class="table-primary">
                   <th scope="col" class="col-1">No</th>
                   <th scope="col">Name</th>
-                  <th scope="col"> Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Total (UxQ)</th>
+                  <th scope="col"> Assessment Values</th>
+                  <th scope="col">Period</th>
+                  <!-- <th scope="col">Total (UxQ)</th> -->
                   <th scope="col" class="col-3">Manage</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 // Fetch latest category records from the database
-                $query = 'SELECT * FROM sales_temporary';
+                $query = 'SELECT * FROM Assessment_temporary';
                 $result = mysqli_query($con, $query);
 
                 if (!$result) {
@@ -188,24 +197,24 @@ if (isset($_POST['saleDone'])) {
                 // Generate the HTML markup for category records
                 $number = 1;
                 while ($row = mysqli_fetch_assoc($result)) {
-                  $item = $row['Item_id'];
-                  $query2 = "SELECT name,rop FROM item WHERE id='$item'";
+                  $item = $row['Property_id'];
+                  $query2 = "SELECT name,value FROM property WHERE id='$item'";
                   $result2 = mysqli_query($con, $query2); // Corrected variable name here
                   $row2 = mysqli_fetch_assoc($result2);
 
-                  $qty1 = $row['qty'];
-                  $total = $row['qty'] * $row2['rop'];
+                  // $qty1 = $row['qty'];
+                  // $total = $row['qty'] * $row2['rop'];
                 ?>
 
                   <tr>
                     <td> <?php echo $number; ?> </td>
                     <td> <?php echo $row2['name']; ?> </td>
-                    <td> <?php echo $row2['rop']; ?></td>
-                    <td> <?php echo $row['qty']; ?></td>
-                    <td><?php $total =  $row['qty'] * $row2['rop'];
-                        echo number_format($total, 2); ?></td>
-                    <td>
-                      <a href="sales_list_delete.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure to Delete?')" class="btn btn-danger btn-sm"><i class="fa fa-lg fa-trash"></i> </a>
+                    <td> <?php echo $row2['value']; ?></td>
+                    <td> <?php echo $row2['value']; ?></td>
+                    <!-- <td><?php $total =  $row['qty'] * $row2['rop'];
+                              echo number_format($total, 2); ?></td>
+                    <td> -->
+                    <a href="assessment_delete.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure to Delete?')" class="btn btn-danger btn-sm"><i class="fa fa-lg fa-trash"></i> </a>
 
 
                     </td>
@@ -215,30 +224,31 @@ if (isset($_POST['saleDone'])) {
               </tbody>
             </table>
             <form class="form-horizontal form-stripe" method="post" enctype='multipart/form-data'>
-              <div class="text-end">
+              <!-- <div class="text-end">
                 Discount (%)
                 <input type="number" min="0" step="any" id="discountInput" oninput="calculateTotal()">
-              </div>
+              </div> -->
               <div class="text-end">
                 <?php
-                $query = mysqli_query($con, "SELECT st.qty AS sales_qty, st.Item_id, i.qty AS item_qty FROM sales_temporary AS st LEFT JOIN item AS i ON st.Item_id = i.id") or die(mysqli_error($con));
-                $grand = 0;
+                // $query = mysqli_query($con, "SELECT st.qty AS sales_qty, st.Item_id, i.qty AS item_qty FROM sales_temporary AS st LEFT JOIN item AS i ON st.Item_id = i.id") or die(mysqli_error($con));
+                // $grand = 0;
 
-                while ($row = mysqli_fetch_array($query)) {
-                  $item = $row['Item_id'];
-                  $quan = $row['sales_qty'];
+                // while ($row = mysqli_fetch_array($query)) {
+                //   $item = $row['Item_id'];
+                //   $quan = $row['sales_qty'];
 
-                  $query2 = "SELECT rop FROM item WHERE id='$item'";
-                  $result2 = mysqli_query($con, $query2);
-                  $row2 = mysqli_fetch_assoc($result2);
+                //   $query2 = "SELECT rop FROM item WHERE id='$item'";
+                //   $result2 = mysqli_query($con, $query2);
+                //   $row2 = mysqli_fetch_assoc($result2);
 
-                  $qty1 = $row2['rop'];
-                  $total =  $quan * $qty1;
-                  $grand += $total;
-                }
+                //   $qty1 = $row2['rop'];
+                //   $total =  $quan * $qty1;
+                //   $grand += $total;
+                // }
                 ?>
                 Total
-                <input type="text" readonly name="total" id="totalOutput" value="<?php echo number_format($grand, 2); ?>">
+                <input type="text" readonly name="total" id="totalOutput" value="<?php //echo number_format($grand, 2); 
+                                                                                  ?>">
               </div>
 
               <div>
@@ -247,7 +257,7 @@ if (isset($_POST['saleDone'])) {
               </div>
 
               <?php
-              $query = mysqli_query($con, "select * from invoice  order by code DESC LIMIT 1") or die(mysqli_error($con));
+              $query = mysqli_query($con, "select * from Assessment  order by code DESC LIMIT 1") or die(mysqli_error($con));
               $result = mysqli_num_rows($query);
               if ($result == 0) {
                 $newidNew = "I00001";
@@ -265,17 +275,11 @@ if (isset($_POST['saleDone'])) {
                 <input type="text" class="form-control" name="innumber" value="<?php echo ($newidNew) ?>" readonly>
               </div>
 
-              <div>
-                Customer Select
-                <select name="customer" class="form-control" style="width: 100%" required>
-                  <option selected disabled value=""> Select</option>
-                  <?php
-                  $queryc = mysqli_query($con, "select * from customer") or die(mysqli_error($con));
-                  while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
-                    <option value="<?php echo $rowc['id']; ?>"> <?php echo $rowc['name']; ?></option>
-                  <?php } ?>
-                </select>
+              <div class="form-group">
+                <label for="name" class="col-sm-1 control-label">Date</label>
+                <div class="col-sm-2">
+                  <input type="Date" class="form-control" name="qty" min="1" required>
+                </div>
               </div>
               <br />
               <button type="submit" class="btn btn-primary" name="saleDone">Create Sale</button>
